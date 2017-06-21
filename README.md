@@ -5,7 +5,7 @@
 [![Known Vulnerabilities](https://snyk.io/test/npm/licenser/badge.svg)](https://snyk.io/test/npm/licenser)
 [![dependencies Status](https://david-dm.org/bucharest-gold/licenser/status.svg)](https://david-dm.org/bucharest-gold/licenser)
 
-[![NPM](https://nodei.co/npm/licenser.png)](https://npmjs.org/package/licenser)
+[![NPM](https://nodei.co/npm/xml-licenser.png)](https://npmjs.org/package/xml-licenser)
 
 Licenser is a tool that is intended to be used by Red Hat projects/products that require project dependency
 licenses to be retrieved and reported in xml and html format.
