@@ -9,7 +9,6 @@ before_script:
 script:
    - npm install
    - npm run lint
-   - npm test
 branches:
   only:
     - master
