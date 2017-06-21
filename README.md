@@ -16,8 +16,8 @@ licenses to be retrieved and reported in xml and html format.
 
 ## Usage
 
-    $ licenser --help
-    licenser [--options] /path/to/project
+    $ ./bin/licenser --help
+    Usage: bin/licenser /path/to/project [options]
 
     Options:
       --version  Show version number                                       [boolean]
