@@ -1,0 +1,39 @@
+#! /usr/bin/env node
+
+const cli = require('./cli.js');
+const yargs = require('yargs');
+const path = require('path');
+process.title = 'licenser';
+
+yargs
+  .version(require('../package.json').version)
+  .usage('Usage: $0 /path/to/project [options]')
+  .option('file', {
+    describe: 'file to store the licence information in',
+    type: 'string'
+  }) 
+  .option('all', {
+    describe: 'will list all production licenses for all modules',
+    default: false 
+  })
+  .option('silent', {
+    describe: 'hides the console output',
+    default: false 
+  })
+  .help();
+
+const argv = yargs.argv;
+
+var options = {
+  production: true,
+  alldeps: argv.all,
+  directory: argv._[0],
+  silent: argv.silent,
+  file: argv.file
+};
+
+if (!options.directory || options.directory === '.') {
+  options.directory = process.cwd();
+}
+options.directory = path.resolve(options.directory);
+cli(options);
