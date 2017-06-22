@@ -13,7 +13,12 @@ test('Should generate html from xml', (t) => {
       ]
     }
   };
-  const output = html.parse(licenseInfo);
-  t.equal(output.trim(), '<b>test1</b>\n<b>1.0</b>\n<b>MIT</b>\n<b>...</b>\n<b>test2</b>\n<b>1.2</b>\n<b>MIT</b>\n<b>...</b>');
-  t.end();
+  html.parse(licenseInfo).then(output => {
+    t.equal(output, '<b>test1</b>\n<b>1.0</b>\n<b>MIT</b>\n<b>...</b>\n<b>test2</b>\n<b>1.2</b>\n<b>MIT</b>\n<b>...</b>');
+    t.end();
+  })
+  .catch(e => {
+    t.error(e);
+    t.fail();
+  });
 });
