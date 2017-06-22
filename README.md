@@ -24,6 +24,7 @@ licenses to be retrieved and reported in xml and html format.
       --file     file to store the licence information in                   [string]
       --all      will list all production licenses for all modules  [default: false]
       --silent   hides the console output                           [default: false]
+      --html     outputs the license in html format to license.html [default: false]
       --help     Show help                                                 [boolean]
 
 ## Example output
