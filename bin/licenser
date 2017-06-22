@@ -9,7 +9,7 @@ yargs
   .version(require('../package.json').version)
   .usage('Usage: $0 /path/to/project [options]')
   .option('file', {
-    describe: 'file to store the licence information in',
+    describe: 'file to store the license information in',
     type: 'string'
   }) 
   .option('all', {
@@ -20,6 +20,10 @@ yargs
     describe: 'hides the console output',
     default: false 
   })
+  .option('html', {
+    describe: 'outputs the license in html format to license.html',
+    default: false
+  })
   .help();
 
 const argv = yargs.argv;
@@ -29,7 +33,8 @@ var options = {
   alldeps: argv.all,
   directory: argv._[0],
   silent: argv.silent,
-  file: argv.file
+  file: argv.file,
+  html: argv.html
 };
 
 if (!options.directory || options.directory === '.') {

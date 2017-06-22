@@ -37,6 +37,11 @@ module.exports = function run(options) {
       if (options.file) {
         fs.writeFileSync(options.file, report);
       }
+
+      if (options.html) {
+        let html = require('../lib/html.js');
+        fs.writeFileSync('license.html', html.parse(licenseInfo));
+      }
     }
   });
 };
