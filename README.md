@@ -1,6 +1,6 @@
 # licenser
 
-[![Coverage Status](https://coveralls.io/repos/github/bucharest-gold/licenser/badge.svg)](https://coveralls.io/github/bucharest-gold/licenser)
+[![Coverage Status](https://coveralls.io/repos/github/bucharest-gold/licenser/badge.svg?branch=master)](https://coveralls.io/github/bucharest-gold/licenser?branch=master)
 [![Build Status](https://travis-ci.org/bucharest-gold/licenser.svg?branch=master)](https://travis-ci.org/bucharest-gold/licenser)
 [![Known Vulnerabilities](https://snyk.io/test/npm/licenser/badge.svg)](https://snyk.io/test/npm/licenser)
 [![dependencies Status](https://david-dm.org/bucharest-gold/licenser/status.svg)](https://david-dm.org/bucharest-gold/licenser)
