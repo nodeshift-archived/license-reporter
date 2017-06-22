@@ -8,8 +8,8 @@ test('Should generate html from xml', (t) => {
   const licenseInfo = {
     licenses: {
       license: [
-        {name: "test1", version: '1.0', licenses: 'MIT', file: '...'},
-        {name: "test2", version: '1.2', licenses: 'MIT', file: '...'}
+        {name: 'test1', version: '1.0', licenses: 'MIT', file: '...'},
+        {name: 'test2', version: '1.2', licenses: 'MIT', file: '...'}
       ]
     }
   };
