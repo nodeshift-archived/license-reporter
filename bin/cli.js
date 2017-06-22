@@ -1,6 +1,6 @@
 'use strict';
 const checker = require('license-checker');
-const xml = require('js2xmlparser');
+const xml = require('../lib/xml.js');
 const fs = require('fs');
 const fromNpmVersionRegex = /^([\w-.]+)@[~^]?([\d.]+)/;
 
@@ -29,12 +29,13 @@ module.exports = function run(options) {
         }
       }
 
+      const report = xml.parse(projectName, licenseInfo);
       if (!options.silent) {
-        console.log(xml.parse(projectName, licenseInfo));
+        console.log(report);
       }
 
       if (options.file) {
-        fs.writeFileSync(options.file, xml.parse(projectName, licenseInfo));
+        fs.writeFileSync(options.file, report);
       }
     }
   });
