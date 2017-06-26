@@ -12,7 +12,8 @@ module.exports = function run(options) {
       const projectName = require(options.directory + "/package.json").name;
       const projectDeps = require(options.directory + "/package.json").dependencies;
 
-      let licenseInfo = {
+      let project = {
+        name: projectName,
         licenses: {
           license: []
         }
@@ -25,11 +26,11 @@ module.exports = function run(options) {
       } else {
         for (var name in projectDeps) {
           const npmVersion = asNpmVersion(name, projectDeps[name]);
-          add(licenseInfo, npmVersion, allDeps);
+          add(project.licenses, npmVersion, allDeps);
         }
       }
 
-      const report = xml.parse(projectName, licenseInfo);
+      const report = xml.parse(projectName, project.licenses);
       if (!options.silent) {
         console.log(report);
       }
@@ -40,17 +41,19 @@ module.exports = function run(options) {
 
       if (options.html) {
         let html = require('../lib/html.js');
-        fs.writeFileSync('license.html', html.parse(licenseInfo));
+        html.parse(project).then(output => {
+          fs.writeFileSync('license.html', output);
+        });
       }
     }
   });
 };
 
-function add(licenseInfo, npmVersion, allDeps) {
+function add(licenses, npmVersion, allDeps) {
   if (allDeps.hasOwnProperty(npmVersion)) {
     const nameVersion = fromNpmVersion(npmVersion);
     const info = allDeps[npmVersion];
-    licenseInfo.licenses.license.push(entry(info, nameVersion)); 
+    licenses.license.push(entry(info, nameVersion));
   }
 }
 

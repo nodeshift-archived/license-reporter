@@ -5,7 +5,8 @@ const html = require('../lib/html.js');
 
 test('Should generate html from xml', (t) => {
   t.plan(1);
-  const licenseInfo = {
+  const project = {
+    name: 'testProject',
     licenses: {
       license: [
         {name: 'test1', version: '1.0', licenses: 'MIT', file: '...'},
@@ -13,9 +14,40 @@ test('Should generate html from xml', (t) => {
       ]
     }
   };
-  html.parse(licenseInfo)
-  .then(output => {
-    t.equal(output, '<b>test1</b>\n<b>1.0</b>\n<b>MIT</b>\n<b>...</b>\n<b>test2</b>\n<b>1.2</b>\n<b>MIT</b>\n<b>...</b>');
+  html.parse(project).then(output => {
+    const expected = String.raw`<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<link rel="stylesheet" type="text/css" href="licenses.css">
+</head>
+<body>
+<h2>testProject</h2>
+<table>
+<tr>
+<th>Package Group</th>
+<th>Package Artifact</th>
+<th>Package Version</th>
+<th>Remote Licenses</th>
+<th>Local Licenses</th>
+</tr>
+<tr>
+<td>test1</td>
+<td>N/A</td>
+<td>1.0</td>
+<td>MIT</td>
+<td>...</td>
+</tr>
+<tr>
+<td>test2</td>
+<td>N/A</td>
+<td>1.2</td>
+<td>MIT</td>
+<td>...</td>
+</tr>
+</table>
+</body>
+</html>`;
+    t.equal(output, expected);
     t.end();
   })
   .catch(e => {
