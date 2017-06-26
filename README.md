@@ -25,6 +25,7 @@ licenses to be retrieved and reported in xml and html format.
       --all      will list all production licenses for all modules  [default: false]
       --silent   hides the console output                           [default: false]
       --html     outputs the license in html format to license.html [default: false]
+      --whitelist  file containing licenses that are whitelisted    [default: false]
       --help     Show help                                                 [boolean]
 
 ## Example output
