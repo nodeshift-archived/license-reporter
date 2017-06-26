@@ -24,6 +24,10 @@ yargs
     describe: 'outputs the license in html format to license.html',
     default: false
   })
+  .option('whitelist', {
+    describe: 'file containing licenses that are whitelisted',
+    default: false
+  })
   .help();
 
 const argv = yargs.argv;
@@ -34,7 +38,8 @@ var options = {
   directory: argv._[0],
   silent: argv.silent,
   file: argv.file,
-  html: argv.html
+  html: argv.html,
+  whitelist: argv.whitelist
 };
 
 if (!options.directory || options.directory === '.') {

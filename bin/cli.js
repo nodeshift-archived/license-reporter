@@ -39,6 +39,21 @@ module.exports = function run(options) {
         fs.writeFileSync(options.file, report);
       }
 
+      var whitelist;
+      if (options.whitelist) {
+        whitelist = fs.readFileSync(options.whitelist, 'utf8');
+      }
+      const nok = require('../lib/whitelist.js')(whitelist).check(project);
+      if (nok) {
+        console.error('========= WARING NON WHITE-LISTED LICENSES ==========');
+        nok.forEach((license) => {
+          console.log('name:', license.name, 
+                      ', version:', license.version,
+                      ', licenses:', license.licenses); 
+        });
+        console.error('========= WARING NON WHITE-LISTED LICENSES ==========');
+      }
+
       if (options.html) {
         let html = require('../lib/html.js');
         html.parse(project).then(output => {
