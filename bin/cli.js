@@ -4,15 +4,15 @@ const xml = require('../lib/xml.js');
 const fs = require('fs');
 const fromNpmVersionRegex = /^([\w-.]+)@[~^]?([\d.]+)/;
 
-module.exports = function run(options) {
-  checker.init({start: options.directory}, function(err, allDeps) {
+module.exports = function run (options) {
+  checker.init({start: options.directory}, function (err, allDeps) {
     if (err) {
-      //Handle error
+      // Handle error
     } else {
-      const projectName = require(options.directory + "/package.json").name;
-      const projectDeps = require(options.directory + "/package.json").dependencies;
+      const projectName = require(`${options.directory}/package.json`).name;
+      const projectDeps = require(`${options.directory}/package.json`).dependencies;
 
-      let project = {
+      const project = {
         name: projectName,
         licenses: {
           license: []
@@ -21,7 +21,7 @@ module.exports = function run(options) {
 
       if (options.alldeps) {
         for (var npmVersion in allDeps) {
-          add(licenseInfo, npmVersion, allDeps);
+          add(project.licenses, npmVersion, allDeps);
         }
       } else {
         for (var name in projectDeps) {
@@ -47,15 +47,15 @@ module.exports = function run(options) {
       if (nok) {
         console.error('========= WARING NON WHITE-LISTED LICENSES ==========');
         nok.forEach((license) => {
-          console.log('name:', license.name, 
-                      ', version:', license.version,
-                      ', licenses:', license.licenses); 
+          console.log('name:', license.name,
+            ', version:', license.version,
+            ', licenses:', license.licenses);
         });
         console.error('========= WARING NON WHITE-LISTED LICENSES ==========');
       }
 
       if (options.html) {
-        let html = require('../lib/html.js');
+        const html = require('../lib/html.js');
         html.parse(project).then(output => {
           fs.writeFileSync('license.html', output);
         });
@@ -64,7 +64,7 @@ module.exports = function run(options) {
   });
 };
 
-function add(licenses, npmVersion, allDeps) {
+function add (licenses, npmVersion, allDeps) {
   if (allDeps.hasOwnProperty(npmVersion)) {
     const nameVersion = fromNpmVersion(npmVersion);
     const info = allDeps[npmVersion];
@@ -72,34 +72,34 @@ function add(licenses, npmVersion, allDeps) {
   }
 }
 
-function entry(info, npmVersion) {
+function entry (info, npmVersion) {
   var entry = {
     name: npmVersion.name,
     version: npmVersion.version,
-    licenses:  info.licenses,
+    licenses: info.licenses,
     file: readLicenseFile(info.licenseFile)
-  }
+  };
   return entry;
 }
 
-function readLicenseFile(file) {
+function readLicenseFile (file) {
   if (file) {
-    return fs.readFileSync(file, 'utf8') 
+    return fs.readFileSync(file, 'utf8');
   }
   return 'N/A';
 }
 
-function fromNpmVersion(version) {
+function fromNpmVersion (version) {
   const match = fromNpmVersionRegex.exec(version);
   return {
     name: match[1],
     version: match[2]
-  }
+  };
 }
 
-function asNpmVersion(name, version) {
+function asNpmVersion (name, version) {
   if (/^[~^]\d+/.test(version)) {
-     version = version.substring(1);
+    version = version.substring(1);
   }
   return `${name}@${version}`;
 }
