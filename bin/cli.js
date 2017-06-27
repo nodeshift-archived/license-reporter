@@ -1,8 +1,8 @@
 'use strict';
 const checker = require('license-checker');
 const xml = require('../lib/xml.js');
+const versionHandler = require('../lib/version-handler.js');
 const fs = require('fs');
-const fromNpmVersionRegex = /^([\w-.]+)@[~^]?([\d.]+)/;
 
 module.exports = function run (options) {
   checker.init({start: options.directory}, function (err, allDeps) {
@@ -25,7 +25,7 @@ module.exports = function run (options) {
         }
       } else {
         for (var name in projectDeps) {
-          const npmVersion = asNpmVersion(name, projectDeps[name]);
+          const npmVersion = versionHandler.asNpmVersion(name, projectDeps[name]);
           add(project.licenses, npmVersion, allDeps);
         }
       }
@@ -66,7 +66,7 @@ module.exports = function run (options) {
 
 function add (licenses, npmVersion, allDeps) {
   if (allDeps.hasOwnProperty(npmVersion)) {
-    const nameVersion = fromNpmVersion(npmVersion);
+    const nameVersion = versionHandler.fromNpmVersion(npmVersion);
     const info = allDeps[npmVersion];
     licenses.license.push(entry(info, nameVersion));
   }
@@ -87,19 +87,4 @@ function readLicenseFile (file) {
     return fs.readFileSync(file, 'utf8');
   }
   return 'N/A';
-}
-
-function fromNpmVersion (version) {
-  const match = fromNpmVersionRegex.exec(version);
-  return {
-    name: match[1],
-    version: match[2]
-  };
-}
-
-function asNpmVersion (name, version) {
-  if (/^[~^]\d+/.test(version)) {
-    version = version.substring(1);
-  }
-  return `${name}@${version}`;
 }
