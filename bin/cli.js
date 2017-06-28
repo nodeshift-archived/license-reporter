@@ -5,6 +5,33 @@ const versionHandler = require('../lib/version-handler.js');
 const fs = require('fs');
 
 module.exports = function run (options) {
+  if (options.merge) {
+    if (!options.mergeProductName) {
+      console.error('merge feature requires a product name');
+      process.exit(1);
+    }
+    if (!options.mergeXmls) {
+      console.error('merge feature requires a two or more licence.xml files to merge');
+      process.exit(1);
+    }
+    const xmls = [];
+    options.mergeXmls.split(',').forEach((file) => {
+      xmls.push(fs.readFileSync(file.trim(), 'utf8'));
+    });
+    xml.merge(options.mergeProductName, xmls).then(result => {
+      if (!options.silent) {
+        console.log(result);
+      }
+      if (options.mergeOutput) {
+        fs.writeFileSync(options.mergeOutput, result);
+      }
+    }).catch(e => {
+      console.error(e);
+      process.exit(2);
+    });
+    return;
+  }
+
   checker.init({start: options.directory}, function (err, allDeps) {
     if (err) {
       // Handle error

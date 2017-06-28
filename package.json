@@ -27,6 +27,7 @@
     "js2xmlparser": "^3.0.0",
     "license-checker": "^11.0.0",
     "mustache": "^2.3.0",
+    "xml2js": "^0.4.17",
     "yargs": "^8.0.2"
   },
   "license": "Apache-2.0",

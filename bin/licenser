@@ -28,6 +28,21 @@ yargs
     describe: 'file containing licenses that are whitelisted',
     default: false
   })
+  .option('merge', {
+    describe: 'merge license.xml files',
+    default: false
+  })
+  .option('merge-product-name', {
+    describe: 'the name the product which the license.xml are part of',
+    default: false
+  })
+  .option('merge-license-xmls', {
+    describe: 'a comma separated list of license.xml files to merge',
+    default: false
+  })
+  .option('merge-output', {
+    describe: 'file to write the merged license info to',
+  })
   .help();
 
 const argv = yargs.argv;
@@ -39,7 +54,11 @@ var options = {
   silent: argv.silent,
   file: argv.file,
   html: argv.html,
-  whitelist: argv.whitelist
+  whitelist: argv.whitelist,
+  merge: argv.merge,
+  mergeProductName: argv['merge-product-name'],
+  mergeXmls: argv['merge-license-xmls'],
+  mergeOutput: argv['merge-output']
 };
 
 if (!options.directory || options.directory === '.') {
