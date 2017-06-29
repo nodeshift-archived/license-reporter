@@ -66,20 +66,13 @@ module.exports = function run (options) {
         fs.writeFileSync(options.file, report);
       }
 
-      var whitelist;
-      if (options.whitelist) {
-        whitelist = fs.readFileSync(options.whitelist, 'utf8');
-      }
-      const nok = require('../lib/whitelist.js')(whitelist).check(project);
-      if (nok) {
-        console.error('========= WARNING NON WHITE-LISTED LICENSES ==========');
-        nok.forEach((license) => {
-          console.error('name:', license.name,
-            ', version:', license.version,
-            ', license:', license.license);
-        });
-        console.error('========= WARNING NON WHITE-LISTED LICENSES ==========');
-      }
+      var whitelist = readListFile(options.whitelist);
+      printWarning(require('../lib/whitelist.js')(whitelist).check(project),
+                   'WHITE-LISTED');
+
+      var blacklist = readListFile(options.blacklist);
+      printWarning(require('../lib/blacklist.js')(blacklist).check(project),
+                  'BLACK-LISTED');
 
       if (options.html) {
         const html = require('../lib/html.js');
@@ -90,6 +83,18 @@ module.exports = function run (options) {
     }
   });
 };
+
+function printWarning (list, type) {
+  if (list.length > 0) {
+    console.error(`========= WARNING ${type} LICENSES ==========`);
+    list.forEach((license) => {
+      console.log('name:', license.name,
+        ', version:', license.version,
+        ', licenses:', license.licenses);
+    });
+    console.error(`========= WARNING ${type} LICENSES ==========`);
+  }
+}
 
 function add (licenses, npmVersion, allDeps) {
   if (allDeps.hasOwnProperty(npmVersion)) {
@@ -114,4 +119,11 @@ function readLicenseFile (file) {
     return fs.readFileSync(file, 'utf8');
   }
   return 'N/A';
+}
+
+function readListFile (file) {
+  if (file) {
+    return fs.readFileSync(file, 'utf8');
+  }
+  return null;
 }
