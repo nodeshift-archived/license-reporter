@@ -72,13 +72,13 @@ module.exports = function run (options) {
       }
       const nok = require('../lib/whitelist.js')(whitelist).check(project);
       if (nok) {
-        console.error('========= WARING NON WHITE-LISTED LICENSES ==========');
+        console.error('========= WARNING NON WHITE-LISTED LICENSES ==========');
         nok.forEach((license) => {
-          console.log('name:', license.name,
+          console.error('name:', license.name,
             ', version:', license.version,
-            ', licenses:', license.licenses);
+            ', license:', license.license);
         });
-        console.error('========= WARING NON WHITE-LISTED LICENSES ==========');
+        console.error('========= WARNING NON WHITE-LISTED LICENSES ==========');
       }
 
       if (options.html) {
@@ -103,7 +103,7 @@ function entry (info, npmVersion) {
   var entry = {
     name: npmVersion.name,
     version: npmVersion.version,
-    licenses: info.licenses,
+    license: info.licenses,
     file: readLicenseFile(info.licenseFile)
   };
   return entry;
