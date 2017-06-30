@@ -57,6 +57,8 @@ module.exports = function run (options) {
         }
       }
 
+      const unknown = require('../lib/unknown.js').check(project);
+
       const report = xml.parse(projectName, project.licenses);
       if (!options.silent) {
         console.log(report);
@@ -74,6 +76,8 @@ module.exports = function run (options) {
       printWarning(require('../lib/blacklist.js')(blacklist).check(project),
                   'BLACK-LISTED');
 
+      printWarning(unknown, 'UNKNOWN');
+
       if (options.html) {
         const html = require('../lib/html.js');
         html.parse(project).then(output => {
@@ -90,7 +94,7 @@ function printWarning (list, type) {
     list.forEach((license) => {
       console.log('name:', license.name,
         ', version:', license.version,
-        ', licenses:', license.licenses);
+        ', licenses:', license.license);
     });
     console.error(`========= WARNING ${type} LICENSES ==========`);
   }
