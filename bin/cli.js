@@ -2,6 +2,7 @@
 const checker = require('license-checker');
 const xml = require('../lib/xml.js');
 const versionHandler = require('../lib/version-handler.js');
+const printWarnings = require('../lib/warnings.js');
 const fs = require('fs');
 
 module.exports = function run (options) {
@@ -69,6 +70,9 @@ module.exports = function run (options) {
       }
 
       var whitelist = readListFile(options.whitelist);
+      /*const print = printWarnings.printWarning(require('../lib/whitelist.js')(whitelist).check(project),
+                   'WHITE-LISTED');*/
+      //console.log(print);                  
       printWarning(require('../lib/whitelist.js')(whitelist).check(project),
                    'WHITE-LISTED');
 
