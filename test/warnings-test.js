@@ -18,7 +18,7 @@ test('Should report the correct warning.', (t) => {
   };
 
   const whitelist = [{'name': 'ASL 1.1'}];
-  const log = stdout.inspectSync(() => warnings.printWarning(require('../lib/whitelist.js')(whitelist).check(project),
+  const log = stdout.inspectSync(() => warnings.print(require('../lib/whitelist.js')(whitelist).check(project),
                  'WHITE-LISTED'));
   t.deepEqual(log, ['name: test2 , version: 1.2 , licenses: Bogus\n'], 'WHITE-LISTED');
   t.end();

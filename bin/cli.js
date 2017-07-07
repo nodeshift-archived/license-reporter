@@ -70,14 +70,14 @@ module.exports = function run (options) {
       }
 
       var whitelist = readListFile(options.whitelist);
-      warnings.printWarning(require('../lib/whitelist.js')(whitelist).check(project),
+      warnings.print(require('../lib/whitelist.js')(whitelist).check(project),
                    'WHITE-LISTED');
 
       var blacklist = readListFile(options.blacklist);
-      warnings.printWarning(require('../lib/blacklist.js')(blacklist).check(project),
+      warnings.print(require('../lib/blacklist.js')(blacklist).check(project),
                   'BLACK-LISTED');
 
-      warnings.printWarning(unknown, 'UNKNOWN');
+      warnings.print(unknown, 'UNKNOWN');
 
       if (options.html) {
         const html = require('../lib/html.js');
