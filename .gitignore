@@ -1,3 +1,4 @@
 /node_modules
 license.html
 .nyc_output
+*.log
