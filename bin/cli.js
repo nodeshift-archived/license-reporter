@@ -2,6 +2,7 @@
 const checker = require('license-checker');
 const xml = require('../lib/xml.js');
 const versionHandler = require('../lib/version-handler.js');
+const warnings = require('../lib/warnings.js');
 const fs = require('fs');
 
 module.exports = function run (options) {
@@ -69,14 +70,14 @@ module.exports = function run (options) {
       }
 
       var whitelist = readListFile(options.whitelist);
-      printWarning(require('../lib/whitelist.js')(whitelist).check(project),
+      warnings.print(require('../lib/whitelist.js')(whitelist).check(project),
                    'WHITE-LISTED');
 
       var blacklist = readListFile(options.blacklist);
-      printWarning(require('../lib/blacklist.js')(blacklist).check(project),
+      warnings.print(require('../lib/blacklist.js')(blacklist).check(project),
                   'BLACK-LISTED');
 
-      printWarning(unknown, 'UNKNOWN');
+      warnings.print(unknown, 'UNKNOWN');
 
       if (options.html) {
         const html = require('../lib/html.js');
@@ -87,18 +88,6 @@ module.exports = function run (options) {
     }
   });
 };
-
-function printWarning (list, type) {
-  if (list.length > 0) {
-    console.error(`========= WARNING ${type} LICENSES ==========`);
-    list.forEach((license) => {
-      console.log('name:', license.name,
-        ', version:', license.version,
-        ', licenses:', license.license);
-    });
-    console.error(`========= WARNING ${type} LICENSES ==========`);
-  }
-}
 
 function add (licenses, npmVersion, allDeps) {
   if (allDeps.hasOwnProperty(npmVersion)) {
