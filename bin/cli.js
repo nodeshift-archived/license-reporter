@@ -69,15 +69,17 @@ module.exports = function run (options) {
         fs.writeFileSync(options.file, report);
       }
 
-      var whitelist = readListFile(options.whitelist);
-      warnings.print(require('../lib/whitelist.js')(whitelist).check(project),
+      const whitelist = readListFile(options.whitelist);
+      const blacklist = readListFile(options.blacklist);
+
+      if (!options.silent) {
+        warnings.print(require('../lib/whitelist.js')(whitelist).check(project),
                    'WHITE-LISTED');
 
-      var blacklist = readListFile(options.blacklist);
-      warnings.print(require('../lib/blacklist.js')(blacklist).check(project),
+        warnings.print(require('../lib/blacklist.js')(blacklist).check(project),
                   'BLACK-LISTED');
-
-      warnings.print(unknown, 'UNKNOWN');
+        warnings.print(unknown, 'UNKNOWN');
+      }
 
       if (options.html) {
         const html = require('../lib/html.js');
