@@ -3,6 +3,8 @@ const checker = require('license-checker');
 const xml = require('../lib/xml.js');
 const versionHandler = require('../lib/version-handler.js');
 const warnings = require('../lib/warnings.js');
+const reader = require('../lib/file-reader.js');
+
 const fs = require('fs');
 
 module.exports = function run (options) {
@@ -69,8 +71,8 @@ module.exports = function run (options) {
         fs.writeFileSync(options.file, report);
       }
 
-      const whitelist = readListFile(options.whitelist);
-      const blacklist = readListFile(options.blacklist);
+      const whitelist = reader.readListFile(options.whitelist);
+      const blacklist = reader.readListFile(options.blacklist);
 
       if (!options.silent) {
         warnings.print(require('../lib/whitelist.js')(whitelist).check(project),
@@ -104,29 +106,7 @@ function entry (info, npmVersion) {
     name: npmVersion.name,
     version: npmVersion.version,
     license: info.licenses,
-    file: readLicenseFile(info.licenseFile)
+    file: reader.readLicenseFile(info.licenseFile)
   };
   return entry;
-}
-
-/**
- * This function will read the license file only if file found
- * or If it is not a README. If it is readme, it will return
- * the path to the README file, or N/A for other cases
- */
-function readLicenseFile (file) {
-  if (file.includes('README')) {
-    return file;
-  }
-  if (file && !file.includes('README')) {
-    return fs.readFileSync(file, 'utf8');
-  }
-  return 'N/A';
-}
-
-function readListFile (file) {
-  if (file) {
-    return fs.readFileSync(file, 'utf8');
-  }
-  return null;
 }
