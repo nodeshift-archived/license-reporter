@@ -109,8 +109,16 @@ function entry (info, npmVersion) {
   return entry;
 }
 
+/**
+ * This function will read the license file only if file found 
+ * or If it is not a README. If it is readme, it will return 
+ * the path to the README file, or N/A for other cases.
+ */
 function readLicenseFile (file) {
-  if (file) {
+  if (file.includes('README')) {
+    return file;
+  }
+  if (file && !file.includes('README')) {
     return fs.readFileSync(file, 'utf8');
   }
   return 'N/A';
