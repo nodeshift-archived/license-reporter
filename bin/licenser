@@ -11,14 +11,14 @@ yargs
   .option('file', {
     describe: 'file to store the license information in',
     type: 'string'
-  }) 
+  })
   .option('all', {
     describe: 'will list all production licenses for all modules',
-    default: false 
+    default: false
   })
   .option('silent', {
     describe: 'hides the console output',
-    default: false 
+    default: false
   })
   .option('html', {
     describe: 'outputs the license in html format to license.html',
@@ -70,4 +70,4 @@ if (!options.directory || options.directory === '.') {
   options.directory = process.cwd();
 }
 options.directory = path.resolve(options.directory);
-cli(options);
+cli.run(options);
