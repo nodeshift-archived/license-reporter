@@ -2,10 +2,6 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/bucharest-gold/licenser/badge.svg?branch=master)](https://coveralls.io/github/bucharest-gold/licenser?branch=master)
 [![Build Status](https://travis-ci.org/bucharest-gold/licenser.svg?branch=master)](https://travis-ci.org/bucharest-gold/licenser)
-[![Known Vulnerabilities](https://snyk.io/test/npm/licenser/badge.svg)](https://snyk.io/test/npm/licenser)
-[![dependencies Status](https://david-dm.org/bucharest-gold/licenser/status.svg)](https://david-dm.org/bucharest-gold/licenser)
-
-[![NPM](https://nodei.co/npm/xml-licenser.png)](https://npmjs.org/package/xml-licenser)
 
 Licenser is a tool that is intended to be used by Red Hat projects/products that require project dependency
 licenses to be retrieved and reported in xml and html format.
@@ -27,7 +23,7 @@ licenses to be retrieved and reported in xml and html format.
     --silent              hides the console output                [default: false]
     --html                outputs the license in html format to license.html
                                                                   [default: false]
-    --whitelist           file containing licenses that are whitelisted
+    --whitelist           file containing licenses that are white listed
                                                                   [default: false]
     --merge               merge license.xml files                 [default: false]
     --merge-product-name  the name the product which the license.xml are part of
