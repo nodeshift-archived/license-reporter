@@ -315,5 +315,18 @@ $ cat merged.xml
 </UberProject>
 ```
 
+## Licenser --all
+
+Also possible to generate a xml with licenses from all sub-modules:
+
+> Note: szero is a small project but the generated xml has 664K size.
+
+```
+cd szero
+$ licenser --all --file=all.xml
+$ du -s -h all.xml
+664K	all.xml
+```
+
 ## Contributing
 Please read the [contributing guide](./CONTRIBUTING.md)
