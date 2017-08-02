@@ -2,6 +2,7 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/bucharest-gold/licenser/badge.svg?branch=master)](https://coveralls.io/github/bucharest-gold/licenser?branch=master)
 [![Build Status](https://travis-ci.org/bucharest-gold/licenser.svg?branch=master)](https://travis-ci.org/bucharest-gold/licenser)
+[![Code Climate](https://codeclimate.com/github/bucharest-gold/licenser/badges/gpa.svg)](https://codeclimate.com/github/bucharest-gold/licenser)
 
 Licenser is a tool that is intended to be used by Red Hat projects/products that require project dependency
 licenses to be retrieved and reported in xml and html format.
