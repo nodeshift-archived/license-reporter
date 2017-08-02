@@ -2,13 +2,7 @@
 
 const test = require('tape');
 const xml = require('../lib/xml.js');
-
-test('Should parse object', (t) => {
-  t.plan(1);
-  const obj = xml.parse('something', {one: 1, two: 2});
-  t.equal(obj, '<?xml version=\'1.0\'?>\n<something>\n    <one>1</one>\n    <two>2</two>\n</something>');
-  t.end();
-});
+const js2xmlparser = require('js2xmlparser');
 
 test('Should generate JSON from xml', (t) => {
   t.plan(2);
@@ -20,7 +14,7 @@ test('Should generate JSON from xml', (t) => {
       ]
     }
   };
-  const projectXml = xml.parse('project1', project1.licenses);
+  const projectXml = js2xmlparser.parse('project1', project1.licenses);
   xml.toJson(projectXml).then(result => {
     t.ok(result.project1, 'should have project1 property');
     t.ok(result.project1.license, 'should have licence array');
@@ -59,8 +53,8 @@ test('Should generate JSON Array from xmls', (t) => {
       ]
     }
   };
-  const xml1 = xml.parse('project1', project1.licenses);
-  const xml2 = xml.parse('project2', project2.licenses);
+  const xml1 = js2xmlparser.parse('project1', project1.licenses);
+  const xml2 = js2xmlparser.parse('project2', project2.licenses);
   const xmls = [xml1, xml2];
   xml.toJsonArray(xmls).then(jsons => {
     t.equal(jsons.length, 2, 'should have created two json entries');
@@ -123,8 +117,8 @@ test('Should merge xmls', (t) => {
         </project2>
     </project>
 </productName>`;
-  const xml1 = xml.parse('project1', project1.licenses);
-  const xml2 = xml.parse('project2', project2.licenses);
+  const xml1 = js2xmlparser.parse('project1', project1.licenses);
+  const xml2 = js2xmlparser.parse('project2', project2.licenses);
   const xmls = [xml1, xml2];
   const product = {
     name: 'productName',
