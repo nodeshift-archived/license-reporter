@@ -58,11 +58,13 @@ const entry = (info, dependency) => {
 // data based on the project's declared dependencies found
 // inside json data of all dependencies.
 // Also returns the json object xmlElement with the data found.
-function addLicenseEntry (xmlElement, npmVersion, json) {
-  if (json.hasOwnProperty(npmVersion)) {
+// The parameter 'identifier' can be a dependency
+// nameVersion or a name. example: roi@1.2.3 or roi
+function addLicenseEntry (xmlElement, identifier, json) {
+  if (json.hasOwnProperty(identifier)) {
     // name and version object e.g. { name: 'roi', version: '1.2.3' }
-    const nameVersion = versionHandler.fromNpmVersion(npmVersion);
-    xmlElement.licenses.license.push(entry(json[npmVersion], nameVersion));
+    const nameVersion = versionHandler.fromNpmVersion(identifier);
+    xmlElement.licenses.license.push(entry(json[identifier], nameVersion));
   }
   return xmlElement;
 }
@@ -82,7 +84,7 @@ const createXmlObject = () => {
 // It is possible to choose between top level dependencies
 // or all (including sub-modules -> options.alldeps) and
 // populates the xml elements with the data found.
-function populateXmlObject (options, json) {
+function xmlObjectData (options, json) {
   const dependencies = projectDependencies(options);
   const xmlObject = createXmlObject();
   if (options.alldeps) {
@@ -100,6 +102,20 @@ function populateXmlObject (options, json) {
   return xmlObject;
 }
 
+// Shows warning messages if needed.
+function showWarnings (options, xmlObject) {
+  const whitelist = reader.readListFile(options.whitelist);
+  const blacklist = reader.readListFile(options.blacklist);
+  warnings.print(require('../lib/whitelist.js')(whitelist).check(xmlObject),
+              'WHITE-LISTED');
+
+  warnings.print(require('../lib/blacklist.js')(blacklist).check(xmlObject),
+            'BLACK-LISTED');
+  const unknown = require('../lib/unknown.js').check(xmlObject);
+  warnings.print(unknown, 'UNKNOWN');
+}
+
+// This function will scan the license data.
 function checkLicense (options) {
   // NOTE: The json argument will have all the license information
   // for each module and it's dependencies of the project.
@@ -107,25 +123,7 @@ function checkLicense (options) {
     if (error) {
       console.error(error);
     } else {
-      const xmlObject = populateXmlObject(options, json);
-
-      createXml(options, xmlObject);
-
-      if (!options.silent) {
-        const whitelist = reader.readListFile(options.whitelist);
-        const blacklist = reader.readListFile(options.blacklist);
-        warnings.print(require('../lib/whitelist.js')(whitelist).check(xmlObject),
-                   'WHITE-LISTED');
-
-        warnings.print(require('../lib/blacklist.js')(blacklist).check(xmlObject),
-                  'BLACK-LISTED');
-        const unknown = require('../lib/unknown.js').check(xmlObject);
-        warnings.print(unknown, 'UNKNOWN');
-      }
-
-      if (options.html) {
-        createHtml(options, xmlObject);
-      }
+      return xmlObjectData(options, json);
     }
   });
 }
@@ -139,36 +137,50 @@ const nodeModulesFound = (dir) => {
   return fs.existsSync(modulesDir) && content.length > 0;
 };
 
+// This function will merge previous generated xmls.
+function mergeXmls (options) {
+  if (options.merge) {
+    if (!options.mergeProductName) {
+      console.error('merge feature requires a product name');
+      process.exit(1);
+    }
+    if (!options.mergeXmls) {
+      console.error('merge feature requires a two or more licence.xml files to merge');
+      process.exit(1);
+    }
+    const xmls = [];
+    options.mergeXmls.split(',').forEach((file) => {
+      xmls.push(fs.readFileSync(file.trim(), 'utf8'));
+    });
+    xml.merge(options.mergeProductName, xmls).then(result => {
+      if (!options.silent) {
+        console.log(result);
+      }
+      if (options.mergeOutput) {
+        fs.writeFileSync(options.mergeOutput, result);
+      }
+    }).catch(e => {
+      console.error(e);
+      process.exit(2);
+    });
+    return;
+  }
+}
+
+// This function is the license's entry point
+// to gather licenses. Also create the xml,
+// print warnings and create html in case needed.
 function run (options) {
   if (nodeModulesFound(options.directory)) {
-    if (options.merge) {
-      if (!options.mergeProductName) {
-        console.error('merge feature requires a product name');
-        process.exit(1);
-      }
-      if (!options.mergeXmls) {
-        console.error('merge feature requires a two or more licence.xml files to merge');
-        process.exit(1);
-      }
-      const xmls = [];
-      options.mergeXmls.split(',').forEach((file) => {
-        xmls.push(fs.readFileSync(file.trim(), 'utf8'));
-      });
-      xml.merge(options.mergeProductName, xmls).then(result => {
-        if (!options.silent) {
-          console.log(result);
-        }
-        if (options.mergeOutput) {
-          fs.writeFileSync(options.mergeOutput, result);
-        }
-      }).catch(e => {
-        console.error(e);
-        process.exit(2);
-      });
-      return;
+    mergeXmls(options);
+    const xmlObject = checkLicense(options);
+    createXml(options, xmlObject);
+    if (!options.silent) {
+      showWarnings(options, xmlObject);
     }
-
-    checkLicense(options);
+    if (options.html) {
+      createHtml(options, xmlObject);
+    }
   } else {
     console.error('You need to run \'npm install\' before search for license information.');
   }
