@@ -2,6 +2,7 @@
 
 const checker = require('license-checker');
 const xml = require('../lib/xml.js');
+const html = require('../lib/html.js');
 const versionHandler = require('../lib/version-handler.js');
 const warnings = require('../lib/warnings.js');
 const reader = require('../lib/file-reader.js');
@@ -26,6 +27,16 @@ function createXml (options, xmlObject) {
   }
 }
 
+// Creates a html file with license data.
+function createHtml (options, xmlObject) {
+  html.parse(xmlObject).then(output => {
+    fs.writeFileSync('license.html', output);
+  });
+  // copy the file licenses.css to the same level of license.html.
+  fs.createReadStream(path.join(__dirname, '../lib/resources/licenses.css'))
+  .pipe(fs.createWriteStream(path.join(options.directory, 'licenses.css')));
+}
+
 // Returns an object that will represent the XML entry for the license element.
 // The generated XMl element will be like this example:
 //  <license>
@@ -43,11 +54,15 @@ const entry = (info, dependency) => {
   };
 };
 
-function addLicenseEntry (xmlElement, npmVersion, allDeps) {
-  if (allDeps.hasOwnProperty(npmVersion)) {
-    const dependency = versionHandler.fromNpmVersion(npmVersion);
-    const info = allDeps[npmVersion];
-    xmlElement.licenses.license.push(entry(info, dependency));
+// This function will populate the licenses array with
+// data based on the project's declared dependencies found
+// inside json data of all dependencies.
+// Also returns the json object xmlElement with the data found.
+function addLicenseEntry (xmlElement, npmVersion, json) {
+  if (json.hasOwnProperty(npmVersion)) {
+    // name and version object e.g. { name: 'roi', version: '1.2.3' }
+    const nameVersion = versionHandler.fromNpmVersion(npmVersion);
+    xmlElement.licenses.license.push(entry(json[npmVersion], nameVersion));
   }
   return xmlElement;
 }
@@ -71,10 +86,12 @@ function populateXmlObject (options, json) {
   const dependencies = projectDependencies(options);
   const xmlObject = createXmlObject();
   if (options.alldeps) {
-    for (var npmVersion in json) {
-      addLicenseEntry(xmlObject, npmVersion, json);
+    // the name and version e.g. roi@1.2.3
+    for (var nameVersion in json) {
+      addLicenseEntry(xmlObject, nameVersion, json);
     }
   } else {
+    // name - is only the name e.g. roi and not roi@1.2.3
     for (var name in dependencies) {
       const npmVersion = versionHandler.asNpmVersion(name, dependencies[name]);
       addLicenseEntry(xmlObject, npmVersion, json);
@@ -107,13 +124,7 @@ function checkLicense (options) {
       }
 
       if (options.html) {
-        const html = require('../lib/html.js');
-        html.parse(xmlObject).then(output => {
-          fs.writeFileSync('license.html', output);
-        });
-        // copy the file licenses.css to the same level of license.html.
-        fs.createReadStream(path.join(__dirname, '../lib/resources/licenses.css'))
-        .pipe(fs.createWriteStream(path.join(options.directory, 'licenses.css')));
+        createHtml(options, xmlObject);
       }
     }
   });
