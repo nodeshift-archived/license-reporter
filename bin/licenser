@@ -16,6 +16,10 @@ yargs
     describe: 'will list all production licenses for all modules',
     default: false
   })
+  .option('ignore-version-range', {
+    describe: 'will list all licenses from declared package.json dependencies ignoring version range',
+    default: false
+  })
   .option('silent', {
     describe: 'hides the console output',
     default: false
@@ -45,7 +49,7 @@ yargs
     default: false
   })
   .option('merge-output', {
-    describe: 'file to write the merged license info to',
+    describe: 'file to write the merged license info to'
   })
   .help();
 
@@ -63,7 +67,8 @@ var options = {
   merge: argv.merge,
   mergeProductName: argv['merge-product-name'],
   mergeXmls: argv['merge-license-xmls'],
-  mergeOutput: argv['merge-output']
+  mergeOutput: argv['merge-output'],
+  ignoreVersionRange: argv['ignore-version-range']
 };
 
 if (!options.directory || options.directory === '.') {
