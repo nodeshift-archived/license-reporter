@@ -139,32 +139,29 @@ const nodeModulesFound = (dir) => {
 
 // This function will merge previous generated xmls.
 function mergeXmls (options) {
-  if (options.merge) {
-    if (!options.mergeProductName) {
-      console.error('merge feature requires a product name');
-      process.exit(1);
-    }
-    if (!options.mergeXmls) {
-      console.error('merge feature requires a two or more licence.xml files to merge');
-      process.exit(1);
-    }
-    const xmls = [];
-    options.mergeXmls.split(',').forEach((file) => {
-      xmls.push(fs.readFileSync(file.trim(), 'utf8'));
-    });
-    xml.merge(options.mergeProductName, xmls).then(result => {
-      if (!options.silent) {
-        console.log(result);
-      }
-      if (options.mergeOutput) {
-        fs.writeFileSync(options.mergeOutput, result);
-      }
-    }).catch(e => {
-      console.error(e);
-      process.exit(2);
-    });
-    return;
+  if (!options.mergeProductName) {
+    console.error('merge feature requires a product name');
+    process.exit(1);
   }
+  if (!options.mergeXmls) {
+    console.error('merge feature requires a two or more licence.xml files to merge');
+    process.exit(1);
+  }
+  const xmls = [];
+  options.mergeXmls.split(',').forEach((file) => {
+    xmls.push(fs.readFileSync(file.trim(), 'utf8'));
+  });
+  xml.merge(options.mergeProductName, xmls).then(result => {
+    if (!options.silent) {
+      console.log(result);
+    }
+    if (options.mergeOutput) {
+      fs.writeFileSync(options.mergeOutput, result);
+    }
+  }).catch(e => {
+    console.error(e);
+    process.exit(2);
+  });
 }
 
 // This function is the license's entry point
@@ -172,7 +169,10 @@ function mergeXmls (options) {
 // print warnings and create html in case needed.
 function run (options) {
   if (nodeModulesFound(options.directory)) {
-    mergeXmls(options);
+    if (options.merge) {
+      mergeXmls(options);
+      return;
+    }
     const xmlObject = checkLicense(options);
     createXml(options, xmlObject);
     if (!options.silent) {
