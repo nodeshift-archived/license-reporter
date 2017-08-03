@@ -69,6 +69,19 @@ function addLicenseEntry (xmlElement, identifier, json) {
   return xmlElement;
 }
 
+// Same as addLicenseEntry but ignores the difference between the
+// version declared on package.json and the version installed by npm.
+function addLicenseEntryIgnoreVersionRange (xmlElement, identifier, json) {
+  const name = identifier.split('@')[0];
+  for (const key in json) {
+    if (key.indexOf(name) > -1) {
+      const nameVersion = versionHandler.fromNpmVersionIgnoreRange(identifier);
+      xmlElement.licenses.license.push(entry(json[key], nameVersion));
+    }
+  }
+  return xmlElement;
+}
+
 // Returns an object that will represent the XML element.
 const createXmlObject = () => {
   return {
@@ -89,14 +102,21 @@ function xmlObjectData (options, json) {
   const xmlObject = createXmlObject();
   if (options.alldeps) {
     // the name and version e.g. roi@1.2.3
-    for (var nameVersion in json) {
+    for (const nameVersion in json) {
       addLicenseEntry(xmlObject, nameVersion, json);
     }
   } else {
-    // name - is only the name e.g. roi and not roi@1.2.3
-    for (var name in dependencies) {
-      const npmVersion = versionHandler.asNpmVersion(name, dependencies[name]);
-      addLicenseEntry(xmlObject, npmVersion, json);
+    if (options.ignoreVersionRange) {
+      for (const name in dependencies) {
+        const nameVersion = versionHandler.nameVersion(name, dependencies[name]);
+        addLicenseEntryIgnoreVersionRange(xmlObject, nameVersion, json);
+      }
+    } else {
+      // name - is only the name e.g. roi and not roi@1.2.3
+      for (const name in dependencies) {
+        const npmVersion = versionHandler.asNpmVersion(name, dependencies[name]);
+        addLicenseEntry(xmlObject, npmVersion, json);
+      }
     }
   }
   return xmlObject;
@@ -119,12 +139,14 @@ function showWarnings (options, xmlObject) {
 function checkLicense (options) {
   // NOTE: The json argument will have all the license information
   // for each module and it's dependencies of the project.
-  checker.init({start: options.directory}, (error, json) => {
-    if (error) {
-      console.error(error);
-    } else {
-      return xmlObjectData(options, json);
-    }
+  return new Promise((resolve, reject) => {
+    checker.init({start: options.directory}, (error, json) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(xmlObjectData(options, json));
+      }
+    });
   });
 }
 
@@ -173,14 +195,18 @@ function run (options) {
       mergeXmls(options);
       return;
     }
-    const xmlObject = checkLicense(options);
-    createXml(options, xmlObject);
-    if (!options.silent) {
-      showWarnings(options, xmlObject);
-    }
-    if (options.html) {
-      createHtml(options, xmlObject);
-    }
+    checkLicense(options)
+    .then(xmlObject => {
+      createXml(options, xmlObject);
+      if (!options.silent) {
+        showWarnings(options, xmlObject);
+      }
+      if (options.html) {
+        createHtml(options, xmlObject);
+      }
+    }).catch(e => {
+      console.error(e);
+    });
   } else {
     console.error('You need to run \'npm install\' before search for license information.');
   }
