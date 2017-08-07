@@ -97,8 +97,7 @@ const createXmlObject = () => {
 // It is possible to choose between top level dependencies
 // or all (including sub-modules -> options.alldeps) and
 // populates the xml elements with the data found.
-function xmlObjectData (options, json) {
-  const dependencies = projectDependencies(options);
+function xmlObjectData (options, declaredDependencies, json) {
   const xmlObject = createXmlObject();
   if (options.alldeps) {
     // the name and version e.g. roi@1.2.3
@@ -107,14 +106,14 @@ function xmlObjectData (options, json) {
     }
   } else {
     if (options.ignoreVersionRange) {
-      for (const name in dependencies) {
-        const nameVersion = versionHandler.nameVersion(name, dependencies[name]);
+      for (const name in declaredDependencies) {
+        const nameVersion = versionHandler.nameVersion(name, declaredDependencies[name]);
         addLicenseEntryIgnoreVersionRange(xmlObject, nameVersion, json);
       }
     } else {
       // name - is only the name e.g. roi and not roi@1.2.3
-      for (const name in dependencies) {
-        const npmVersion = versionHandler.asNpmVersion(name, dependencies[name]);
+      for (const name in declaredDependencies) {
+        const npmVersion = versionHandler.asNpmVersion(name, declaredDependencies[name]);
         addLicenseEntry(xmlObject, npmVersion, json);
       }
     }
@@ -123,7 +122,7 @@ function xmlObjectData (options, json) {
 }
 
 // Shows warning messages if needed.
-function showWarnings (options, xmlObject) {
+function showWarnings (options, declaredDependencies, xmlObject) {
   const whitelist = reader.readListFile(options.whitelist);
   const blacklist = reader.readListFile(options.blacklist);
   warnings.print(require('../lib/whitelist.js')(whitelist).check(xmlObject),
@@ -132,11 +131,20 @@ function showWarnings (options, xmlObject) {
   warnings.print(require('../lib/blacklist.js')(blacklist).check(xmlObject),
             'BLACK-LISTED');
   const unknown = require('../lib/unknown.js').check(xmlObject);
+  const xmlObjectDependencies = xmlObject.licenses.license.map(e => e.name);
+  const missingDependencies = Object.keys(declaredDependencies)
+                                    .filter(e1 => xmlObjectDependencies
+                                    .filter(e2 => e2 === e1)
+                                    .length === 0);
+  if (missingDependencies.length > 0) {
+    console.log(`Dependencies found in package.json but not in xml: ${missingDependencies.join(',')}`);
+    console.log(`Please run 'licenser --ignore-version-range' to show all declared dependencies on generated xml.`);
+  }
   warnings.print(unknown, 'UNKNOWN');
 }
 
 // This function will scan the license data.
-function checkLicense (options) {
+function checkLicense (options, declaredDependencies) {
   // NOTE: The json argument will have all the license information
   // for each module and it's dependencies of the project.
   return new Promise((resolve, reject) => {
@@ -144,7 +152,7 @@ function checkLicense (options) {
       if (error) {
         reject(error);
       } else {
-        resolve(xmlObjectData(options, json));
+        resolve(xmlObjectData(options, declaredDependencies, json));
       }
     });
   });
@@ -195,11 +203,12 @@ function run (options) {
       mergeXmls(options);
       return;
     }
-    checkLicense(options)
+    const declaredDependencies = projectDependencies(options);
+    checkLicense(options, declaredDependencies)
     .then(xmlObject => {
       createXml(options, xmlObject);
       if (!options.silent) {
-        showWarnings(options, xmlObject);
+        showWarnings(options, declaredDependencies, xmlObject);
       }
       if (options.html) {
         createHtml(options, xmlObject);
