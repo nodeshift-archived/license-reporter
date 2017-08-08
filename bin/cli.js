@@ -141,6 +141,11 @@ function showWarnings (options, declaredDependencies, xmlObject) {
     console.log(`Please run 'licenser --ignore-version-range' to show all declared dependencies on generated xml.`);
   }
   warnings.print(unknown, 'UNKNOWN');
+
+  if (options.unifiedlist) {
+    const unifiedlist = require('../lib/unifiedlist.js');
+    unifiedlist.check(xmlObject);
+  }
 }
 
 // This function will scan the license data.
