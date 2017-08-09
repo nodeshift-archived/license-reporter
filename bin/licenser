@@ -36,6 +36,10 @@ yargs
     describe: 'file containing licenses that are black-listed',
     default: false
   })
+  .option('unifiedlist', {
+    describe: 'will use the default unified list containing licenses approved or not',
+    default: false
+  })
   .option('merge', {
     describe: 'merge license.xml files',
     default: false
@@ -68,7 +72,8 @@ var options = {
   mergeProductName: argv['merge-product-name'],
   mergeXmls: argv['merge-license-xmls'],
   mergeOutput: argv['merge-output'],
-  ignoreVersionRange: argv['ignore-version-range']
+  ignoreVersionRange: argv['ignore-version-range'],
+  unifiedlist: argv.unifiedlist
 };
 
 if (!options.directory || options.directory === '.') {

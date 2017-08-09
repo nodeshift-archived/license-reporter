@@ -22,22 +22,28 @@ $ licenser --help
 Usage: licenser /path/to/project [options]
 
 Options:
---version             Show version number                            [boolean]
---file                file to store the license information in        [string]
---all                 will list all production licenses for all modules
+  --version               Show version number                          [boolean]
+  --file                  file to store the license information in      [string]
+  --all                   will list all production licenses for all modules
                                                                 [default: false]
---silent              hides the console output                [default: false]
---html                outputs the license in html format to license.html
+  --ignore-version-range  will list all licenses from declared package.json
+                          dependencies ignoring version range   [default: false]
+  --silent                hides the console output              [default: false]
+  --html                  outputs the license in html format to license.html
                                                                 [default: false]
---whitelist           file containing licenses that are white listed
+  --whitelist             file containing licenses that are white-listed
                                                                 [default: false]
---merge               merge license.xml files                 [default: false]
---merge-product-name  the name the product which the license.xml are part of
+  --blacklist             file containing licenses that are black-listed
                                                                 [default: false]
---merge-license-xmls  a comma separated list of license.xml files to merge
+  --unifiedlist           will use the default unified list containing licenses
+                          approved or not                       [default: false]
+  --merge                 merge license.xml files               [default: false]
+  --merge-product-name    the name the product which the license.xml are part of
                                                                 [default: false]
---merge-output        file to write the merged license info to
---help                Show help                                      [boolean]
+  --merge-license-xmls    a comma separated list of license.xml files to merge
+                                                                [default: false]
+  --merge-output          file to write the merged license info to
+  --help                  Show help                                    [boolean]
 ```
 
 ## Example output
