@@ -123,13 +123,6 @@ function xmlObjectData (options, declaredDependencies, json) {
 
 // Shows warning messages if needed.
 function showWarnings (options, declaredDependencies, xmlObject) {
-  const whitelist = reader.readListFile(options.whitelist);
-  const blacklist = reader.readListFile(options.blacklist);
-  warnings.print(require('../lib/whitelist.js')(whitelist).check(xmlObject),
-              'WHITE-LISTED');
-
-  warnings.print(require('../lib/blacklist.js')(blacklist).check(xmlObject),
-            'BLACK-LISTED');
   const unknown = require('../lib/unknown.js').check(xmlObject);
   const xmlObjectDependencies = xmlObject.licenses.license.map(e => e.name);
   const missingDependencies = Object.keys(declaredDependencies)
@@ -145,6 +138,13 @@ function showWarnings (options, declaredDependencies, xmlObject) {
   if (options.unifiedlist) {
     const unifiedlist = require('../lib/unifiedlist.js');
     unifiedlist.check(xmlObject);
+  } else {
+    const whitelist = reader.readListFile(options.whitelist);
+    const blacklist = reader.readListFile(options.blacklist);
+    warnings.print(require('../lib/whitelist.js')(whitelist).check(xmlObject),
+              'WHITE-LISTED');
+    warnings.print(require('../lib/blacklist.js')(blacklist).check(xmlObject),
+            'BLACK-LISTED');
   }
 }
 
