@@ -1,6 +1,6 @@
 {
   "name": "license-reporter",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "License-reporter gathers license information and reports them in various formats.",
   "main": "index.js",
   "scripts": {
@@ -49,6 +49,6 @@
   },
   "preferGlobal": true,
   "bin": {
-    "licenser": "./bin/license-reporter"
+    "license-reporter": "./bin/license-reporter"
   }
 }
