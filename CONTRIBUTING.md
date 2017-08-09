@@ -1,10 +1,10 @@
-# Contributing to licenser
+# Contributing to license-reporter
 
 ## Issue contributions
 
 ### Did you find a bug ?
 
-Open a [new issue](https://github.com/bucharest-gold/licenser/issues/new)
+Open a [new issue](https://github.com/bucharest-gold/license-reporter/issues/new)
 and be sure to include a title and clear description, as much relevant information
 as possible, and a code sample or a test case demonstrating the expected behavior
 that is not occurring.
@@ -15,13 +15,13 @@ Discussions can be done via github issues or IRC channel #brass-monkey.
 
 ### Fork
 
-Fork the project [on GitHub](https://github.com/bucharest-gold/licenser)
+Fork the project [on GitHub](https://github.com/bucharest-gold/license-reporter)
 and check out your copy locally.
 
 ```
-git clone git@github.com:username/licenser.git
-cd licenser
-git remote add upstream https://github.com/bucharest-gold/licenser.git
+git clone git@github.com:username/license-reporter.git
+cd license-reporter
+git remote add upstream https://github.com/bucharest-gold/license-reporter.git
 ```
 
 ### Branch
@@ -88,5 +88,5 @@ npm it ; npm run lint
 git push origin my-contrib-branch
 ```
 
-Go to https://github.com/yourusername/licenser and select your feature branch.
+Go to https://github.com/yourusername/license-reporter and select your feature branch.
 Click the 'Pull Request' button and fill out the form.

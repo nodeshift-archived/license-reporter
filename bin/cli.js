@@ -131,7 +131,7 @@ function showWarnings (options, declaredDependencies, xmlObject) {
                                     .length === 0);
   if (missingDependencies.length > 0) {
     console.log(`Dependencies found in package.json but not in xml: ${missingDependencies.join(',')}`);
-    console.log(`Please run 'licenser --ignore-version-range' to show all declared dependencies on generated xml.`);
+    console.log(`Please run 'license-reporter --ignore-version-range' to show all declared dependencies on generated xml.`);
   }
   warnings.print(unknown, 'UNKNOWN');
 

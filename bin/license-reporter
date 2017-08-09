@@ -3,7 +3,7 @@
 const cli = require('./cli.js');
 const yargs = require('yargs');
 const path = require('path');
-process.title = 'licenser';
+process.title = 'license-reporter';
 
 yargs
   .version(require('../package.json').version)
