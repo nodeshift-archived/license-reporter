@@ -3,12 +3,18 @@ node_js:
   - "4"
   - "6"
   - "8"
+addons:
+  sonarcloud:
+    organization: "bucharest-gold"
+    token:
+      secure: "FNTDDv2KnPGXDM8U4wpSRvx6Ivi7VdiP8yPjifRQ1NPebFP34ianiLnZ5jvCjws74QRehnz/qME3X3mgGTqEUKXQadZyCUCVTSfRLUrN5tAy8X7pe0jH0EF3MfZMlCLi0yvt0qXTNI5tcd02fVnkNwsaLdBvwps6lpGuI0mzdIOPDSrKCm5zIwVw8PHdx7r5uM+JaC8SGtk2Oug5GkzhzQ9O/hAfG8JFylsrTDp8Z5VlKaZCdFhOr51tDI0uLcDRX/Vmbg7GMF4A8m07CIf0+c4ofpACwp08f5SDd5UwFAVmcG7R5qMR2j2X+nu68nlzwt727RPxx9RCfAx933g6ilf7/aIT4t9LEmun2qqljsLJ03jathpcxIxDG6no2T4+T1T2i39rMEUbT3fpRmtf7oG+0Qa9ff/Vzxxa3GzmbwTstbi0NGQWabgumFG2e/skjbicB5OYQZpCiOnEsv2cpaSc/GnwTwAzZG/rshhRCv9O2IesGhITGd69VG8A0de/kp4UT3/vBXWI4r9akDWgYm4zzmARxhqpdMNrhfmXZABQYXOBPjzgnkEtWaz+LPIPwTvcdNEZ20SVEj+n8b+8Vk6aSpXMihqrRLGrR7JWGVJcXSfRwHuJeVPS9nVquuccgO658TONKeehIBEFTDh3Cw9YzWtlNGtnZ+qn1NcxleU="
 before_script:
   - npm install -g coveralls
 script:
    - npm install
    - npm run lint
    - npm test
+   - sonar-scanner
 branches:
   only:
     - master
