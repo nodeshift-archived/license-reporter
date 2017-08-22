@@ -5,8 +5,8 @@ const warnings = require('../lib/warnings.js');
 const stdout = require('test-console').stdout;
 
 const expected = ['========= WARNING WHITE-LISTED LICENSES ==========\n',
-    'name: test2 , version: 1.2 , licenses: Bogus\n',
-    '========= WARNING WHITE-LISTED LICENSES ==========\n'];
+  'name: test2 , version: 1.2 , licenses: Bogus\n',
+  '========= WARNING WHITE-LISTED LICENSES ==========\n'];
 
 test('Should report the correct warning.', (t) => {
   t.plan(1);
