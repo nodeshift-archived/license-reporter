@@ -4,6 +4,10 @@ const test = require('tape');
 const warnings = require('../lib/warnings.js');
 const stdout = require('test-console').stdout;
 
+const expected = ['========= WARNING WHITE-LISTED LICENSES ==========\n',
+    'name: test2 , version: 1.2 , licenses: Bogus\n',
+    '========= WARNING WHITE-LISTED LICENSES ==========\n'];
+
 test('Should report the correct warning.', (t) => {
   t.plan(1);
   const project = {
@@ -20,6 +24,6 @@ test('Should report the correct warning.', (t) => {
   const whitelist = [{'name': 'ASL 1.1'}];
   const log = stdout.inspectSync(() => warnings.print(require('../lib/whitelist.js')(whitelist).check(project),
                  'WHITE-LISTED'));
-  t.deepEqual(log, ['name: test2 , version: 1.2 , licenses: Bogus\n'], 'WHITE-LISTED');
+  t.deepEqual(log, expected);
   t.end();
 });
