@@ -15,11 +15,13 @@ test('Should warn if license is unknown', (t) => {
         {name: 'test5', version: '1.2', license: undefined, file: undefined},
         {name: 'test6', version: '1.0', license: ['MIT', 'APACHE'], file: 'something'},
         {name: 'test7', version: '1.0', license: ['unknown'], file: 'something'},
-        {name: 'test8', version: '1.0', license: ['MIT', 'unknown'], file: 'something'}
+        {name: 'test8', version: '1.0', license: ['MIT', 'unknown'], file: 'something'},
+        {name: 'test9', version: '1.0', license: 'Custom: https://something', file: 'something'},
+        {name: 'test10', version: '1.0', license: ['Custom: https://something'], file: 'something'}
       ]
     }
   };
   const unknown = require('../lib/unknown.js').check(project);
-  t.equal(unknown.length, 6);
+  t.equal(unknown.length, 8);
   t.end();
 });
