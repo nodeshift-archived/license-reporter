@@ -186,6 +186,15 @@ $ license-reporter --file=license2.xml
 </genet>
 ```
 
+### Asterix (*) in license name
+In the console output you may come across a license name which contains an asterix, for example:
+
+    ========= WARNING WHITE-LISTED LICENSES ==========
+    name: express-bunyan-logger , version: 1.3.1 , licenses: BSD*
+    name: fh-cluster , version: 0.3.0 , licenses: Apache-2.0
+
+Notice the `BSD*` which means the license name was deduced from an other file than package.json 
+
 ## XML merging example
 
 The intention for this functionality is to be able to create an xml file that contains all the licenses for a product (made up of one or more projects).
