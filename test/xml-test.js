@@ -49,7 +49,7 @@ test('Should generate JSON Array from xmls', (t) => {
     name: 'project2',
     licenses: {
       license: [
-        {name: 'projectDep2', version: '2.0', licenses: 'AST', file: '...'}
+        {name: 'projectDep2', version: '2.0', licenses: 'AST', file: '/path/node_modules/projectDep2/LICENSE.txt'}
       ]
     }
   };
@@ -90,7 +90,7 @@ test('Should merge xmls', (t) => {
     name: 'project2',
     licenses: {
       license: [
-        {name: 'projectDep2', version: '2.0', licenses: 'AST', file: '...'}
+        {name: 'projectDep2', version: '2.0', licenses: 'AST', file: '/path/node_modules/projectDep2/LICENSE.txt'}
       ]
     }
   };
@@ -112,7 +112,7 @@ test('Should merge xmls', (t) => {
                 <name>projectDep2</name>
                 <version>2.0</version>
                 <licenses>AST</licenses>
-                <file>...</file>
+                <file>/path/node_modules/projectDep2/LICENSE.txt</file>
             </license>
         </project2>
     </project>

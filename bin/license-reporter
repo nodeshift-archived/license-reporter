@@ -55,6 +55,10 @@ yargs
   .option('merge-output', {
     describe: 'file to write the merged license info to'
   })
+  .option('verbose', {
+    describe: 'include the license content in the xml and not just the path to the file',
+    default: false
+  })
   .help();
 
 const argv = yargs.argv;
@@ -73,7 +77,8 @@ var options = {
   mergeXmls: argv['merge-license-xmls'],
   mergeOutput: argv['merge-output'],
   ignoreVersionRange: argv['ignore-version-range'],
-  unifiedlist: argv.unifiedlist
+  unifiedlist: argv.unifiedlist,
+  verbose: argv.verbose
 };
 
 if (!options.directory || options.directory === '.') {

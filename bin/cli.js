@@ -45,12 +45,13 @@ function createHtml (options, xmlObject) {
 //    <license>Apache-2.0</license>
 //    <file> file content here. </file>
 //  </license>
-const entry = (info, dependency) => {
+const entry = (info, dependency, options) => {
   return {
     name: dependency.name,
     version: dependency.version,
     license: info.licenses,
-    file: reader.readLicenseFile(info.licenseFile)
+    file: options.verbose ? reader.readLicenseFile(info.licenseFile)
+      : info.licenseFile
   };
 };
 
@@ -60,23 +61,23 @@ const entry = (info, dependency) => {
 // Also returns the json object xmlElement with the data found.
 // The parameter 'identifier' can be a dependency
 // nameVersion or a name. example: roi@1.2.3 or roi
-function addLicenseEntry (xmlElement, identifier, json) {
+function addLicenseEntry (xmlElement, identifier, json, options) {
   if (json.hasOwnProperty(identifier)) {
     // name and version object e.g. { name: 'roi', version: '1.2.3' }
     const nameVersion = versionHandler.fromNpmVersion(identifier);
-    xmlElement.licenses.license.push(entry(json[identifier], nameVersion));
+    xmlElement.licenses.license.push(entry(json[identifier], nameVersion, options));
   }
   return xmlElement;
 }
 
 // Same as addLicenseEntry but ignores the difference between the
 // version declared on package.json and the version installed by npm.
-function addLicenseEntryIgnoreVersionRange (xmlElement, identifier, json) {
+function addLicenseEntryIgnoreVersionRange (xmlElement, identifier, json, options) {
   const name = identifier.split('@')[0];
   for (const key in json) {
     if (key.indexOf(name) > -1) {
       const nameVersion = versionHandler.fromNpmVersionIgnoreRange(identifier);
-      xmlElement.licenses.license.push(entry(json[key], nameVersion));
+      xmlElement.licenses.license.push(entry(json[key], nameVersion, options));
     }
   }
   return xmlElement;
@@ -102,19 +103,19 @@ function xmlObjectData (options, declaredDependencies, json) {
   if (options.alldeps) {
     // the name and version e.g. roi@1.2.3
     for (const nameVersion in json) {
-      addLicenseEntry(xmlObject, nameVersion, json);
+      addLicenseEntry(xmlObject, nameVersion, json, options);
     }
   } else {
     if (options.ignoreVersionRange) {
       for (const name in declaredDependencies) {
         const nameVersion = versionHandler.nameVersion(name, declaredDependencies[name]);
-        addLicenseEntryIgnoreVersionRange(xmlObject, nameVersion, json);
+        addLicenseEntryIgnoreVersionRange(xmlObject, nameVersion, json, options);
       }
     } else {
       // name - is only the name e.g. roi and not roi@1.2.3
       for (const name in declaredDependencies) {
         const npmVersion = versionHandler.asNpmVersion(name, declaredDependencies[name]);
-        addLicenseEntry(xmlObject, npmVersion, json);
+        addLicenseEntry(xmlObject, npmVersion, json, options);
       }
     }
   }

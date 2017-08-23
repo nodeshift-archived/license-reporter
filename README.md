@@ -43,6 +43,8 @@ Options:
   --merge-license-xmls    a comma separated list of license.xml files to merge
                                                                 [default: false]
   --merge-output          file to write the merged license info to
+  --verbose               include the license content in the xml and not just
+                          the path to the file                  [default: false]
   --help                  Show help                                    [boolean]
 ```
 
@@ -63,26 +65,13 @@ $ license-reporter --file=license1.xml
         <name>node-builtins</name>
         <version>0.1.1</version>
         <license>Apache-2.0</license>
-        <file>
-        Copyright 2016 Red Hat, Inc.
-        
-        Licensed under the Apache License, Version 2.0 (the "License");
-        you may not use this file except in compliance with the License.
-        You may obtain a copy of the License at
-        
-        http://www.apache.org/licenses/LICENSE-2.0
-        Unless required by applicable law or agreed to in writing, software
-        distributed under the License is distributed on an "AS IS" BASIS,
-        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-        See the License for the specific language governing permissions and
-        limitations under the License.
-        </file>
+        <file>/path/szero/node_modules/node-builtins/LICENSE</file>
     </license>
     <license>
         <name>roi</name>
         <version>0.15.0</version>
         <license>Apache-2.0</license>
-        <file>/home/hf/d/szero/node_modules/roi/README.md</file>
+        <file>/path/szero/node_modules/roi/README.md</file>
     </license>
 </szero>
 ```
@@ -102,86 +91,19 @@ $ license-reporter --file=license2.xml
         <name>cli-table2</name>
         <version>0.2.0</version>
         <license>MIT</license>
-        <file>/home/hf/d/genet/node_modules/cli-table2/README.md</file>
+        <file>/path/genet/node_modules/cli-table2/README.md</file>
     </license>
     <license>
         <name>fidelity</name>
         <version>4.2.0</version>
         <license>MIT</license>
-        <file>Copyright (c) 2015, Lance Ball
-        
-        
-        
-        Permission is hereby granted, free of charge, to any person obtaining a copy
-        of this software and associated documentation files (the "Software"), to deal
-        in the Software without restriction, including without limitation the rights
-        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-        copies of the Software, and to permit persons to whom the Software is
-        furnished to do so, subject to the following conditions:
-        
-        
-        
-        The above copyright notice and this permission notice shall be included in
-        all copies or substantial portions of the Software.
-        
-        
-        
-        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
-        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-        THE SOFTWARE.
-        </file>
+        <file>/path/genet/node_modules/fidelity/LICENSE.txt</file>
     </license>
     <license>
         <name>huilu</name>
         <version>0.1.3</version>
         <license>Apache-2.0</license>
-        <file>Copyright 2016 Red Hat, Inc.
-        
-        Licensed under the Apache License, Version 2.0 (the "License");
-        you may not use this file except in compliance with the License.
-        You may obtain a copy of the License at
-        
-            http://www.apache.org/licenses/LICENSE-2.0
-        
-        Unless required by applicable law or agreed to in writing, software
-        distributed under the License is distributed on an "AS IS" BASIS,
-        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-        See the License for the specific language governing permissions and
-        limitations under the License.
-        
-        
-        Portions of this software derive from tlorienz/flamegraph.
-        The flamegraph license appears below.
-        ==========================================================
-        
-        Copyright 2014 Thorsten Lorenz. 
-        All rights reserved.
-        
-        Permission is hereby granted, free of charge, to any person
-        obtaining a copy of this software and associated documentation
-        files (the "Software"), to deal in the Software without
-        restriction, including without limitation the rights to use,
-        copy, modify, merge, publish, distribute, sublicense, and/or sell
-        copies of the Software, and to permit persons to whom the
-        Software is furnished to do so, subject to the following
-        conditions:
-        
-        The above copyright notice and this permission notice shall be
-        included in all copies or substantial portions of the Software.
-        
-        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-        EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
-        OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-        NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-        HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-        WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-        FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-        OTHER DEALINGS IN THE SOFTWARE.
-        </file>
+        <file>/path/genet/node_modules/huilu/LICENSE.txt</file>
     </license>
 </genet>
 ```
@@ -216,26 +138,13 @@ $ cat merged.xml
                 <name>node-builtins</name>
                 <version>0.1.1</version>
                 <license>Apache-2.0</license>
-                <file>
-                        Copyright 2016 Red Hat, Inc.
-                        
-                        Licensed under the Apache License, Version 2.0 (the "License");
-                        you may not use this file except in compliance with the License.
-                        You may obtain a copy of the License at
-                        
-                        http://www.apache.org/licenses/LICENSE-2.0
-                        Unless required by applicable law or agreed to in writing, software
-                        distributed under the License is distributed on an "AS IS" BASIS,
-                        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                        See the License for the specific language governing permissions and
-                        limitations under the License.
-                        </file>
+                <file>/path/szero/node_modules/node-builtins/LICENSE</file>
             </license>
             <license>
                 <name>roi</name>
                 <version>0.15.0</version>
                 <license>Apache-2.0</license>
-                <file>/home/hf/d/szero/node_modules/roi/README.md</file>
+                <file>/path/szero/node_modules/roi/README.md</file>
             </license>
         </szero>
     </project>
@@ -245,86 +154,19 @@ $ cat merged.xml
                 <name>cli-table2</name>
                 <version>0.2.0</version>
                 <license>MIT</license>
-                <file>/home/hf/d/genet/node_modules/cli-table2/README.md</file>
+                <file>/path/genet/node_modules/cli-table2/README.md</file>
             </license>
             <license>
                 <name>fidelity</name>
                 <version>4.2.0</version>
                 <license>MIT</license>
-                <file>Copyright (c) 2015, Lance Ball
-                        
-                        
-                        
-                        Permission is hereby granted, free of charge, to any person obtaining a copy
-                        of this software and associated documentation files (the "Software"), to deal
-                        in the Software without restriction, including without limitation the rights
-                        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-                        copies of the Software, and to permit persons to whom the Software is
-                        furnished to do so, subject to the following conditions:
-                        
-                        
-                        
-                        The above copyright notice and this permission notice shall be included in
-                        all copies or substantial portions of the Software.
-                        
-                        
-                        
-                        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-                        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-                        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
-                        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-                        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-                        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-                        THE SOFTWARE.
-                        </file>
+                <file>/path/genet/node_modules/fidelity/LICENSE.txt</file>
             </license>
             <license>
                 <name>huilu</name>
                 <version>0.1.3</version>
                 <license>Apache-2.0</license>
-                <file>Copyright 2016 Red Hat, Inc.
-                        
-                        Licensed under the Apache License, Version 2.0 (the "License");
-                        you may not use this file except in compliance with the License.
-                        You may obtain a copy of the License at
-                        
-                            http://www.apache.org/licenses/LICENSE-2.0
-                        
-                        Unless required by applicable law or agreed to in writing, software
-                        distributed under the License is distributed on an "AS IS" BASIS,
-                        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                        See the License for the specific language governing permissions and
-                        limitations under the License.
-                        
-                        
-                        Portions of this software derive from tlorienz/flamegraph.
-                        The flamegraph license appears below.
-                        ==========================================================
-                        
-                        Copyright 2014 Thorsten Lorenz. 
-                        All rights reserved.
-                        
-                        Permission is hereby granted, free of charge, to any person
-                        obtaining a copy of this software and associated documentation
-                        files (the "Software"), to deal in the Software without
-                        restriction, including without limitation the rights to use,
-                        copy, modify, merge, publish, distribute, sublicense, and/or sell
-                        copies of the Software, and to permit persons to whom the
-                        Software is furnished to do so, subject to the following
-                        conditions:
-                        
-                        The above copyright notice and this permission notice shall be
-                        included in all copies or substantial portions of the Software.
-                        
-                        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-                        EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
-                        OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-                        NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-                        HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-                        WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-                        FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-                        OTHER DEALINGS IN THE SOFTWARE.
-                        </file>
+                <file>/path/genet/node_modules/huilu/LICENSE.txt</file>
             </license>
         </genet>
     </project>
