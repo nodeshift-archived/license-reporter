@@ -17,6 +17,8 @@ const projectVersion = (options) => require(`${options.directory}/package.json`)
 // Gets the project dependencies from package.json.
 const projectDependencies = (options) => require(`${options.directory}/package.json`).dependencies;
 
+let canonicalNameMapper;
+
 // Creates a xml file and/or send to stdout based on the options.
 function createXml (options, xmlObject) {
   const createdXml = js2xmlparser.parse('licenseSummary', xmlObject);
@@ -51,7 +53,7 @@ const entry = (info, dependency, options) => {
     version: dependency.version,
     licenses: {
       license: [{
-        name: info.licenses,
+        name: canonicalNameMapper.map(info.licenses),
         url: options.verbose ? reader.readLicenseFile(info.licenseFile)
           : info.licenseFile
       }]
@@ -210,6 +212,16 @@ function mergeXmls (options) {
 // to gather licenses. Also create the xml,
 // print warnings and create html in case needed.
 function run (options) {
+  let mappings = [];
+  if (options.namemap) {
+    mappings = reader.readAsJson(options.namemap);
+    if (mappings === null) {
+      console.error('Could not find namemap file: ', options.namemap);
+      process.exit(3);
+    }
+  }
+  canonicalNameMapper = require('../lib/canonical-name.js')(mappings);
+
   if (nodeModulesFound(options.directory)) {
     if (options.merge) {
       mergeXmls(options);

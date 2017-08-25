@@ -45,6 +45,7 @@ Options:
   --merge-output          file to write the merged license info to
   --verbose               include the license content in the xml and not just
                           the path to the file                  [default: false]
+  --namemap               a file/url containing a mapping of license names
   --help                  Show help                                    [boolean]
 ```
 
