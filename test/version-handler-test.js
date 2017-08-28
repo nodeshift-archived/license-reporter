@@ -38,7 +38,7 @@ test('Should comply with semver spec.', (t) => {
 test('Should work with scoped package naming', (t) => {
   t.plan(2);
   const result = npmVersion('@org/foo', '1.0.0+20130313144700');
-  t.equal('org/foo', result.name);
+  t.equal('@org/foo', result.name);
   t.equal('1.0.0+20130313144700', result.version);
   t.end();
 });
