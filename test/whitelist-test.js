@@ -11,7 +11,8 @@ test('Should warn if license is not in whitelist', (t) => {
         {name: 'test1', version: '1.0', license: 'MIT', file: '...'},
         {name: 'test2', version: '1.2', license: 'Bogus', file: '...'},
         {name: 'test2', version: '1.2', license: 'ASL 1.1', file: '...'},
-        {name: 'test2', version: '1.2', license: 'UNKNOWN', file: '...'}
+        {name: 'test2', version: '1.2', license: 'UNKNOWN', file: '...'},
+        {name: 'test2', version: '1.2', license: 'Apache-2.0', file: 'UNKNOWN'}
       ]
     }
   };

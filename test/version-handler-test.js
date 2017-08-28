@@ -26,3 +26,11 @@ test('Should return as npm version.', (t) => {
   t.equal('3.2.1', result.version, 'the version is OK.');
   t.end();
 });
+
+test('Should return as npm version with postfix.', (t) => {
+  t.plan(1);
+  const npmVersion = versionHandler.asNpmVersion('foo', '3.2.1-14');
+  const result = versionHandler.fromNpmVersion(npmVersion);
+  t.equal('3.2.1-14', result.version, 'the version is OK.');
+  t.end();
+});
