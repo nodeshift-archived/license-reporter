@@ -12,13 +12,14 @@ const path = require('path');
 
 // Gets the project name from package.json.
 const projectName = (options) => require(`${options.directory}/package.json`).name;
+const projectVersion = (options) => require(`${options.directory}/package.json`).version;
 
 // Gets the project dependencies from package.json.
 const projectDependencies = (options) => require(`${options.directory}/package.json`).dependencies;
 
 // Creates a xml file and/or send to stdout based on the options.
 function createXml (options, xmlObject) {
-  const createdXml = js2xmlparser.parse(projectName(options), xmlObject.licenses);
+  const createdXml = js2xmlparser.parse('licenseSummary', xmlObject);
   if (!options.silent) {
     console.log(createdXml);
   }
@@ -37,7 +38,6 @@ function createHtml (options, xmlObject) {
   .pipe(fs.createWriteStream(path.join(options.directory, 'licenses.css')));
 }
 
-// Returns an object that will represent the XML entry for the license element.
 // The generated XMl element will be like this example:
 //  <license>
 //    <name>roi</name>
@@ -47,11 +47,15 @@ function createHtml (options, xmlObject) {
 //  </license>
 const entry = (info, dependency, options) => {
   return {
-    name: dependency.name,
+    packageName: dependency.name,
     version: dependency.version,
-    license: info.licenses,
-    file: options.verbose ? reader.readLicenseFile(info.licenseFile)
-      : info.licenseFile
+    licenses: {
+      license: [{
+        name: info.licenses,
+        url: options.verbose ? reader.readLicenseFile(info.licenseFile)
+          : info.licenseFile
+      }]
+    }
   };
 };
 
@@ -65,7 +69,7 @@ function addLicenseEntry (xmlElement, identifier, json, options) {
   if (json.hasOwnProperty(identifier)) {
     // name and version object e.g. { name: 'roi', version: '1.2.3' }
     const nameVersion = versionHandler.fromNpmVersion(identifier);
-    xmlElement.licenses.license.push(entry(json[identifier], nameVersion, options));
+    xmlElement.dependencies.dependency.push(entry(json[identifier], nameVersion, options));
   }
   return xmlElement;
 }
@@ -77,18 +81,20 @@ function addLicenseEntryIgnoreVersionRange (xmlElement, identifier, json, option
   for (const key in json) {
     if (key.indexOf(name) > -1) {
       const nameVersion = versionHandler.fromNpmVersionIgnoreRange(identifier);
-      xmlElement.licenses.license.push(entry(json[key], nameVersion, options));
+      xmlElement.dependencies.dependency.push(entry(json[key], nameVersion, options));
     }
   }
   return xmlElement;
 }
 
 // Returns an object that will represent the XML element.
-const createXmlObject = () => {
+const createXmlObject = (options) => {
   return {
-    name: projectName,
-    licenses: {
-      license: []
+    project: projectName(options),
+    version: projectVersion(options),
+    dependencies: {
+      dependency: [
+      ]
     }
   };
 };
@@ -99,7 +105,7 @@ const createXmlObject = () => {
 // or all (including sub-modules -> options.alldeps) and
 // populates the xml elements with the data found.
 function xmlObjectData (options, declaredDependencies, json) {
-  const xmlObject = createXmlObject();
+  const xmlObject = createXmlObject(options);
   if (options.alldeps) {
     // the name and version e.g. roi@1.2.3
     for (const nameVersion in json) {
@@ -125,7 +131,7 @@ function xmlObjectData (options, declaredDependencies, json) {
 // Shows warning messages if needed.
 function showWarnings (options, declaredDependencies, xmlObject) {
   const unknown = require('../lib/unknown.js').check(xmlObject);
-  const xmlObjectDependencies = xmlObject.licenses.license.map(e => e.name);
+  const xmlObjectDependencies = xmlObject.dependencies.dependency.map(e => e.packageName);
   const missingDependencies = Object.keys(declaredDependencies)
                                     .filter(e1 => xmlObjectDependencies
                                     .filter(e2 => e2 === e1)

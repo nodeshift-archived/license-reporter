@@ -3,26 +3,44 @@
 const test = require('tape');
 
 test('Should warn if license is unknown', (t) => {
-  t.plan(1);
+  t.plan(3);
   const project = {
-    name: 'testProject',
-    licenses: {
-      license: [
-        {name: 'test1', version: '1.0', license: 'MIT', file: 'something'},
-        {name: 'test2', version: '1.0', license: '', file: ''},
-        {name: 'test3', version: '1.0', license: 'unknown', file: ''},
-        {name: 'test4', version: '1.0', license: 'UNKNOWN', file: ''},
-        {name: 'test5', version: '1.2', license: undefined, file: undefined},
-        {name: 'test6', version: '1.0', license: ['MIT', 'APACHE'], file: 'something'},
-        {name: 'test7', version: '1.0', license: ['unknown'], file: 'something'},
-        {name: 'test8', version: '1.0', license: ['MIT', 'unknown'], file: 'something'},
-        {name: 'test9', version: '1.0', license: 'Custom: https://something', file: 'something'},
-        {name: 'test10', version: '1.0', license: ['Custom: https://something'], file: 'something'},
-        {name: 'test11', version: '1.0-10', license: 'Apache-2.0', file: undefined}
+    dependencies: {
+      dependency: [
+        {
+          packageName: 'test1',
+          version: '1.0.0',
+          licenses: {
+            license: [
+              {name: 'MIT', url: 'something'},
+              {name: '', url: ''},
+              {name: 'unknown', url: ''},
+              {name: 'UNKNOWN', url: ''},
+              {name: undefined, url: undefined},
+              {name: ['MIT', 'APACHE'], url: 'something'},
+              {name: ['unknown'], url: 'something'},
+              {name: ['MIT', 'unknown'], url: 'something'},
+              {name: 'Custom: https://something', url: 'something'},
+              {name: ['Custom: https://something'], url: 'something'},
+              {name: 'Apache-2.0', url: undefined}
+            ]
+          }
+        },
+        {
+          packageName: 'test2',
+          version: '1.2.3',
+          licenses: {
+            license: [
+              {name: 'MIT', url: 'something'}
+            ]
+          }
+        }
       ]
     }
   };
   const unknown = require('../lib/unknown.js').check(project);
-  t.equal(unknown.length, 9);
+  t.equal(unknown.length, 1);
+  t.equal(unknown[0].packageName, 'test1');
+  t.equal(unknown[0].licenses.license.length, 11);
   t.end();
 });

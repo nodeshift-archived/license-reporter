@@ -3,15 +3,37 @@
 const test = require('tape');
 
 test('Should warn if license is not in blacklist', (t) => {
-  t.plan(1);
+  t.plan(7);
   const project = {
-    name: 'testProject',
-    licenses: {
-      license: [
-        {name: 'test1', version: '1.0', license: 'MIT', file: '...'},
-        // The following is one of the licenses in the default black list
-        {name: 'test2', version: '1.2', license: 'AT&T Public License', file: '...'},
-        {name: 'test2', version: '1.2', license: 'ASL 1.1 ', file: '...'}
+    dependencies: {
+      dependency: [
+        {
+          packageName: 'testProject',
+          version: '1.0.0',
+          licenses: {
+            license: [
+              {name: 'MIT', url: '...'}
+            ]
+          }
+        },
+        {
+          packageName: 'defaultBlackList',
+          version: '2.0.0',
+          licenses: {
+            license: [
+              {name: 'AT&T Public License', url: '...'}
+            ]
+          }
+        },
+        {
+          packageName: 'customBlackList',
+          version: '3.0.0',
+          licenses: {
+            license: [
+              {name: 'ASL 1.1 ', url: '...'}
+            ]
+          }
+        }
       ]
     }
   };
@@ -19,16 +41,29 @@ test('Should warn if license is not in blacklist', (t) => {
   const blacklist = require('../lib/blacklist.js')(customBlacklist);
   const nok = blacklist.check(project);
   t.equal(nok.length, 2);
+  t.strictEquals(nok[0].packageName, 'defaultBlackList');
+  t.strictEquals(nok[0].version, '2.0.0');
+  t.equal(nok[0].licenses.license.length, 1);
+  t.strictEquals(nok[1].packageName, 'customBlackList');
+  t.strictEquals(nok[1].version, '3.0.0');
+  t.equal(nok[1].licenses.license.length, 1);
   t.end();
 });
 
 test('Should return empty array if nothing is found', (t) => {
   t.plan(1);
   const project = {
-    name: 'testProject',
-    licenses: {
-      license: [
-        {name: 'test1', version: '1.0', license: 'MIT', file: '...'}
+    dependencies: {
+      dependency: [
+        {
+          packageName: 'testProject',
+          version: '1.0.0',
+          licenses: {
+            license: [
+              {name: 'MIT', url: '...'}
+            ]
+          }
+        }
       ]
     }
   };
