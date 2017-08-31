@@ -5,14 +5,21 @@ const test = require('tape');
 test('Should warn if license is not in whitelist', (t) => {
   t.plan(1);
   const project = {
-    name: 'testProject',
-    licenses: {
-      license: [
-        {name: 'test1', version: '1.0', license: 'MIT', file: '...'},
-        {name: 'test2', version: '1.2', license: 'Bogus', file: '...'},
-        {name: 'test2', version: '1.2', license: 'ASL 1.1', file: '...'},
-        {name: 'test2', version: '1.2', license: 'UNKNOWN', file: '...'},
-        {name: 'test2', version: '1.2', license: 'Apache-2.0', file: 'UNKNOWN'}
+    dependencies: {
+      dependency: [
+        {
+          packageName: 'testProject',
+          version: '1.0.0',
+          licenses: {
+            license: [
+              {name: 'MIT', url: '...'},
+              {name: 'Bogus', url: '...'},
+              {name: 'ASL 1.1', url: '...'},
+              {name: 'UNKNOWN', url: '...'},
+              {name: 'Apache-2.0', url: 'UNKNOWN'}
+            ]
+          }
+        }
       ]
     }
   };
