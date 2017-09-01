@@ -60,20 +60,42 @@ $ license-reporter --file=license1.xml
 
 ```xml
 <?xml version='1.0'?>
-<szero>
-    <license>
-        <name>node-builtins</name>
-        <version>0.1.1</version>
-        <license>Apache-2.0</license>
-        <file>/path/szero/node_modules/node-builtins/LICENSE</file>
-    </license>
-    <license>
-        <name>roi</name>
-        <version>0.15.0</version>
-        <license>Apache-2.0</license>
-        <file>/path/szero/node_modules/roi/README.md</file>
-    </license>
-</szero>
+<licenseSummary>
+    <project>szero</project>
+    <version>0.9.3</version>
+    <dependencies>
+        <dependency>
+            <packageName>commander</packageName>
+            <version>2.9.0</version>
+            <licenses>
+                <license>
+                    <name>MIT</name>
+                    <url>/work/bucharest-gold/szero/node_modules/commander/LICENSE</url>
+                </license>
+            </licenses>
+        </dependency>
+        <dependency>
+            <packageName>node-builtins</packageName>
+            <version>0.1.1</version>
+            <licenses>
+                <license>
+                    <name>Apache-2.0</name>
+                    <url>/work/bucharest-gold/szero/node_modules/node-builtins/LICENSE</url>
+                </license>
+            </licenses>
+        </dependency>
+        <dependency>
+            <packageName>roi</packageName>
+            <version>0.15.0</version>
+            <licenses>
+                <license>
+                    <name>Apache-2.0</name>
+                    <url>/work/bucharest-gold/szero/node_modules/roi/LICENSE</url>
+                </license>
+            </licenses>
+        </dependency>
+    </dependencies>
+</licenseSummary>
 ```
 
 > Example using this project: https://github.com/bucharest-gold/genet
@@ -86,26 +108,42 @@ $ license-reporter --file=license2.xml
 
 ```xml
 <?xml version='1.0'?>
-<genet>
-    <license>
-        <name>cli-table2</name>
-        <version>0.2.0</version>
-        <license>MIT</license>
-        <file>/path/genet/node_modules/cli-table2/README.md</file>
-    </license>
-    <license>
-        <name>fidelity</name>
-        <version>4.2.0</version>
-        <license>MIT</license>
-        <file>/path/genet/node_modules/fidelity/LICENSE.txt</file>
-    </license>
-    <license>
-        <name>huilu</name>
-        <version>0.1.3</version>
-        <license>Apache-2.0</license>
-        <file>/path/genet/node_modules/huilu/LICENSE.txt</file>
-    </license>
-</genet>
+<licenseSummary>
+    <project>genet</project>
+    <version>0.0.7</version>
+    <dependencies>
+        <dependency>
+            <packageName>cli-table2</packageName>
+            <version>0.2.0</version>
+            <licenses>
+                <license>
+                    <name>MIT</name>
+                    <url>/work/bucharest-gold/genet/node_modules/cli-table2/README.md</url>
+                </license>
+            </licenses>
+        </dependency>
+        <dependency>
+            <packageName>fidelity</packageName>
+            <version>4.2.0</version>
+            <licenses>
+                <license>
+                    <name>MIT</name>
+                    <url>/work/bucharest-gold/genet/node_modules/fidelity/LICENSE.txt</url>
+                </license>
+            </licenses>
+        </dependency>
+        <dependency>
+            <packageName>huilu</packageName>
+            <version>0.1.3</version>
+            <licenses>
+                <license>
+                    <name>Apache-2.0</name>
+                    <url>/work/bucharest-gold/genet/node_modules/huilu/LICENSE.txt</url>
+                </license>
+            </licenses>
+        </dependency>
+    </dependencies>
+</licenseSummary>
 ```
 
 ### Asterix (*) in license name
