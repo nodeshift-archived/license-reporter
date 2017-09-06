@@ -28,14 +28,6 @@ yargs
     describe: 'outputs the license in html format to license.html',
     default: false
   })
-  .option('whitelist', {
-    describe: 'file containing licenses that are white-listed',
-    default: false
-  })
-  .option('blacklist', {
-    describe: 'file containing licenses that are black-listed',
-    default: false
-  })
   .option('unifiedlist', {
     describe: 'will use the default unified list containing licenses approved or not',
     default: false
@@ -73,8 +65,6 @@ var options = {
   silent: argv.silent,
   file: argv.file,
   html: argv.html,
-  whitelist: argv.whitelist,
-  blacklist: argv.whitelist,
   merge: argv.merge,
   mergeProductName: argv['merge-product-name'],
   mergeXmls: argv['merge-license-xmls'],
