@@ -143,18 +143,8 @@ function showWarnings (options, declaredDependencies, xmlObject) {
     console.log(`Please run 'license-reporter --ignore-version-range' to show all declared dependencies on generated xml.`);
   }
   warnings.print(unknown, 'UNKNOWN');
-
-  if (options.unifiedlist) {
-    const unifiedlist = require('../lib/unifiedlist.js');
-    unifiedlist.check(xmlObject);
-  } else {
-    const whitelist = reader.readListFile(options.whitelist);
-    const blacklist = reader.readListFile(options.blacklist);
-    warnings.print(require('../lib/whitelist.js')(whitelist).check(xmlObject),
-              'WHITE-LISTED');
-    warnings.print(require('../lib/blacklist.js')(blacklist).check(xmlObject),
-            'BLACK-LISTED');
-  }
+  const unifiedlist = require('../lib/unifiedlist.js');
+  unifiedlist.check(xmlObject);
 }
 
 // This function will scan the license data.

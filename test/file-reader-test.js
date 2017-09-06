@@ -5,16 +5,9 @@ const path = require('path');
 const proxyquire = require('proxyquire');
 const reader = require('../lib/file-reader.js');
 
-test('Should return null when whitelist not found.', (t) => {
+test('Should return null when file not found.', (t) => {
   t.plan(1);
   t.equal(null, reader.readListFile(), 'file not found, returned null.');
-  t.end();
-});
-
-test('Should read whitelist file.', (t) => {
-  const whitelistFile = path.join(__dirname, '../lib/resources/default-whitelist.json');
-  t.plan(1);
-  t.ok(reader.readListFile(whitelistFile).includes('MIT'), 'successful read the whitelist file.');
   t.end();
 });
 
@@ -40,7 +33,7 @@ test('Should return N/A for file not found.', (t) => {
 });
 
 test('Should return file as JSON.', (t) => {
-  const filePath = path.join(__dirname, '../lib/resources/default-whitelist.json');
+  const filePath = path.join(__dirname, '../lib/resources/default-unifiedlist.json');
   t.plan(1);
   t.ok(reader.readAsJson(filePath));
   t.end();
