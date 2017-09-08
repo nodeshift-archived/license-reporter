@@ -5,23 +5,41 @@ const html = require('../lib/html.js');
 
 test('Should generate html from xml', (t) => {
   t.plan(1);
-  const project = {
-    name: 'testProject',
-    licenses: {
-      license: [
-        {name: 'test1', version: '1.0', licenses: 'MIT', file: '...'},
-        {name: 'test2', version: '1.2', licenses: 'MIT', file: '...'}
+  const project2 = {
+    project: 'szero',
+    version: '1.0.0',
+    dependencies: {
+      dependency: [
+        { packageName: 'node-builtins',
+          version: '0.1.1',
+          licenses: {
+            license: [
+              { name: 'Apache License 2.0',
+                url: 'Foo' }
+            ]
+          }
+        },
+        {
+          packageName: 'roi',
+          version: '0.15.0',
+          licenses: {
+            license: [
+              { name: 'UNKNOWN', url: 'UNKNOWN' }
+            ]
+          }
+        }
       ]
     }
   };
-  html.parse(project).then(output => {
+
+  html.parse(project2).then(output => {
     const expected = String.raw`<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 <link rel="stylesheet" type="text/css" href="licenses.css">
 </head>
 <body>
-<h2>testProject</h2>
+<h2>szero</h2>
 <table>
 <tr>
 <th>Package Group</th>
@@ -31,18 +49,18 @@ test('Should generate html from xml', (t) => {
 <th>Local Licenses</th>
 </tr>
 <tr>
-<td>test1</td>
+<td>node-builtins</td>
 <td>N/A</td>
-<td>1.0</td>
-<td>MIT</td>
-<td>...</td>
+<td>0.1.1</td>
+<td>Foo</td>
+<td></td>
 </tr>
 <tr>
-<td>test2</td>
+<td>roi</td>
 <td>N/A</td>
-<td>1.2</td>
-<td>MIT</td>
-<td>...</td>
+<td>0.15.0</td>
+<td>UNKNOWN</td>
+<td></td>
 </tr>
 </table>
 </body>
