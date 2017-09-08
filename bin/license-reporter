@@ -52,7 +52,8 @@ yargs
     default: false
   })
   .option('namemap', {
-    describe: 'a file/url containing a mapping of license names'
+    describe: 'a file/url containing a mapping of license names',
+    default: path.join(__dirname, '../lib/resources/default-canonicalnames.json')
   })
   .help();
 
@@ -72,7 +73,7 @@ var options = {
   ignoreVersionRange: argv['ignore-version-range'],
   unifiedlist: argv.unifiedlist,
   verbose: argv.verbose,
-  namemap: argv['namemap'],
+  namemap: path.resolve(argv.namemap),
 };
 
 if (!options.directory || options.directory === '.') {

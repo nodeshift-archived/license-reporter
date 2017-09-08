@@ -11,8 +11,8 @@ test('Should map license names to one defined in map file', (t) => {
   t.equal(mapper.map('The MIT License'), 'MIT License', 'should map');
   t.equal(mapper.map('MIT'), 'MIT License', 'should map');
   t.equal(mapper.map('Something'), 'Some', 'should map');
-  t.equal(mapper.map('Bogus'), 'Bogus', 'unmapped should just pass through');
-  t.equal(mapper.map('MIT, AST'), 'MIT License, AST', 'should map comma separated');
+  t.equal(mapper.map('Bogus'), 'UNKNOWN', 'unmapped should just pass through');
+  t.equal(mapper.map('MIT, AST'), 'MIT License, UNKNOWN', 'should map comma separated');
   t.end();
 });
 

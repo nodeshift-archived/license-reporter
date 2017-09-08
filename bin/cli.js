@@ -9,6 +9,7 @@ const reader = require('../lib/file-reader.js');
 const js2xmlparser = require('js2xmlparser');
 const fs = require('fs');
 const path = require('path');
+const unifiedlist = require('../lib/unifiedlist.js');
 
 // Gets the project name from package.json.
 const projectName = (options) => require(`${options.directory}/package.json`).name;
@@ -48,14 +49,15 @@ function createHtml (options, xmlObject) {
 //    <file> file content here. </file>
 //  </license>
 const entry = (info, dependency, options) => {
+  const canonicalName = canonicalNameMapper.map(info.licenses);
+  const url = unifiedlist.urlForName(canonicalName);
   return {
     packageName: dependency.name,
     version: dependency.version,
     licenses: {
       license: [{
-        name: canonicalNameMapper.map(info.licenses),
-        url: options.verbose ? reader.readLicenseFile(info.licenseFile)
-          : info.licenseFile
+        name: canonicalName,
+        url: options.verbose ? reader.readLicenseFile(info.licenseFile) : url
       }]
     }
   };
@@ -143,7 +145,6 @@ function showWarnings (options, declaredDependencies, xmlObject) {
     console.log(`Please run 'license-reporter --ignore-version-range' to show all declared dependencies on generated xml.`);
   }
   warnings.print(unknown, 'UNKNOWN');
-  const unifiedlist = require('../lib/unifiedlist.js');
   unifiedlist.check(xmlObject);
 }
 

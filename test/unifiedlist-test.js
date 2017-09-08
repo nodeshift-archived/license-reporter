@@ -122,3 +122,14 @@ test('Should print approved and approved licenses', (t) => {
   t.deepEqual(log, expected);
   t.end();
 });
+
+test('Should return url for the specified license name', (t) => {
+  t.plan(4);
+  t.equal(unifiedlist.urlForName('3dfx Glide License'),
+      'http://www.users.on.net/~triforce/glidexp/COPYING.txt');
+  t.equal(unifiedlist.urlForName('4Suite Copyright License'), '');
+  t.equal(unifiedlist.urlForName('UNKNOWN'), 'UNKNOWN');
+  t.throws(() => { unifiedlist.urlForName('bogus'); },
+      'No URL was found for [bogus]');
+  t.end();
+});
