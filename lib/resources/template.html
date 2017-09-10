@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="licenses.css">
 </head>
 <body>
-<h2>{{name}}</h2>
+<h2>{{project}}</h2>
 <table>
 <tr>
 <th>Package Group</th>
@@ -13,15 +13,15 @@
 <th>Remote Licenses</th>
 <th>Local Licenses</th>
 </tr>
-{{#licenses.license}}
+{{#dependencies.dependency}}
 <tr>
-<td>{{name}}</td>
+<td>{{packageName}}</td>
 <td>N/A</td>
 <td>{{version}}</td>
-<td>{{licenses}}</td>
-<td>{{file}}</td>
+<td>{{#licenses.license}}{{url}}{{/licenses.license}}</td>
+<td>{{url}}</td>
 </tr>
-{{/licenses.license}}
+{{/dependencies.dependency}}
 </table>
 </body>
 </html>
