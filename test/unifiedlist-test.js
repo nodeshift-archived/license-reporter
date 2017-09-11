@@ -133,3 +133,10 @@ test('Should return url for the specified license name', (t) => {
       'No URL was found for [bogus]');
   t.end();
 });
+
+test('urlForName should be able to handle comma separated names', (t) => {
+  t.plan(1);
+  t.equal(unifiedlist.urlForName('3dfx Glide License, UNKNOWN'),
+      'http://www.users.on.net/~triforce/glidexp/COPYING.txt, UNKNOWN');
+  t.end();
+});
