@@ -53,7 +53,7 @@ yargs
   })
   .option('name-map', {
     describe: 'a file/url containing a mapping of license names',
-    default: 'license-reporter/lib/resources/default-canonical-names.json'
+    default: path.join(__dirname, '../lib/resources/default-canonical-names.json')
   })
   .help();
 
