@@ -63,25 +63,15 @@ $ license-reporter --file=license1.xml
 <?xml version='1.0'?>
 <licenseSummary>
     <project>szero</project>
-    <version>0.9.3</version>
+    <version>1.0.0</version>
     <dependencies>
-        <dependency>
-            <packageName>commander</packageName>
-            <version>2.9.0</version>
-            <licenses>
-                <license>
-                    <name>MIT</name>
-                    <url>/work/bucharest-gold/szero/node_modules/commander/LICENSE</url>
-                </license>
-            </licenses>
-        </dependency>
         <dependency>
             <packageName>node-builtins</packageName>
             <version>0.1.1</version>
             <licenses>
                 <license>
-                    <name>Apache-2.0</name>
-                    <url>/work/bucharest-gold/szero/node_modules/node-builtins/LICENSE</url>
+                    <name>Apache License 2.0</name>
+                    <url>http://www.apache.org/licenses/LICENSE-2.0</url>
                 </license>
             </licenses>
         </dependency>
@@ -90,13 +80,19 @@ $ license-reporter --file=license1.xml
             <version>0.15.0</version>
             <licenses>
                 <license>
-                    <name>Apache-2.0</name>
-                    <url>/work/bucharest-gold/szero/node_modules/roi/LICENSE</url>
+                    <name>Apache License 2.0</name>
+                    <url>http://www.apache.org/licenses/LICENSE-2.0</url>
                 </license>
             </licenses>
         </dependency>
     </dependencies>
 </licenseSummary>
+Dependencies found in package.json but not in xml: commander,decomment
+Please run 'license-reporter --ignore-version-range' to show all declared dependencies on generated xml.
+========= APPROVED LICENSES        ==========
+name: node-builtins , version: 0.1.1 , licenses: Apache License 2.0
+name: roi , version: 0.15.0 , licenses: Apache License 2.0
+========= APPROVED LICENSES        ==========
 ```
 
 > Example using this project: https://github.com/bucharest-gold/genet
@@ -118,8 +114,8 @@ $ license-reporter --file=license2.xml
             <version>0.2.0</version>
             <licenses>
                 <license>
-                    <name>MIT</name>
-                    <url>/work/bucharest-gold/genet/node_modules/cli-table2/README.md</url>
+                    <name>MIT License</name>
+                    <url>http://www.opensource.org/licenses/MIT</url>
                 </license>
             </licenses>
         </dependency>
@@ -128,8 +124,8 @@ $ license-reporter --file=license2.xml
             <version>4.2.0</version>
             <licenses>
                 <license>
-                    <name>MIT</name>
-                    <url>/work/bucharest-gold/genet/node_modules/fidelity/LICENSE.txt</url>
+                    <name>MIT License</name>
+                    <url>http://www.opensource.org/licenses/MIT</url>
                 </license>
             </licenses>
         </dependency>
@@ -138,13 +134,20 @@ $ license-reporter --file=license2.xml
             <version>0.1.3</version>
             <licenses>
                 <license>
-                    <name>Apache-2.0</name>
-                    <url>/work/bucharest-gold/genet/node_modules/huilu/LICENSE.txt</url>
+                    <name>Apache License 2.0</name>
+                    <url>http://www.apache.org/licenses/LICENSE-2.0</url>
                 </license>
             </licenses>
         </dependency>
     </dependencies>
 </licenseSummary>
+Dependencies found in package.json but not in xml: @risingstack/v8-profiler
+Please run 'license-reporter --ignore-version-range' to show all declared dependencies on generated xml.
+========= APPROVED LICENSES        ==========
+name: huilu , version: 0.1.3 , licenses: Apache License 2.0
+name: cli-table2 , version: 0.2.0 , licenses: MIT License
+name: fidelity , version: 4.2.0 , licenses: MIT License
+========= APPROVED LICENSES        ==========
 ```
 
 ### Asterisk (*) in license name
@@ -172,42 +175,70 @@ $ cat merged.xml
 <?xml version='1.0'?>
 <UberProject>
     <project>
-        <szero>
-            <license>
-                <name>node-builtins</name>
-                <version>0.1.1</version>
-                <license>Apache-2.0</license>
-                <file>/path/szero/node_modules/node-builtins/LICENSE</file>
-            </license>
-            <license>
-                <name>roi</name>
-                <version>0.15.0</version>
-                <license>Apache-2.0</license>
-                <file>/path/szero/node_modules/roi/README.md</file>
-            </license>
-        </szero>
+        <licenseSummary>
+            <project>szero</project>
+            <version>1.0.0</version>
+            <dependencies>
+                <dependency>
+                    <packageName>node-builtins</packageName>
+                    <version>0.1.1</version>
+                    <licenses>
+                        <license>
+                            <name>Apache License 2.0</name>
+                            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+                        </license>
+                    </licenses>
+                </dependency>
+                <dependency>
+                    <packageName>roi</packageName>
+                    <version>0.15.0</version>
+                    <licenses>
+                        <license>
+                            <name>Apache License 2.0</name>
+                            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+                        </license>
+                    </licenses>
+                </dependency>
+            </dependencies>
+        </licenseSummary>
     </project>
     <project>
-        <genet>
-            <license>
-                <name>cli-table2</name>
-                <version>0.2.0</version>
-                <license>MIT</license>
-                <file>/path/genet/node_modules/cli-table2/README.md</file>
-            </license>
-            <license>
-                <name>fidelity</name>
-                <version>4.2.0</version>
-                <license>MIT</license>
-                <file>/path/genet/node_modules/fidelity/LICENSE.txt</file>
-            </license>
-            <license>
-                <name>huilu</name>
-                <version>0.1.3</version>
-                <license>Apache-2.0</license>
-                <file>/path/genet/node_modules/huilu/LICENSE.txt</file>
-            </license>
-        </genet>
+        <licenseSummary>
+            <project>genet</project>
+            <version>0.0.7</version>
+            <dependencies>
+                <dependency>
+                    <packageName>cli-table2</packageName>
+                    <version>0.2.0</version>
+                    <licenses>
+                        <license>
+                            <name>MIT License</name>
+                            <url>http://www.opensource.org/licenses/MIT</url>
+                        </license>
+                    </licenses>
+                </dependency>
+                <dependency>
+                    <packageName>fidelity</packageName>
+                    <version>4.2.0</version>
+                    <licenses>
+                        <license>
+                            <name>MIT License</name>
+                            <url>http://www.opensource.org/licenses/MIT</url>
+                        </license>
+                    </licenses>
+                </dependency>
+                <dependency>
+                    <packageName>huilu</packageName>
+                    <version>0.1.3</version>
+                    <licenses>
+                        <license>
+                            <name>Apache License 2.0</name>
+                            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+                        </license>
+                    </licenses>
+                </dependency>
+            </dependencies>
+        </licenseSummary>
     </project>
 </UberProject>
 ```
@@ -222,7 +253,7 @@ Also possible to generate a xml with licenses from all sub-modules:
 cd szero
 $ license-reporter --all --file=all.xml
 $ du -s -h all.xml
-664K	all.xml
+188K	all.xml
 ```
 
 ## How licenses are found in files
