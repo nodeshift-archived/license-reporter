@@ -31,6 +31,8 @@ Options:
   --silent                hides the console output              [default: false]
   --html                  outputs the license in html format to license.html
                                                                 [default: false]
+  --css                   css file to apply style on html report
+             [default: "license-reporter/lib/resources/licenses.css"]
   --unified-list          will use the default unified list containing licenses
                           approved or not                       [default: false]
   --merge                 merge license.xml files               [default: false]
@@ -42,7 +44,8 @@ Options:
   --verbose               include the license content in the xml and not just
                           the path to the file                  [default: false]
   --name-map              a file/url containing a mapping of license names
-        [default: "license-reporter/lib/resources/default-canonical-names.json"]
+                                                                       [default:
+       "license-reporter/lib/resources/default-canonical-names.json"]
   --help                  Show help                                    [boolean]
 ```
 
@@ -221,6 +224,18 @@ $ license-reporter --all --file=all.xml
 $ du -s -h all.xml
 664K	all.xml
 ```
+
+## How licenses are found in files
+
+We are using [license-checker](https://github.com/davglass/license-checker) tool to search licenses inside files.
+
+The order in which `license-checker` tool looks for the licenses is:
+
+1. package.json
+2. Try to identify the license with the spdx module to see if it has a valid SPDX license attached. 
+If that fails, we then look into the module for the following files: LICENSE, COPYING & README.
+
+> More details here: https://github.com/davglass/license-checker#how-licenses-are-found
 
 ## Contributing
 Please read the [contributing guide](./CONTRIBUTING.md)
