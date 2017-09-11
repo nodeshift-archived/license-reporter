@@ -2,7 +2,8 @@
 
 const test = require('tape');
 const stdout = require('test-console').stdout;
-const unifiedlist = require('../lib/unifiedlist.js');
+const unifiedList = require('../lib/unified-list.js');
+const unifiedListJSON = require('../lib/resources/default-unified-list.json');
 
 const xmlObject = {
   dependencies: {
@@ -31,7 +32,7 @@ const xmlObject = {
 
 test('Should get the licenses from xmlObject', (t) => {
   t.plan(3);
-  const licenses = unifiedlist._getLicensesFromXmlObject(xmlObject);
+  const licenses = unifiedList._getLicensesFromXmlObject(xmlObject);
   t.equal(licenses.length, 2);
   t.equal(licenses[0].license, 'MIT');
   t.equal(licenses[1].license, '9wm License (Original)');
@@ -40,30 +41,28 @@ test('Should get the licenses from xmlObject', (t) => {
 
 test('Should get approved only from xmlObject based on unified list', (t) => {
   t.plan(1);
-  const licenses = unifiedlist._getLicensesFromXmlObject(xmlObject);
+  const licenses = unifiedList._getLicensesFromXmlObject(xmlObject);
   const approvedList = [];
-  const unifiedList = require('../lib/resources/default-unifiedlist.json');
-  Object.keys(unifiedList).forEach(key => {
-    if (unifiedList[key].approved === 'yes') {
-      approvedList.push(unifiedList[key]);
+  Object.keys(unifiedListJSON).forEach(key => {
+    if (unifiedListJSON[key].approved === 'yes') {
+      approvedList.push(unifiedListJSON[key]);
     }
   });
-  const approved = unifiedlist._findApproved(approvedList, licenses);
+  const approved = unifiedList._findApproved(approvedList, licenses);
   t.equal(Array.from(approved)[0].license, 'MIT');
   t.end();
 });
 
 test('Should get not approved only from xmlObject based on unified list', (t) => {
   t.plan(1);
-  const licenses = unifiedlist._getLicensesFromXmlObject(xmlObject);
+  const licenses = unifiedList._getLicensesFromXmlObject(xmlObject);
   const notApprovedList = [];
-  const unifiedList = require('../lib/resources/default-unifiedlist.json');
-  Object.keys(unifiedList).forEach(key => {
-    if (unifiedList[key].approved !== 'yes') {
-      notApprovedList.push(unifiedList[key]);
+  Object.keys(unifiedListJSON).forEach(key => {
+    if (unifiedListJSON[key].approved !== 'yes') {
+      notApprovedList.push(unifiedListJSON[key]);
     }
   });
-  const notApproved = unifiedlist._findNotApproved(notApprovedList, licenses);
+  const notApproved = unifiedList._findNotApproved(notApprovedList, licenses);
   t.equal(Array.from(notApproved)[0].license, '9wm License (Original)');
   t.end();
 });
@@ -74,16 +73,15 @@ test('Should print approved licenses', (t) => {
     'name: testProject , version: 1.0.0 , licenses: MIT\n',
     '========= APPROVED LICENSES        ==========\n'];
 
-  const licenses = unifiedlist._getLicensesFromXmlObject(xmlObject);
+  const licenses = unifiedList._getLicensesFromXmlObject(xmlObject);
   const approvedList = [];
-  const unifiedList = require('../lib/resources/default-unifiedlist.json');
-  Object.keys(unifiedList).forEach(key => {
-    if (unifiedList[key].approved === 'yes') {
-      approvedList.push(unifiedList[key]);
+  Object.keys(unifiedListJSON).forEach(key => {
+    if (unifiedListJSON[key].approved === 'yes') {
+      approvedList.push(unifiedListJSON[key]);
     }
   });
-  const approved = unifiedlist._findApproved(approvedList, licenses);
-  const log = stdout.inspectSync(() => { unifiedlist._printApproved(approved); });
+  const approved = unifiedList._findApproved(approvedList, licenses);
+  const log = stdout.inspectSync(() => { unifiedList._printApproved(approved); });
   t.deepEqual(log, expected);
   t.end();
 });
@@ -94,16 +92,15 @@ test('Should print not approved licenses', (t) => {
     'name: notApproved , version: 2.0.0 , licenses: 9wm License (Original)\n',
     '========= NOT APPROVED LICENSES    ==========\n'];
 
-  const licenses = unifiedlist._getLicensesFromXmlObject(xmlObject);
+  const licenses = unifiedList._getLicensesFromXmlObject(xmlObject);
   const notApprovedList = [];
-  const unifiedList = require('../lib/resources/default-unifiedlist.json');
-  Object.keys(unifiedList).forEach(key => {
-    if (unifiedList[key].approved !== 'yes') {
-      notApprovedList.push(unifiedList[key]);
+  Object.keys(unifiedListJSON).forEach(key => {
+    if (unifiedListJSON[key].approved !== 'yes') {
+      notApprovedList.push(unifiedListJSON[key]);
     }
   });
-  const notApproved = unifiedlist._findNotApproved(notApprovedList, licenses);
-  const log = stdout.inspectSync(() => { unifiedlist._printNotApproved(notApproved); });
+  const notApproved = unifiedList._findNotApproved(notApprovedList, licenses);
+  const log = stdout.inspectSync(() => { unifiedList._printNotApproved(notApproved); });
   t.deepEqual(log, expected);
   t.end();
 });
@@ -117,7 +114,7 @@ test('Should print approved and approved licenses', (t) => {
     'name: notApproved , version: 2.0.0 , licenses: 9wm License (Original)\n',
     '========= NOT APPROVED LICENSES    ==========\n'];
   const log = stdout.inspectSync(() => {
-    unifiedlist.check(xmlObject);
+    unifiedList.check(xmlObject);
   });
   t.deepEqual(log, expected);
   t.end();
@@ -125,18 +122,18 @@ test('Should print approved and approved licenses', (t) => {
 
 test('Should return url for the specified license name', (t) => {
   t.plan(4);
-  t.equal(unifiedlist.urlForName('3dfx Glide License'),
+  t.equal(unifiedList.urlForName('3dfx Glide License'),
       'http://www.users.on.net/~triforce/glidexp/COPYING.txt');
-  t.equal(unifiedlist.urlForName('4Suite Copyright License'), '');
-  t.equal(unifiedlist.urlForName('UNKNOWN'), 'UNKNOWN');
-  t.throws(() => { unifiedlist.urlForName('bogus'); },
+  t.equal(unifiedList.urlForName('4Suite Copyright License'), '');
+  t.equal(unifiedList.urlForName('UNKNOWN'), 'UNKNOWN');
+  t.throws(() => { unifiedList.urlForName('bogus'); },
       'No URL was found for [bogus]');
   t.end();
 });
 
 test('urlForName should be able to handle comma separated names', (t) => {
   t.plan(1);
-  t.equal(unifiedlist.urlForName('3dfx Glide License, UNKNOWN'),
+  t.equal(unifiedList.urlForName('3dfx Glide License, UNKNOWN'),
       'http://www.users.on.net/~triforce/glidexp/COPYING.txt, UNKNOWN');
   t.end();
 });

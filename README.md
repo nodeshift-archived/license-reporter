@@ -31,11 +31,7 @@ Options:
   --silent                hides the console output              [default: false]
   --html                  outputs the license in html format to license.html
                                                                 [default: false]
-  --whitelist             file containing licenses that are white-listed
-                                                                [default: false]
-  --blacklist             file containing licenses that are black-listed
-                                                                [default: false]
-  --unifiedlist           will use the default unified list containing licenses
+  --unified-list          will use the default unified list containing licenses
                           approved or not                       [default: false]
   --merge                 merge license.xml files               [default: false]
   --merge-product-name    the name the product which the license.xml are part of
@@ -45,7 +41,8 @@ Options:
   --merge-output          file to write the merged license info to
   --verbose               include the license content in the xml and not just
                           the path to the file                  [default: false]
-  --namemap               a file/url containing a mapping of license names
+  --name-map              a file/url containing a mapping of license names
+        [default: "license-reporter/lib/resources/default-canonical-names.json"]
   --help                  Show help                                    [boolean]
 ```
 
@@ -147,8 +144,8 @@ $ license-reporter --file=license2.xml
 </licenseSummary>
 ```
 
-### Asterix (*) in license name
-In the console output you may come across a license name which contains an asterix, for example:
+### Asterisk (*) in license name
+In the console output you may come across a license name which contains an asterisk, for example:
 
     ========= WARNING WHITE-LISTED LICENSES ==========
     name: express-bunyan-logger , version: 1.3.1 , licenses: BSD*

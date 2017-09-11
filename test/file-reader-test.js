@@ -33,7 +33,7 @@ test('Should return N/A for file not found.', (t) => {
 });
 
 test('Should return file as JSON.', (t) => {
-  const filePath = path.join(__dirname, '../lib/resources/default-unifiedlist.json');
+  const filePath = path.join(__dirname, '../lib/resources/default-unified-list.json');
   t.plan(1);
   t.ok(reader.readAsJson(filePath));
   t.end();

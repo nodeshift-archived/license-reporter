@@ -9,7 +9,7 @@ const reader = require('../lib/file-reader.js');
 const js2xmlparser = require('js2xmlparser');
 const fs = require('fs');
 const path = require('path');
-const unifiedlist = require('../lib/unifiedlist.js');
+const unifiedList = require('../lib/unified-list.js');
 
 // Gets the project name from package.json.
 const projectName = (options) => require(`${options.directory}/package.json`).name;
@@ -50,7 +50,7 @@ function createHtml (options, xmlObject) {
 //  </license>
 const entry = (info, dependency, options) => {
   const canonicalName = canonicalNameMapper.map(info.licenses);
-  const url = unifiedlist.urlForName(canonicalName);
+  const url = unifiedList.urlForName(canonicalName);
   return {
     packageName: dependency.name,
     version: dependency.version,
@@ -145,7 +145,7 @@ function showWarnings (options, declaredDependencies, xmlObject) {
     console.log(`Please run 'license-reporter --ignore-version-range' to show all declared dependencies on generated xml.`);
   }
   warnings.print(unknown, 'UNKNOWN');
-  unifiedlist.check(xmlObject);
+  unifiedList.check(xmlObject);
 }
 
 // This function will scan the license data.
@@ -204,10 +204,10 @@ function mergeXmls (options) {
 // print warnings and create html in case needed.
 function run (options) {
   let mappings = [];
-  if (options.namemap) {
-    mappings = reader.readAsJson(options.namemap);
+  if (options.nameMap) {
+    mappings = reader.readAsJson(options.nameMap);
     if (mappings === null) {
-      console.error('Could not find namemap file: ', options.namemap);
+      console.error('Could not find name map file: ', options.nameMap);
       process.exit(3);
     }
   }
