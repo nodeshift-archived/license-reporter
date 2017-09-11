@@ -37,8 +37,12 @@ function createHtml (options, xmlObject) {
     fs.writeFileSync('license.html', output);
   });
   // copy the file licenses.css to the same level of license.html.
-  fs.createReadStream(path.join(__dirname, '../lib/resources/licenses.css'))
-  .pipe(fs.createWriteStream(path.join(options.directory, 'licenses.css')));
+  if (fs.existsSync(options.css)) {
+    fs.createReadStream(path.resolve(options.css))
+    .pipe(fs.createWriteStream(path.join(options.directory, 'licenses.css')));
+  } else {
+    console.error(`CSS file not found: ${options.css}`);
+  }
 }
 
 // The generated XMl element will be like this example:
