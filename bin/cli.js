@@ -98,14 +98,15 @@ function addLicenseEntryIgnoreVersionRange (xmlElement, identifier, json, option
 
 // Returns an object that will represent the XML element.
 const createXmlObject = (options) => {
-  return {
+  const xmlObject = {
     project: projectName(options),
-    version: projectVersion(options),
-    dependencies: {
-      dependency: [
-      ]
-    }
+    version: projectVersion(options)
   };
+  if (options.metadata) {
+    xmlObject.license = projectLicense(options);
+  }
+  xmlObject.dependencies = {dependency: []};
+  return xmlObject;
 };
 
 // Gathers the licenses of the json for each

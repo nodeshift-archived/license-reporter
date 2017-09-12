@@ -46,7 +46,10 @@ Options:
   --name-map              a file/url containing a mapping of license names
                                                                        [default:
        "license-reporter/lib/resources/default-canonical-names.json"]
+  --metadata              includes metadata for the current project
+                                                                [default: false]
   --help                  Show help                                    [boolean]
+
 ```
 
 ## Example output
