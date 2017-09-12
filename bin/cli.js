@@ -172,8 +172,16 @@ function checkLicense (options, declaredDependencies) {
 // directory.
 const nodeModulesFound = (dir) => {
   const modulesDir = path.join(dir, 'node_modules');
-  const content = fs.readdirSync(modulesDir).filter(e => e !== '.bin');
-  return fs.existsSync(modulesDir) && content.length > 0;
+  if (fs.existsSync(modulesDir)) {
+    const content = fs.readdirSync(modulesDir).filter(e => e !== '.bin');
+    if (content.length > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+  }
 };
 
 // This function will merge previous generated xmls.
@@ -207,17 +215,16 @@ function mergeXmls (options) {
 // to gather licenses. Also create the xml,
 // print warnings and create html in case needed.
 function run (options) {
-  let mappings = [];
-  if (options.nameMap) {
-    mappings = reader.readAsJson(options.nameMap);
-    if (mappings === null) {
-      console.error('Could not find name map file: ', options.nameMap);
-      process.exit(3);
-    }
-  }
-  canonicalNameMapper = require('../lib/canonical-name.js')(mappings);
-
   if (nodeModulesFound(options.directory)) {
+    let mappings = [];
+    if (options.nameMap) {
+      mappings = reader.readAsJson(options.nameMap);
+      if (mappings === null) {
+        console.error('Could not find name map file: ', options.nameMap);
+        process.exit(3);
+      }
+    }
+    canonicalNameMapper = require('../lib/canonical-name.js')(mappings);
     if (options.merge) {
       mergeXmls(options);
       return;
