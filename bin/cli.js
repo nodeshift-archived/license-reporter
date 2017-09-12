@@ -11,9 +11,10 @@ const fs = require('fs');
 const path = require('path');
 const unifiedList = require('../lib/unified-list.js');
 
-// Gets the project name from package.json.
+// Gets the project name, version and license from package.json.
 const projectName = (options) => require(`${options.directory}/package.json`).name;
 const projectVersion = (options) => require(`${options.directory}/package.json`).version;
+const projectLicense = (options) => require(`${options.directory}/package.json`).license;
 
 // Gets the project dependencies from package.json.
 const projectDependencies = (options) => require(`${options.directory}/package.json`).dependencies;
@@ -243,7 +244,9 @@ function run (options) {
       console.error(e);
     });
   } else {
-    console.error('You need to run \'npm install\' before search for license information.');
+    const xmlObject = createXmlObject(options);
+    xmlObject.license = projectLicense(options);
+    createXml(options, xmlObject);
   }
 }
 
