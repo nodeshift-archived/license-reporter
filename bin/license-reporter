@@ -59,6 +59,10 @@ yargs
     describe: 'a file/url containing a mapping of license names',
     default: path.join(__dirname, '../lib/resources/default-canonical-names.json')
   })
+  .option('metadata', {
+    describe: 'includes metadata for the current project',
+    default: false
+  })
   .help();
 
 const argv = yargs.argv;
@@ -78,7 +82,8 @@ var options = {
   ignoreVersionRange: argv['ignore-version-range'],
   unifiedList: argv['unified-list'],
   verbose: argv.verbose,
-  nameMap: path.resolve(argv['name-map'])
+  nameMap: path.resolve(argv['name-map']),
+  metadata: argv.metadata
 };
 
 if (!options.directory || options.directory === '.') {
