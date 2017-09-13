@@ -1,9 +1,16 @@
 'use strict';
 
+const rewire = require('rewire');
 const test = require('tape');
 const stdout = require('test-console').stdout;
 const unifiedList = require('../lib/unified-list.js');
 const unifiedListJSON = require('../lib/resources/default-unified-list.json');
+const rewired = rewire('../lib/unified-list.js');
+const getLicensesFromXmlObject = rewired.__get__('getLicensesFromXmlObject');
+const findApproved = rewired.__get__('findApproved');
+const findNotApproved = rewired.__get__('findNotApproved');
+const printApproved = rewired.__get__('printApproved');
+const printNotApproved = rewired.__get__('printNotApproved');
 
 const xmlObject = {
   dependencies: {
@@ -32,7 +39,7 @@ const xmlObject = {
 
 test('Should get the licenses from xmlObject', (t) => {
   t.plan(3);
-  const licenses = unifiedList._getLicensesFromXmlObject(xmlObject);
+  const licenses = getLicensesFromXmlObject(xmlObject);
   t.equal(licenses.length, 2);
   t.equal(licenses[0].license, 'MIT');
   t.equal(licenses[1].license, '9wm License (Original)');
@@ -41,28 +48,28 @@ test('Should get the licenses from xmlObject', (t) => {
 
 test('Should get approved only from xmlObject based on unified list', (t) => {
   t.plan(1);
-  const licenses = unifiedList._getLicensesFromXmlObject(xmlObject);
+  const licenses = getLicensesFromXmlObject(xmlObject);
   const approvedList = [];
   Object.keys(unifiedListJSON).forEach(key => {
     if (unifiedListJSON[key].approved === 'yes') {
       approvedList.push(unifiedListJSON[key]);
     }
   });
-  const approved = unifiedList._findApproved(approvedList, licenses);
+  const approved = findApproved(approvedList, licenses);
   t.equal(Array.from(approved)[0].license, 'MIT');
   t.end();
 });
 
 test('Should get not approved only from xmlObject based on unified list', (t) => {
   t.plan(1);
-  const licenses = unifiedList._getLicensesFromXmlObject(xmlObject);
+  const licenses = getLicensesFromXmlObject(xmlObject);
   const notApprovedList = [];
   Object.keys(unifiedListJSON).forEach(key => {
     if (unifiedListJSON[key].approved !== 'yes') {
       notApprovedList.push(unifiedListJSON[key]);
     }
   });
-  const notApproved = unifiedList._findNotApproved(notApprovedList, licenses);
+  const notApproved = findNotApproved(notApprovedList, licenses);
   t.equal(Array.from(notApproved)[0].license, '9wm License (Original)');
   t.end();
 });
@@ -73,15 +80,15 @@ test('Should print approved licenses', (t) => {
     'name: testProject , version: 1.0.0 , licenses: MIT\n',
     '========= APPROVED LICENSES        ==========\n'];
 
-  const licenses = unifiedList._getLicensesFromXmlObject(xmlObject);
+  const licenses = getLicensesFromXmlObject(xmlObject);
   const approvedList = [];
   Object.keys(unifiedListJSON).forEach(key => {
     if (unifiedListJSON[key].approved === 'yes') {
       approvedList.push(unifiedListJSON[key]);
     }
   });
-  const approved = unifiedList._findApproved(approvedList, licenses);
-  const log = stdout.inspectSync(() => { unifiedList._printApproved(approved); });
+  const approved = findApproved(approvedList, licenses);
+  const log = stdout.inspectSync(() => { printApproved(approved); });
   t.deepEqual(log, expected);
   t.end();
 });
@@ -92,15 +99,15 @@ test('Should print not approved licenses', (t) => {
     'name: notApproved , version: 2.0.0 , licenses: 9wm License (Original)\n',
     '========= NOT APPROVED LICENSES    ==========\n'];
 
-  const licenses = unifiedList._getLicensesFromXmlObject(xmlObject);
+  const licenses = getLicensesFromXmlObject(xmlObject);
   const notApprovedList = [];
   Object.keys(unifiedListJSON).forEach(key => {
     if (unifiedListJSON[key].approved !== 'yes') {
       notApprovedList.push(unifiedListJSON[key]);
     }
   });
-  const notApproved = unifiedList._findNotApproved(notApprovedList, licenses);
-  const log = stdout.inspectSync(() => { unifiedList._printNotApproved(notApproved); });
+  const notApproved = findNotApproved(notApprovedList, licenses);
+  const log = stdout.inspectSync(() => { printNotApproved(notApproved); });
   t.deepEqual(log, expected);
   t.end();
 });

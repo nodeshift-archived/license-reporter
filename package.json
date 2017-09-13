@@ -44,6 +44,7 @@
     "nsp": "^2.6.1",
     "nyc": "^11.0.2",
     "proxyquire": "^1.8.0",
+    "rewire": "^2.5.2",
     "standard-version": "^3.0.0",
     "tap-spec": "^4.1.1",
     "tape": "^4.6.0",
