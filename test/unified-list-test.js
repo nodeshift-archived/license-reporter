@@ -3,6 +3,7 @@
 const rewire = require('rewire');
 const test = require('tape');
 const stdout = require('test-console').stdout;
+const stderr = require('test-console').stderr;
 const unifiedList = require('../lib/unified-list.js');
 const unifiedListJSON = require('../lib/resources/default-unified-list.json');
 const rewired = rewire('../lib/unified-list.js');
@@ -128,13 +129,16 @@ test('Should print approved and approved licenses', (t) => {
 });
 
 test('Should return url for the specified license name', (t) => {
-  t.plan(4);
+  t.plan(5);
   t.equal(unifiedList.urlForName('3dfx Glide License'),
       'http://www.users.on.net/~triforce/glidexp/COPYING.txt');
   t.equal(unifiedList.urlForName('4Suite Copyright License'), '');
   t.equal(unifiedList.urlForName('UNKNOWN'), 'UNKNOWN');
-  t.throws(() => { unifiedList.urlForName('bogus'); },
-      'No URL was found for [bogus]');
+  const result = unifiedList.urlForName('bogus');
+  t.equal(result, 'UNKNOWN');
+  const expected = ['No URL was found for [bogus]\n'];
+  const log = stderr.inspectSync(() => unifiedList.urlForName('bogus'));
+  t.deepEqual(log, expected);
   t.end();
 });
 
