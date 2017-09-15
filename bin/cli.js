@@ -1,12 +1,10 @@
 'use strict';
 
 const checker = require('license-checker');
-const xml = require('../lib/xml.js');
-const html = require('../lib/html.js');
 const versionHandler = require('../lib/version-handler.js');
 const warnings = require('../lib/warnings.js');
 const reader = require('../lib/file-reader.js');
-const js2xmlparser = require('js2xmlparser');
+const writer = require('../lib/file-writer.js');
 const fs = require('fs');
 const path = require('path');
 const unifiedList = require('../lib/unified-list.js');
@@ -20,31 +18,6 @@ const projectLicense = (options) => require(`${options.directory}/package.json`)
 const projectDependencies = (options) => require(`${options.directory}/package.json`).dependencies;
 
 let canonicalNameMapper;
-
-// Creates a xml file and/or send to stdout based on the options.
-function createXml (options, xmlObject) {
-  const createdXml = js2xmlparser.parse('licenseSummary', xmlObject);
-  if (!options.silent) {
-    console.log(createdXml);
-  }
-  if (options.file) {
-    fs.writeFileSync(options.file, createdXml);
-  }
-}
-
-// Creates a html file with license data.
-function createHtml (options, xmlObject) {
-  html.parse(xmlObject).then(output => {
-    fs.writeFileSync('license.html', output);
-  });
-  // copy the file licenses.css to the same level of license.html.
-  if (fs.existsSync(options.css)) {
-    fs.createReadStream(path.resolve(options.css))
-    .pipe(fs.createWriteStream(path.join(options.directory, 'licenses.css')));
-  } else {
-    console.error(`CSS file not found: ${options.css}`);
-  }
-}
 
 // The generated XMl element will be like this example:
 //  <license>
@@ -186,33 +159,6 @@ const nodeModulesFound = (dir) => {
   }
 };
 
-// This function will merge previous generated xmls.
-function mergeXmls (options) {
-  if (!options.mergeProductName) {
-    console.error('merge feature requires a product name');
-    process.exit(1);
-  }
-  if (!options.mergeXmls) {
-    console.error('merge feature requires a two or more licence.xml files to merge');
-    process.exit(1);
-  }
-  const xmls = [];
-  options.mergeXmls.split(',').forEach((file) => {
-    xmls.push(fs.readFileSync(file.trim(), 'utf8'));
-  });
-  xml.merge(options.mergeProductName, xmls).then(result => {
-    if (!options.silent) {
-      console.log(result);
-    }
-    if (options.mergeOutput) {
-      fs.writeFileSync(options.mergeOutput, result);
-    }
-  }).catch(e => {
-    console.error(e);
-    process.exit(2);
-  });
-}
-
 // This function is the license's entry point
 // to gather licenses. Also create the xml,
 // print warnings and create html in case needed.
@@ -228,18 +174,18 @@ function run (options) {
     }
     canonicalNameMapper = require('../lib/canonical-name.js')(mappings);
     if (options.merge) {
-      mergeXmls(options);
+      writer.mergeXmls(options);
       return;
     }
     const declaredDependencies = projectDependencies(options);
     checkLicense(options, declaredDependencies)
     .then(xmlObject => {
-      createXml(options, xmlObject);
+      writer.createXml(options, xmlObject);
       if (!options.silent) {
         showWarnings(options, declaredDependencies, xmlObject);
       }
       if (options.html) {
-        createHtml(options, xmlObject);
+        writer.createHtml(options, xmlObject);
       }
     }).catch(e => {
       console.error(e);
@@ -247,7 +193,7 @@ function run (options) {
   } else {
     const xmlObject = createXmlObject(options);
     xmlObject.license = projectLicense(options);
-    createXml(options, xmlObject);
+    writer.createXml(options, xmlObject);
   }
 }
 
