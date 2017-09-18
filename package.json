@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "js2xmlparser": "^3.0.0",
+    "jsonschema": "^1.2.0",
     "license-checker": "^13.0.1",
     "mustache": "^2.3.0",
     "sync-request": "^4.1.0",
