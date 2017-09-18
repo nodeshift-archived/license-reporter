@@ -43,11 +43,7 @@ test('Should create HTML file.', (t) => {
   return Promise.resolve(writer.createHtml(options, xmlObject))
   .then(() => {
     t.equal(fs.existsSync('license.html'), true, 'HTML file created.');
+    fs.unlink('license.html', () => {});
+    fs.unlink('licenses.css', () => {});
   });
-});
-
-test('Should cleanup.', (t) => {
-  fs.unlinkSync('license.html');
-  fs.unlinkSync('licenses.css');
-  t.end();
 });
