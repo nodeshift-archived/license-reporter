@@ -1,6 +1,6 @@
 'use strict';
 
-const test = require('tape');
+const test = require('blue-tape');
 const fs = require('fs');
 const path = require('path');
 const writer = require('../lib/file-writer.js');
@@ -40,11 +40,14 @@ test('Should create foo.xml.', (t) => {
 test('Should create HTML file.', (t) => {
   const options = {css: path.join(__dirname, '../lib/resources/licenses.css')};
   options.directory = process.cwd();
-  Promise.resolve(writer.createHtml(options, xmlObject))
+  return Promise.resolve(writer.createHtml(options, xmlObject))
   .then(() => {
     t.equal(fs.existsSync('license.html'), true, 'HTML file created.');
-    fs.unlinkSync('license.html');
-    fs.unlinkSync('licenses.css');
-    t.end();
   });
+});
+
+test('Should cleanup.', (t) => {
+  fs.unlinkSync('license.html');
+  fs.unlinkSync('licenses.css');
+  t.end();
 });
