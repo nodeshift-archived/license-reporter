@@ -47,3 +47,16 @@ test('Should create HTML file.', (t) => {
     fs.unlink('licenses.css', () => {});
   });
 });
+
+test('Should merge XMLs.', (t) => {
+  writer.createXml({file: 'foo.xml', silent: true}, xmlObject);
+  writer.createXml({file: 'bar.xml', silent: true}, xmlObject);
+  const options = {mergeProductName: 'fooBar', mergeXmls: 'foo.xml,bar.xml', mergeOutput: 'fooBar.xml'};
+  return Promise.resolve(writer.mergeXmls(options))
+  .then(() => {
+    t.equal(fs.access('fooBar.xml', (err) => { if (!err) return true; }, true));
+    fs.unlink('foo.xml', () => {});
+    fs.unlink('bar.xml', () => {});
+    setTimeout(() => fs.unlink('fooBar.xml', () => {}), 1000);
+  });
+});
