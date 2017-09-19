@@ -271,5 +271,25 @@ If that fails, we then look into the module for the following files: LICENSE, CO
 
 > More details here: https://github.com/davglass/license-checker#how-licenses-are-found
 
+## Approved and not approved licenses - "unified list"
+
+Previously we were using two files (blacklist and whitelist) for approved or disapproved licenses. Then came the need to have a "unified list" for approved and disapproved licenses, so we started calling it `unified-list`.
+
+The project currently has a default list, which can be found in: `license-reporter/lib/resources/default-unified-list.json`.
+
+You can use a custom license list. For this, we recommend that the default file be used and modified (only the values) for your need. We are using a verifier to validate the unified-list JSON schema. If any errors are found, (at the moment) you will see error messages like these:
+
+```
+Item: 2 - instance.id is not of a type (s) string
+Item: 3 - instance.id is not of a type (s) string
+Item: 3 - instance.approved is not of a type (s) string
+```
+
+So to use, just add the `--unified-list` parameter with the value of the file path.
+
+```
+$ license-reporter --unified-list=/full_path_here/my-unified-list.json
+```
+
 ## Contributing
 Please read the [contributing guide](./CONTRIBUTING.md)
