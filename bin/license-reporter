@@ -34,7 +34,7 @@ yargs
   })
   .option('unified-list', {
     describe: 'will use the default unified list containing licenses approved or not',
-    default: false
+    default: path.join(__dirname, '../lib/resources/default-unified-list.json')
   })
   .option('merge', {
     describe: 'merge license.xml files',
