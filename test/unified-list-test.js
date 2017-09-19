@@ -123,6 +123,7 @@ test('Should print approved and not approved licenses', (t) => {
     'name: notApproved , version: 2.0.0 , licenses: 9wm License (Original)\n',
     '========= NOT APPROVED LICENSES    ==========\n'];
   const options = {unifiedList: path.join(__dirname, '../lib/resources/default-unified-list.json')};
+  unifiedList.init(options);
   const log = stdout.inspectSync(() => {
     unifiedList.check(options, xmlObject);
   });
@@ -133,6 +134,7 @@ test('Should print approved and not approved licenses', (t) => {
 test('Should return url for the specified license name', (t) => {
   t.plan(5);
   const options = {unifiedList: path.join(__dirname, '../lib/resources/default-unified-list.json')};
+  unifiedList.init(options);
   t.equal(unifiedList.urlForName(options, '3dfx Glide License'),
       'http://www.users.on.net/~triforce/glidexp/COPYING.txt');
   t.equal(unifiedList.urlForName(options, '4Suite Copyright License'), '');
@@ -145,10 +147,11 @@ test('Should return url for the specified license name', (t) => {
   t.end();
 });
 
-// test('urlForName should be able to handle comma separated names', (t) => {
-//   t.plan(1);
-//   const options = {unifiedList: path.join(__dirname, '../lib/resources/default-unified-list.json')};
-//   t.equal(unifiedList.urlForName(options, '3dfx Glide License, UNKNOWN'),
-//       'http://www.users.on.net/~triforce/glidexp/COPYING.txt, UNKNOWN');
-//   t.end();
-// });
+test('urlForName should be able to handle comma separated names', (t) => {
+  t.plan(1);
+  const options = {unifiedList: path.join(__dirname, '../lib/resources/default-unified-list.json')};
+  unifiedList.init(options);
+  t.equal(unifiedList.urlForName(options, '3dfx Glide License, UNKNOWN'),
+      'http://www.users.on.net/~triforce/glidexp/COPYING.txt, UNKNOWN');
+  t.end();
+});
