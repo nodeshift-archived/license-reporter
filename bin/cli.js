@@ -28,6 +28,7 @@ let canonicalNameMapper;
 //  </license>
 const entry = (info, dependency, options) => {
   const canonicalName = canonicalNameMapper.map(info.licenses);
+  unifiedList.init(options);
   const url = unifiedList.urlForName(options, canonicalName);
   return {
     packageName: dependency.name,
@@ -124,6 +125,7 @@ function showWarnings (options, declaredDependencies, xmlObject) {
     console.log(`Please run 'license-reporter --ignore-version-range' to show all declared dependencies on generated xml.`);
   }
   warnings.print(unknown, 'UNKNOWN');
+  unifiedList.init(options);
   unifiedList.check(options, xmlObject);
 }
 
