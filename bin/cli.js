@@ -67,6 +67,11 @@ function addLicenseEntryIgnoreVersionRange (xmlElement, identifier, json, option
       xmlElement.dependencies.dependency.push(entry(json[key], nameVersion, options));
     }
   }
+  xmlElement.dependencies.dependency = xmlElement.dependencies.dependency
+  .filter((d, index, self) => self.findIndex((t) => {
+    console.log(t.licenses.license.length);
+    return t.version === d.version && t.licenses.license[0].name === d.licenses.license[0].name;
+  }) === index);
   return xmlElement;
 }
 
