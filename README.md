@@ -291,5 +291,17 @@ So to use, just add the `--unified-list` parameter with the value of the file pa
 $ license-reporter --unified-list=/full_path_here/my-unified-list.json
 ```
 
+## WARNING about unknown licenses
+
+Sometimes some warning messages may appear on the output. This happens when the license-report can not find (or not exist) an appropriate license for a particular dependency.
+
+```
+========= WARNING UNKNOWN LICENSES ==========
+name: dep-foo, version: file:../dep-foo, licenses: UNKNOWN
+========= WARNING UNKNOWN LICENSES ==========
+```
+
+The other cases where a license can be `UNKNOWN`, is when the license name has the value 'UNKNOWN' or a URL for the license is not found or license name begins with the word 'Custom' or empty ''.
+
 ## Contributing
 Please read the [contributing guide](./CONTRIBUTING.md)
