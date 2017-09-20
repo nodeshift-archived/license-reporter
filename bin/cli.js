@@ -67,6 +67,10 @@ function addLicenseEntryIgnoreVersionRange (xmlElement, identifier, json, option
       xmlElement.dependencies.dependency.push(entry(json[key], nameVersion, options));
     }
   }
+  xmlElement.dependencies.dependency = xmlElement.dependencies.dependency
+  .filter((d, index, self) => self.findIndex((t) => {
+    return t.version === d.version && t.licenses.license[0].name === d.licenses.license[0].name;
+  }) === index);
   return xmlElement;
 }
 
@@ -120,7 +124,7 @@ function showWarnings (options, declaredDependencies, xmlObject) {
                                     .filter(e1 => xmlObjectDependencies
                                     .filter(e2 => e2 === e1)
                                     .length === 0);
-  if (missingDependencies.length > 0) {
+  if (missingDependencies.length > 0 && !options.ignoreVersionRange) {
     console.log(`Dependencies found in package.json but not in xml: ${missingDependencies.join(',')}`);
     console.log(`Please run 'license-reporter --ignore-version-range' to show all declared dependencies on generated xml.`);
   }
