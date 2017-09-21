@@ -31,7 +31,7 @@ const xmlObject = {
 };
 
 test('Should create foo.xml.', (t) => {
-  writer.createXml({file: 'foo.xml', silent: true}, xmlObject);
+  writer.createXml({xml: 'foo.xml', silent: true}, xmlObject);
   t.equal(fs.existsSync('foo.xml'), true, 'foo.xml file created.');
   fs.unlinkSync('foo.xml');
   t.end();
@@ -49,8 +49,8 @@ test('Should create HTML file.', (t) => {
 });
 
 test('Should merge XMLs.', (t) => {
-  writer.createXml({file: 'foo.xml', silent: true}, xmlObject);
-  writer.createXml({file: 'bar.xml', silent: true}, xmlObject);
+  writer.createXml({xml: 'foo.xml', silent: true}, xmlObject);
+  writer.createXml({xml: 'bar.xml', silent: true}, xmlObject);
   const options = {mergeProductName: 'fooBar', mergeXmls: 'foo.xml,bar.xml', mergeOutput: 'fooBar.xml'};
   return Promise.resolve(writer.mergeXmls(options))
   .then(() => {

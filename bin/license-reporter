@@ -8,10 +8,6 @@ process.title = 'license-reporter';
 yargs
   .version(require('../package.json').version)
   .usage('Usage: $0 /path/to/project [options]')
-  .option('file', {
-    describe: 'file to store the license information in',
-    type: 'string'
-  })
   .option('all', {
     describe: 'will list all production licenses for all modules',
     default: false
@@ -23,6 +19,18 @@ yargs
   .option('silent', {
     describe: 'hides the console output',
     default: false
+  })
+  .option('xml', {
+    describe: 'xml file to store the license information in',
+    type: 'string'
+  })
+  .option('json', {
+    describe: 'json file to store the license information in',
+    type: 'string'
+  })
+  .option('yaml', {
+    describe: 'yaml file to store the license information in',
+    type: 'string'
   })
   .option('html', {
     describe: 'outputs the license in html format to license.html',
@@ -72,7 +80,9 @@ var options = {
   alldeps: argv.all,
   directory: argv._[0],
   silent: argv.silent,
-  file: argv.file,
+  xml: argv.xml,
+  json: argv.json,
+  yaml: argv.yaml,
   html: argv.html,
   css: argv.css,
   merge: argv.merge,

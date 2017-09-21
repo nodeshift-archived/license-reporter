@@ -187,6 +187,12 @@ function run (options) {
     checkLicense(options, declaredDependencies)
     .then(xmlObject => {
       writer.createXml(options, xmlObject);
+      if (options.json) {
+        writer.createJson(options, xmlObject);
+      }
+      if (options.yaml) {
+        writer.createYaml(options, xmlObject);
+      }
       if (!options.silent) {
         showWarnings(options, declaredDependencies, xmlObject);
       }
@@ -200,6 +206,12 @@ function run (options) {
     const xmlObject = createXmlObject(options);
     xmlObject.license = projectLicense(options);
     writer.createXml(options, xmlObject);
+    if (options.json) {
+      writer.createJson(options, xmlObject);
+    }
+    if (options.yaml) {
+      writer.createYaml(options, xmlObject);
+    }
   }
 }
 

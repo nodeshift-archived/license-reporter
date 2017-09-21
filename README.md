@@ -23,18 +23,21 @@ Usage: license-reporter /path/to/project [options]
 
 Options:
   --version               Show version number                          [boolean]
-  --file                  file to store the license information in      [string]
   --all                   will list all production licenses for all modules
                                                                 [default: false]
   --ignore-version-range  will list all licenses from declared package.json
                           dependencies ignoring version range   [default: false]
   --silent                hides the console output              [default: false]
+  --xml                   xml file to store the license information in  [string]
+  --json                  json file to store the license information in [string]
+  --yaml                  yaml file to store the license information in [string]
   --html                  outputs the license in html format to license.html
                                                                 [default: false]
   --css                   css file to apply style on html report
              [default: "license-reporter/lib/resources/licenses.css"]
   --unified-list          will use the default unified list containing licenses
-                          approved or not                       [default: false]
+                          approved or not                              [default:
+          "license-reporter/lib/resources/default-unified-list.json"]
   --merge                 merge license.xml files               [default: false]
   --merge-product-name    the name the product which the license.xml are part of
                                                                 [default: false]
@@ -49,6 +52,7 @@ Options:
   --metadata              includes metadata for the current project
                                                                 [default: false]
   --help                  Show help                                    [boolean]
+
 
 ```
 
@@ -302,6 +306,20 @@ name: dep-foo, version: file:../dep-foo, licenses: UNKNOWN
 ```
 
 The other cases where a license can be `UNKNOWN`, is when the license name has the value 'UNKNOWN' or a URL for the license is not found or license name begins with the word 'Custom' or empty ''.
+
+## XMl, JSON, YAML and HTML
+
+It is possible to generate `.json` `.xml` and `.yaml` files by using the arguments:
+
+```
+license-reporter --xml licenses.xml --json licenses.json --yaml licenses.yaml --silent
+```
+
+In the case of `html` a report will be generated, and you can specify a `css` file to apply the style.
+
+```
+license-reporter --html --css /path_to_my_css/foo.css --silent
+```
 
 ## Contributing
 Please read the [contributing guide](./CONTRIBUTING.md)
