@@ -4,7 +4,7 @@
 [![Build Status](https://travis-ci.org/bucharest-gold/license-reporter.svg?branch=master)](https://travis-ci.org/bucharest-gold/license-reporter)
 
 License-reporter is a tool that is intended to be used by Red Hat projects/products that require project dependency
-licenses to be retrieved and reported in xml and html format.
+licenses to be retrieved and reported in xml and html format. Additions have been made to output in JSON and YAML format but the XML output is the most mature. We would welcome additional PRs in this area.
 
 ## Installation
 
@@ -162,7 +162,7 @@ In the console output you may come across a license name which contains an aster
     name: express-bunyan-logger , version: 1.3.1 , licenses: BSD*
     name: fh-cluster , version: 0.3.0 , licenses: Apache-2.0
 
-Notice the `BSD*` which means the license name was deduced from an other file than package.json 
+Notice the `BSD*` which means the license name was deduced from an other file than package.json
 
 ## XML merging example
 
@@ -258,7 +258,7 @@ Also possible to generate a xml with licenses from all sub-modules:
 cd szero
 $ license-reporter --all --file=all.xml
 $ du -s -h all.xml
-188K	all.xml
+188K    all.xml
 ```
 
 ## How licenses are found in files
@@ -268,18 +268,24 @@ We are using [license-checker](https://github.com/davglass/license-checker) tool
 The order in which `license-checker` tool looks for the licenses is:
 
 1. package.json
-2. Try to identify the license with the spdx module to see if it has a valid SPDX license attached. 
-If that fails, we then look into the module for the following files: LICENSE, COPYING & README.
+2. Try to identify the license with the spdx module to see if it has a valid SPDX license attached.
+If that fails, we then look into the module for the following files: LICENSE & COPYING.
+
+A decision was made to not check the README for license information. Although the functionality is present, it wanders into natural language processing to try and infer the license type. If you discover that license information is in a README, we would encourage you to submit a PR to the appropriate repository to ensure the license information is in a more appropriate place.
 
 > More details here: https://github.com/davglass/license-checker#how-licenses-are-found
 
-## Approved and not approved licenses - "unified list"
+## License Metadata - "unified list"
 
-Previously we were using two files (blacklist and whitelist) for approved or disapproved licenses. Then came the need to have a "unified list" for approved and disapproved licenses, so we started calling it `unified-list`.
+The project allows you specifcy metadata about licenses and a file can be found in: `license-reporter/lib/resources/default-unified-list.json`.
 
-The project currently has a default list, which can be found in: `license-reporter/lib/resources/default-unified-list.json`.
+This list serves a number of roles as the metadata can be used to control what is outputted. Three areas of interest are controlled by:
 
-You can use a custom license list. For this, we recommend that the default file be used and modified (only the values) for your need. We are using a verifier to validate the unified-list JSON schema. If any errors are found, (at the moment) you will see error messages like these:
+- It provides the capability or white listing licenses via an `approved` toggle. This allows you fine grain what licenses are acceptable to be used or not
+- Long (`fedora_name`) and short (`fedora_abbrev`) abbreviations are possible allowing you customise the naming convention as you see fit
+- A `URL` reference to point towards the license text associated with the given license
+
+The JSON file is extensible and several additional metadata for use in Red Hat specific use cases are included. Additionally, you can use a custom license list. For this, we recommend that the default file be used and modified (only the values) for your need. We are using a verifier to validate the unified-list JSON schema. If any errors are found, (at the moment) you will see error messages like these:
 
 ```
 Item: 2 - instance.id is not of a type (s) string
@@ -295,7 +301,7 @@ $ license-reporter --unified-list=/full_path_here/my-unified-list.json
 
 ## WARNING about unknown licenses
 
-Sometimes some warning messages may appear on the output. This happens when the license-report can not find (or not exist) an appropriate license for a particular dependency.
+Sometimes some warning messages may appear on the output. This happens when the license-report can not find an appropriate license for a particular dependency. This will include instances where the license information is stored in the README.
 
 ```
 ========= WARNING UNKNOWN LICENSES ==========
@@ -303,7 +309,11 @@ name: dep-foo, version: file:../dep-foo, licenses: UNKNOWN
 ========= WARNING UNKNOWN LICENSES ==========
 ```
 
-The other cases where a license can be `UNKNOWN`, is when the license name has the value 'UNKNOWN' or a URL for the license is not found or license name begins with the word 'Custom' or empty ''.
+The other cases where a license can be `UNKNOWN`, is when the license name has the value 'UNKNOWN' or license name begins with the word 'Custom' or empty ''.
+
+## Proprietary Licenses
+
+Some dependencies, which may be internal components that are not open source, may need to be considered seperately. The recommendation here is to not flag those licenses as UNKNOWN, but rather flag them as `Proprietary`. The `unified-list` could be the most appropriate way of handling this where an entry could be provided for licenses that fall into this category with additional metadata to be consistent with other license types encouraged. The tool cannot infer such cases and the end users best judgement is the way to proceed here. We welcome PRs if this is a requirement that you are trying to solve.
 
 ## XMl, JSON, YAML and HTML
 
