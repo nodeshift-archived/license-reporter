@@ -28,8 +28,8 @@ function createDependencyLicenseFile (name, type, file) {
   return {
     name: name,
     type: type,
-    file: file ? file : ''
-  }
+    file: file
+  };
 }
 
 // The generated XMl element will be like this example:
