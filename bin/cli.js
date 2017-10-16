@@ -18,6 +18,19 @@ const projectLicense = (options) => require(`${options.directory}/package.json`)
 const projectDependencies = (options) => require(`${options.directory}/package.json`).dependencies;
 
 let canonicalNameMapper;
+let dependencyLicenseFiles = [];
+
+// Returns an Object with:
+// The name of dependency
+// The type: MIT , Apache-2.0 etc.
+// The location of the licenseFile.
+function createDependencyLicenseFile (name, type, file) {
+  return {
+    name: name,
+    type: type,
+    file: file ? file : ''
+  }
+}
 
 // The generated XMl element will be like this example:
 //  <license>
@@ -28,6 +41,7 @@ let canonicalNameMapper;
 //  </license>
 const entry = (info, dependency, options) => {
   const canonicalName = canonicalNameMapper.map(info.licenses);
+  dependencyLicenseFiles.push(createDependencyLicenseFile(dependency.name, canonicalName, info.licenseFile));
   unifiedList.init(options);
   const url = unifiedList.urlForName(options, canonicalName);
   return {
@@ -197,6 +211,9 @@ function run (options) {
         showWarnings(options, declaredDependencies, xmlObject);
       }
       if (options.html) {
+        writer.createLicenseDir();
+        writer.copyLicenseFiles(dependencyLicenseFiles);
+        dependencyLicenseFiles = [];
         writer.createHtml(options, xmlObject);
       }
     }).catch(e => {
