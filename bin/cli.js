@@ -194,8 +194,8 @@ function run (options) {
       if (options.html) {
         writer.createLicenseDir();
         writer.copyLicenseFiles(dependencyLicenseFiles);
+        writer.createHtml(options, xmlObject, dependencyLicenseFiles);
         dependencyLicenseFiles = [];
-        writer.createHtml(options, xmlObject);
       }
     }).catch(e => {
       console.error(e);
