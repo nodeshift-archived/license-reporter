@@ -53,14 +53,14 @@ test('Should generate html from xml', (t) => {
 <td>N/A</td>
 <td>0.1.1</td>
 <td>Foo</td>
-<td></td>
+<td><a href=></a></td>
 </tr>
 <tr>
 <td>roi</td>
 <td>N/A</td>
 <td>0.15.0</td>
 <td>UNKNOWN</td>
-<td></td>
+<td><a href=></a></td>
 </tr>
 </table>
 </body>

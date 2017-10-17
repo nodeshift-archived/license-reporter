@@ -19,7 +19,7 @@
 <td>N/A</td>
 <td>{{version}}</td>
 <td>{{#licenses.license}}{{url}}{{/licenses.license}}</td>
-<td>{{#licenses.license}}{{localLicense}}{{/licenses.license}}</td>
+<td><a href={{#licenses.license}}{{localLicense}}{{/licenses.license}}>{{#licenses.license}}{{linkLabel}}{{/licenses.license}}</a></td>
 </tr>
 {{/dependencies.dependency}}
 </table>
