@@ -40,7 +40,14 @@ test('Should create foo.xml.', (t) => {
 test('Should create HTML file.', (t) => {
   const options = {css: path.join(__dirname, '../lib/resources/licenses.css')};
   options.directory = process.cwd();
-  return Promise.resolve(writer.createHtml(options, xmlObject))
+  const dependencyLicenseFiles = [];
+  const foo = {
+    name: 'testProject',
+    type: 'MIT',
+    file: 'foo-path-of-the-license-file'
+  };
+  dependencyLicenseFiles.push(foo);
+  return Promise.resolve(writer.createHtml(options, xmlObject, dependencyLicenseFiles))
   .then(() => {
     t.equal(fs.existsSync('license.html'), true, 'HTML file created.');
     fs.unlink('license.html', () => {});
