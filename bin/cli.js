@@ -5,8 +5,6 @@ const versionHandler = require('../lib/version-handler.js');
 const warnings = require('../lib/warnings.js');
 const reader = require('../lib/file-reader.js');
 const writer = require('../lib/file-writer.js');
-const fs = require('fs');
-const path = require('path');
 const unifiedList = require('../lib/unified-list.js');
 
 // Gets the project name, version and license from package.json.
@@ -162,28 +160,11 @@ function checkLicense (options, declaredDependencies) {
   });
 }
 
-// Checks if node_modules exists and returns
-// true if it is not empty not considering '.bin'
-// directory.
-const nodeModulesFound = (dir) => {
-  const modulesDir = path.join(dir, 'node_modules');
-  if (fs.existsSync(modulesDir)) {
-    const content = fs.readdirSync(modulesDir).filter(e => e !== '.bin');
-    if (content.length > 0) {
-      return true;
-    } else {
-      return false;
-    }
-  } else {
-    return false;
-  }
-};
-
 // This function is the license's entry point
 // to gather licenses. Also create the xml,
 // print warnings and create html in case needed.
 function run (options) {
-  if (nodeModulesFound(options.directory)) {
+  if (writer.hasNodeModules(options.directory)) {
     let mappings = [];
     if (options.nameMap) {
       mappings = reader.readAsJson(options.nameMap);
