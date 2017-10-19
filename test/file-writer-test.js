@@ -5,6 +5,9 @@ const fs = require('fs');
 const path = require('path');
 const writer = require('../lib/file-writer.js');
 
+const licensesDir = path.join(process.cwd(), 'licenses');
+writer.createLicenseDir();
+
 const xmlObject = {
   dependencies: {
     dependency: [
@@ -31,9 +34,10 @@ const xmlObject = {
 };
 
 test('Should create foo.xml.', (t) => {
+  console.log('from test', licensesDir);
   writer.createXml({xml: 'foo.xml', silent: true}, xmlObject);
-  t.equal(fs.existsSync('foo.xml'), true, 'foo.xml file created.');
-  fs.unlinkSync('foo.xml');
+  t.equal(fs.existsSync(path.join(licensesDir, 'foo.xml')), true, 'foo.xml file created.');
+  fs.unlinkSync(path.join(licensesDir, 'foo.xml'));
   t.end();
 });
 
@@ -49,21 +53,23 @@ test('Should create HTML file.', (t) => {
   dependencyLicenseFiles.push(foo);
   return Promise.resolve(writer.createHtml(options, xmlObject, dependencyLicenseFiles))
   .then(() => {
-    t.equal(fs.existsSync('license.html'), true, 'HTML file created.');
-    fs.unlink('license.html', () => {});
-    fs.unlink('licenses.css', () => {});
+    t.equal(fs.existsSync(path.join(licensesDir, 'license.html')), true, 'HTML file created.');
+    fs.unlink(path.join(licensesDir, 'license.html'), () => {});
+    fs.unlink(path.join(licensesDir, 'licenses.css'), () => {});
   });
 });
 
 test('Should merge XMLs.', (t) => {
   writer.createXml({xml: 'foo.xml', silent: true}, xmlObject);
   writer.createXml({xml: 'bar.xml', silent: true}, xmlObject);
-  const options = {mergeProductName: 'fooBar', mergeXmls: 'foo.xml,bar.xml', mergeOutput: 'fooBar.xml'};
+  const options = {mergeProductName: 'fooBar', mergeXmls: 'licenses/foo.xml,licenses/bar.xml', mergeOutput: 'fooBar.xml'};
   return Promise.resolve(writer.mergeXmls(options))
   .then(() => {
     t.equal(fs.access('fooBar.xml', (err) => { if (!err) return true; }, true));
-    fs.unlink('foo.xml', () => {});
-    fs.unlink('bar.xml', () => {});
-    setTimeout(() => fs.unlink('fooBar.xml', () => {}), 1000);
+    fs.unlink(path.join(licensesDir, 'foo.xml'), () => {});
+    fs.unlink(path.join(licensesDir, 'bar.xml'), () => {});
+    setTimeout(() => fs.unlink(path.join(licensesDir, 'fooBar.xml'), () => {}), 500);
+    setTimeout(() => fs.rmdir(licensesDir, () => {}), 500);
   });
 });
+
