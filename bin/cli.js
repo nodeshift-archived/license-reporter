@@ -181,6 +181,7 @@ function run (options) {
     const declaredDependencies = projectDependencies(options);
     checkLicense(options, declaredDependencies)
     .then(xmlObject => {
+      writer.createLicenseDir();
       writer.createXml(options, xmlObject);
       if (options.json) {
         writer.createJson(options, xmlObject);
@@ -192,7 +193,6 @@ function run (options) {
         showWarnings(options, declaredDependencies, xmlObject);
       }
       if (options.html) {
-        writer.createLicenseDir();
         writer.copyLicenseFiles(dependencyLicenseFiles);
         writer.createHtml(options, xmlObject, dependencyLicenseFiles);
         dependencyLicenseFiles = [];
