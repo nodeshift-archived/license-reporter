@@ -194,7 +194,7 @@ function run (options) {
       }
       if (options.html) {
         writer.copyLicenseFiles(dependencyLicenseFiles);
-        writer.createHtml(options, xmlObject, dependencyLicenseFiles);
+        // writer.createHtml(options, xmlObject, dependencyLicenseFiles);
         dependencyLicenseFiles = [];
       }
     }).catch(e => {
