@@ -34,7 +34,6 @@ const xmlObject = {
 };
 
 test('Should create foo.xml.', (t) => {
-  console.log('from test', licensesDir);
   writer.createXml({xml: 'foo.xml', silent: true}, xmlObject);
   t.equal(fs.existsSync(path.join(licensesDir, 'foo.xml')), true, 'foo.xml file created.');
   fs.unlinkSync(path.join(licensesDir, 'foo.xml'));
