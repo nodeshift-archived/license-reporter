@@ -78,3 +78,10 @@ test('Should create a JSON file.', (t) => {
   fs.unlinkSync(path.join(licensesDir, 'foo.json'));
   t.end();
 });
+
+test('Should create a YAML file.', (t) => {
+  writer.createYaml({yaml: 'foo.yaml'}, xmlObject);
+  t.equal(fs.existsSync(path.join(licensesDir, 'foo.yaml')), true, 'foo.yaml file created.');
+  fs.unlinkSync(path.join(licensesDir, 'foo.yaml'));
+  t.end();
+});
