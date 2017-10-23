@@ -58,7 +58,7 @@ test('Should create HTML file.', (t) => {
   });
 });
 
-test('Should merge XMLs.', (t) => {
+test('Should merge XML files.', (t) => {
   writer.createXml({xml: 'foo.xml', silent: true}, xmlObject);
   writer.createXml({xml: 'bar.xml', silent: true}, xmlObject);
   const options = {mergeProductName: 'fooBar', mergeXmls: 'licenses/foo.xml,licenses/bar.xml', mergeOutput: 'fooBar.xml'};
@@ -72,3 +72,9 @@ test('Should merge XMLs.', (t) => {
   });
 });
 
+test('Should create a JSON file.', (t) => {
+  writer.createJson({json: 'foo.json'}, xmlObject);
+  t.equal(fs.existsSync(path.join(licensesDir, 'foo.json')), true, 'foo.json file created.');
+  fs.unlinkSync(path.join(licensesDir, 'foo.json'));
+  t.end();
+});
