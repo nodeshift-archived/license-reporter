@@ -25,10 +25,10 @@ test('Should return file path instead content for README files.', (t) => {
   t.end();
 });
 
-test('Should return N/A for file not found.', (t) => {
+test('Should return No local license could be found for the dependency for file not found.', (t) => {
   const filePath = path.join(__dirname, '/fixtures/readme/node_modules/sample_dependency_readme/NotFound');
   t.plan(1);
-  t.equal('N/A', reader.readLicenseFile(filePath), 'N/A returned.');
+  t.equal('No local license could be found for the dependency', reader.readLicenseFile(filePath), 'No local license could be found for the dependency returned.');
   t.end();
 });
 
