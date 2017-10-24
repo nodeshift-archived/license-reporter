@@ -6,6 +6,7 @@ const warnings = require('../lib/warnings.js');
 const reader = require('../lib/file-reader.js');
 const writer = require('../lib/file-writer.js');
 const unifiedList = require('../lib/unified-list.js');
+const dual = require('../lib/dual');
 
 // Gets the project name, version and license from package.json.
 const projectName = (options) => require(`${options.directory}/package.json`).name;
@@ -64,7 +65,19 @@ function addLicenseEntry (xmlElement, identifier, json, options) {
   if (json.hasOwnProperty(identifier)) {
     // name and version object e.g. { name: 'roi', version: '1.2.3' }
     const nameVersion = versionHandler.fromNpmVersion(identifier);
-    xmlElement.dependencies.dependency.push(entry(json[identifier], nameVersion, options));
+
+    if (dual.isDual(json[identifier].licenses)) {
+      // clone the json item.
+      const first = JSON.parse(JSON.stringify(json[identifier]));
+      first.licenses = dual.first(first.licenses);
+      xmlElement.dependencies.dependency.push(entry(first, nameVersion, options));
+
+      const last = JSON.parse(JSON.stringify(json[identifier]));
+      last.licenses = dual.last(json[identifier].licenses);
+      xmlElement.dependencies.dependency.push(entry(last, nameVersion, options));
+    } else {
+      xmlElement.dependencies.dependency.push(entry(json[identifier], nameVersion, options));
+    }
   }
   return xmlElement;
 }
