@@ -329,5 +329,17 @@ In the case of `html` a report will be generated, and you can specify a `css` fi
 license-reporter --html --css /path_to_my_css/foo.css --silent
 ```
 
+## EMFile Error
+
+The license reporter may hit an issue in relation to the max number of concurrent files it can have opened. In order to output local license files for the generation of the HTML, we face a a scenario where multiple files are open at the same time. Some repositories with a lot of dependencies may result in hitting an EMFile with respect to too many files open. The error will have a message similar to:
+
+```
+UnhandledPromiseRejectionWarning: Unhandled promise rejection (rejection id: 1): Error: EMFILE: too many open files
+```
+
+The solution to this is Operating System specific, whereby you need to raise the maxfile limit. It is particularly prevalent on OSX where the maxfile limit is low by default. More information can be found on this [stackoverflow thread](https://stackoverflow.com/questions/19981065/nodejs-error-emfile-too-many-open-files-on-mac-os) which may be a good starting point for your particular Operating System.
+
+
+
 ## Contributing
 Please read the [contributing guide](./CONTRIBUTING.md)
