@@ -24,6 +24,7 @@
     "url": "bucharest-gold/license-reporter"
   },
   "dependencies": {
+    "graceful-fs": "^4.1.11",
     "js2xmlparser": "^3.0.0",
     "jsonschema": "^1.2.0",
     "license-checker": "^13.1.0",
