@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('tape');
-const project = require('../lib/project.js');
+const project = require('../lib/project');
 
 test('Checks if project has node modules.', (t) => {
   t.plan(1);
