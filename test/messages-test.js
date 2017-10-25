@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('tape');
-const warnings = require('../lib/warnings.js');
+const messages = require('../lib/messages.js');
 const stdout = require('test-console').stdout;
 
 test('Should report the correct unknown warning.', (t) => {
@@ -24,7 +24,7 @@ test('Should report the correct unknown warning.', (t) => {
       ]
     }
   };
-  const log = stdout.inspectSync(() => warnings.print(require('../lib/unknown.js').check(project),
+  const log = stdout.inspectSync(() => messages.warning(require('../lib/unknown.js').check(project),
                  'UNKNOWN'));
   t.deepEqual(log, expected);
   t.end();
