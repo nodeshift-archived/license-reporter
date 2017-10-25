@@ -2,7 +2,7 @@
 
 const checker = require('license-checker');
 const versionHandler = require('../lib/version-handler.js');
-const warnings = require('../lib/warnings.js');
+const messages = require('../lib/messages.js');
 const reader = require('../lib/file-reader.js');
 const writer = require('../lib/file-writer.js');
 const unifiedList = require('../lib/unified-list.js');
@@ -154,7 +154,7 @@ function showWarnings (options, declaredDependencies, xmlObject) {
     console.log(`Dependencies found in package.json but not in xml: ${missingDependencies.join(',')}`);
     console.log(`Please run 'license-reporter --ignore-version-range' to show all declared dependencies on generated xml.`);
   }
-  warnings.print(unknown, 'UNKNOWN');
+  messages.warning(unknown, 'UNKNOWN');
   unifiedList.init(options);
   unifiedList.check(options, xmlObject);
 }
