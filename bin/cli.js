@@ -7,6 +7,7 @@ const reader = require('../lib/file-reader.js');
 const writer = require('../lib/file-writer.js');
 const unifiedList = require('../lib/unified-list.js');
 const dual = require('../lib/dual');
+const remoteLicense = require('../lib/remote-license');
 
 // Gets the project name, version and license from package.json.
 const projectName = (options) => require(`${options.directory}/package.json`).name;
@@ -180,7 +181,11 @@ function run (options) {
   if (writer.hasNodeModules(options.directory)) {
     let mappings = [];
     if (options.nameMap) {
-      mappings = reader.readAsJson(options.nameMap);
+      if (options.nameMap.startsWith('http')) {
+        mappings = remoteLicense.fetch(options.nameMap);
+      } else {
+        mappings = reader.readAsJson(options.nameMap);
+      }
       if (mappings === null) {
         console.error('Could not find name map file: ', options.nameMap);
         process.exit(3);

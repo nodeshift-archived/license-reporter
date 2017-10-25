@@ -4,42 +4,41 @@ const test = require('tape');
 const path = require('path');
 const reader = require('../lib/file-reader.js');
 
-test('Should return null when file not found.', (t) => {
+test('Reads a license file.', (t) => {
   t.plan(1);
-  t.equal(null, reader.readListFile(), 'file not found, returned null.');
+  const file = path.join(__dirname,
+    '/fixtures/license/node_modules/sample_dependency_license/LICENSE');
+  t.ok(reader.readLicenseFile(file).includes('MIT'), 'File has been read.');
   t.end();
 });
 
-test('Should read a license file.', (t) => {
-  const filePath = path.join(__dirname, '/fixtures/license/node_modules/sample_dependency_license/LICENSE');
+test('Returns the file path instead content for README files.', (t) => {
   t.plan(1);
-  t.ok(reader.readLicenseFile(filePath).includes('MIT'), 'successful read the license file.');
+  const file = path.join(__dirname,
+    '/fixtures/readme/node_modules/sample_dependency_readme/README');
+  t.equal(reader.readLicenseFile(file), file, 'File path returned.');
   t.end();
 });
 
-test('Should return file path instead content for README files.', (t) => {
-  const filePath = path.join(__dirname, '/fixtures/readme/node_modules/sample_dependency_readme/README');
+test('Returns a message when no local license could be found.', (t) => {
   t.plan(1);
-  t.equal(filePath, reader.readLicenseFile(filePath), 'File path returned.');
+  const file = path.join(__dirname,
+    '/fixtures/readme/node_modules/sample_dependency_readme/NotFound');
+  const message = 'No local license could be found for the dependency';
+  t.equal(reader.readLicenseFile(file), message, 'Message returned.');
   t.end();
 });
 
-test('Should return No local license could be found for the dependency for file not found.', (t) => {
-  const filePath = path.join(__dirname, '/fixtures/readme/node_modules/sample_dependency_readme/NotFound');
+test('Return file as JSON.', (t) => {
   t.plan(1);
-  t.equal('No local license could be found for the dependency', reader.readLicenseFile(filePath), 'No local license could be found for the dependency returned.');
+  const file = path.join(__dirname,
+    '../lib/resources/default-unified-list.json');
+  t.ok(reader.readAsJson(file), 'JSON returned.');
   t.end();
 });
 
-test('Should return file as JSON.', (t) => {
-  const filePath = path.join(__dirname, '../lib/resources/default-unified-list.json');
+test('Returns null if file not found.', (t) => {
   t.plan(1);
-  t.ok(reader.readAsJson(filePath));
-  t.end();
-});
-
-test('Should return null file not found (JSON).', (t) => {
-  t.plan(1);
-  t.equal(null, reader.readAsJson('something'));
+  t.equal(null, reader.readAsJson('something'), 'null returned.');
   t.end();
 });
