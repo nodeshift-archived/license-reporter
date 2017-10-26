@@ -42,3 +42,15 @@ test('Returns null if file not found.', (t) => {
   t.equal(null, reader.readAsJson('something'), 'null returned.');
   t.end();
 });
+
+test('Throws error read JSON.', (t) => {
+  t.plan(1);
+  t.throws(() => reader.readAsJson('.'), /Error/, 'throws error.');
+  t.end();
+});
+
+test('Throws error read license file.', (t) => {
+  t.plan(1);
+  t.throws(() => reader.readLicenseFile('.'), /Error/, 'throws error.');
+  t.end();
+});

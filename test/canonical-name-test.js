@@ -2,12 +2,13 @@
 
 const test = require('tape');
 
-test('Should map license names to one defined in map file', (t) => {
+test('Map license names to one defined in map file.', (t) => {
+  t.plan(5);
   const nameMap = {
     'MIT License': ['The MIT License', 'MIT'],
     'Some': ['Something']
   };
-  const mapper = require('../lib/canonical-name.js')(nameMap);
+  const mapper = require('../lib/canonical-name')(nameMap);
   t.equal(mapper.map('The MIT License'), 'MIT License', 'should map');
   t.equal(mapper.map('MIT'), 'MIT License', 'should map');
   t.equal(mapper.map('Something'), 'Some', 'should map');
@@ -16,8 +17,20 @@ test('Should map license names to one defined in map file', (t) => {
   t.end();
 });
 
-test('Should not map if nameMap is undefined', (t) => {
-  const mapper = require('../lib/canonical-name.js')();
+test('Do not map if nameMap is undefined', (t) => {
+  t.plan(1);
+  const mapper = require('../lib/canonical-name')();
   t.equal(mapper.map('MIT'), 'MIT');
+  t.end();
+});
+
+test('Returns license names in case dual.', (t) => {
+  t.plan(1);
+  const nameMap = {
+    'MIT OR Apache-2.0': ['The MIT License', 'MIT'],
+    'Some': ['Something']
+  };
+  const mapper = require('../lib/canonical-name')(nameMap);
+  t.equal(mapper.map('MIT'), 'MIT OR Apache-2.0', 'should map');
   t.end();
 });
