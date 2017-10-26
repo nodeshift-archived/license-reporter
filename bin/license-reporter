@@ -1,6 +1,7 @@
 #! /usr/bin/env node
 
-const cli = require('./cli.js');
+const cli = require('./cli');
+const util = require('./util');
 const yargs = require('yargs');
 const path = require('path');
 process.title = 'license-reporter';
@@ -97,7 +98,7 @@ var options = {
 };
 
 if (!options.directory || options.directory === '.') {
-  options.directory = process.cwd();
+  options.directory = util.currentDir();
 }
 options.directory = path.resolve(options.directory);
 cli.run(options);
