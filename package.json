@@ -21,7 +21,7 @@
   "author": "Bucharest-gold",
   "repository": {
     "type": "git",
-    "url": "bucharest-gold/license-reporter"
+    "url": "git+https://github.com/bucharest-gold/license-reporter.git"
   },
   "dependencies": {
     "graceful-fs": "^4.1.11",
