@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 
 const cli = require('./cli');
-const util = require('./util');
+const util = require('../lib/util');
 const yargs = require('yargs');
 const path = require('path');
 process.title = 'license-reporter';
