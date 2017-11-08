@@ -8,10 +8,15 @@ const unifiedList = require('../../lib/modules/unified-list');
 const canonicalName = require('../../lib/modules/canonical-name');
 const consoleModule = require('../../lib/modules/console.mdl');
 const saveModule = require('../../lib/modules/save.mdl');
-const fileWriter = require('../../lib/modules/file-writer');
 
-fileWriter.createLicenseDir();
 const ldir = join(process.cwd(), 'licenses');
+const createLicenseDir = () => {
+  if (!fs.existsSync(ldir)) {
+    fs.mkdirSync(ldir);
+  }
+};
+
+createLicenseDir();
 
 const ul = join(__dirname, '../../lib/modules/resources/default-unified-list.json');
 const nm = join(__dirname, '../../lib/modules/resources/default-canonical-names.json');
