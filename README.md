@@ -19,40 +19,71 @@ $ npm link .
 
 ```console
 $ license-reporter --help
-Usage: license-reporter /path/to/project [options]
+Commands:
+  console  Shows license information on standard output.
+  merge    Merge license XML files.
+  report   Creates a HTML report.
+  save     Saves license information to a file.
 
 Options:
-  --version               Show version number                          [boolean]
-  --all                   will list all production licenses for all modules
-                                                                [default: false]
-  --ignore-version-range  will list all licenses from declared package.json
-                          dependencies ignoring version range   [default: false]
-  --silent                hides the console output              [default: false]
-  --xml                   xml file to store the license information in  [string]
-  --json                  json file to store the license information in [string]
-  --yaml                  yaml file to store the license information in [string]
-  --html                  outputs the license in html format to license.html
-                                                                [default: false]
-  --css                   css file to apply style on html report
-             [default: "license-reporter/lib/resources/licenses.css"]
-  --unified-list          will use the default unified list containing licenses
-                          approved or not                              [default:
-          "license-reporter/lib/resources/default-unified-list.json"]
-  --merge                 merge license.xml files               [default: false]
-  --merge-product-name    the name the product which the license.xml are part of
-                                                                [default: false]
-  --merge-license-xmls    a comma separated list of license.xml files to merge
-                                                                [default: false]
-  --merge-output          file to write the merged license info to
-  --verbose               include the license content in the xml and not just
-                          the path to the file                  [default: false]
-  --name-map              a file/url containing a mapping of license names
-                                                                       [default:
-       "license-reporter/lib/resources/default-canonical-names.json"]
-  --metadata              includes metadata for the current project
-                                                                [default: false]
-  --help                  Show help                                    [boolean]
+  --version  Show version number                                       [boolean]
+  --help     Show help                                                 [boolean]
+  --cwd      Change the current working directory
+```
 
+```console
+$ license-reporter console --help
+
+Options:
+  --version                       Show version number                  [boolean]
+  --help                          Show help                            [boolean]
+  --cwd                           Change the current working directory
+  --name-map, --nm                 Pass the name map file.              
+  --unified-list, --ul             Pass the unified (approved/not-approved)
+                                  license list.                        
+  --include-license-content, --ilc  Includes the license content in the xml.
+                                                                [default: false]
+```
+
+```console
+$ license-reporter merge --help
+
+Options:
+  --version                    Show version number                     [boolean]
+  --help                       Show help                               [boolean]
+  --cwd                        Change the current working directory
+  --merge-product-name, --mpn  The name the product which the license.xml are
+                               part of.                               [required]
+  --merge-license-xmls, --mlx  A comma separated list of license.xml files to
+                               merge.                                 [required]
+  --merge-output, --mo         File to write the merged license info to.
+                                                                      [required]
+```
+
+```console
+$ license-reporter report --help
+
+Options:
+  --version             Show version number                            [boolean]
+  --help                Show help                                      [boolean]
+  --cwd                 Change the current working directory
+  --name-map, --nm      Pass the name map file.                        
+  --unified-list, --ul  Pass the unified (approved/not-approved) license list.
+  --css                 CSS file to apply style on html report.        
+```
+
+```console
+$ license-reporter save --help
+
+Options:
+  --version             Show version number                            [boolean]
+  --help                Show help                                      [boolean]
+  --cwd                 Change the current working directory
+  --name-map, --nm      Pass the name map file.                        
+  --unified-list, --ul  Pass the unified (approved/not-approved) license list.
+  --xml                 Saves as XML.                                   [string]
+  --json                Saves as JSON.                                  [string]
+  --yaml                Saves as YAML.                                  [string]
 ```
 
 ## Example output
@@ -62,7 +93,7 @@ Options:
 ```console
 $ git clone https://github.com/feedhenry-raincatcher/raincatcher-portal.git
 $ cd raincatcher-portal ; npm install
-$ license-reporter --xml=license1.xml
+$ license-reporter save --xml license1.xml
 ```
 
 ```xml
@@ -363,41 +394,6 @@ $ license-reporter --xml=license1.xml
         </dependency>
     </dependencies>
 </licenseSummary>
-Dependencies found in package.json but not in xml: bluebird,moment,shortid
-Please run 'license-reporter --ignore-version-range' to show all declared dependencies on generated xml.
-========= WARNING UNKNOWN LICENSES ==========
-name: fh-js-sdk, version: 2.18.6, licenses: UNKNOWN
-========= WARNING UNKNOWN LICENSES ==========
-========= APPROVED LICENSES        ==========
-name: rx , version: 4.1.0 , licenses: Apache License 2.0
-name: d3 , version: 3.5.16 , licenses: BSD 3-clause "New" or "Revised" License
-name: @raincatcher-examples/angularjs-extensions , version: 1.0.0 , licenses: MIT License
-name: @raincatcher-examples/step-accident , version: 1.0.0 , licenses: MIT License
-name: @raincatcher-examples/step-vehicle-inspection , version: 1.0.0 , licenses: MIT License
-name: @raincatcher/angularjs-auth-keycloak , version: 1.0.0 , licenses: MIT License
-name: @raincatcher/angularjs-auth-passport , version: 1.0.0 , licenses: MIT License
-name: @raincatcher/angularjs-http , version: 1.0.0 , licenses: MIT License
-name: @raincatcher/angularjs-workflow , version: 1.0.0 , licenses: MIT License
-name: @raincatcher/angularjs-workorder , version: 1.0.0 , licenses: MIT License
-name: @raincatcher/logger , version: 1.0.0 , licenses: MIT License
-name: @raincatcher/step-signature , version: 1.0.0 , licenses: MIT License
-name: @raincatcher/wfm , version: 1.0.0 , licenses: MIT License
-name: angular , version: 1.6.1 , licenses: MIT License
-name: angular-animate , version: 1.5.3 , licenses: MIT License
-name: angular-aria , version: 1.5.3 , licenses: MIT License
-name: angular-material , version: 1.0.7 , licenses: MIT License
-name: angular-ui-router , version: 0.4.2 , licenses: MIT License
-name: async , version: 1.5.2 , licenses: MIT License
-name: c3 , version: 0.4.11 , licenses: MIT License
-name: cors , version: 2.8.3 , licenses: MIT License
-name: debug , version: 2.6.3 , licenses: MIT License
-name: express , version: 4.15.3 , licenses: MIT License
-name: grunt-cli , version: 1.2.0 , licenses: MIT License
-name: lodash , version: 4.7.0 , licenses: MIT License
-name: ng-sortable , version: 1.3.4 , licenses: MIT License
-name: q , version: 1.4.1 , licenses: MIT License
-name: underscore , version: 1.8.3 , licenses: MIT License
-========= APPROVED LICENSES        ==========
 ```
 
 > Example using this project: https://github.com/feedhenry-raincatcher/raincatcher-server
@@ -405,7 +401,7 @@ name: underscore , version: 1.8.3 , licenses: MIT License
 ```console
 $ git clone https://github.com/feedhenry-raincatcher/raincatcher-server.git
 $ cd raincatcher-server ; npm install
-$ license-reporter --xml=license2.xml
+$ license-reporter save --xml license2.xml
 ```
 
 ```xml
@@ -556,24 +552,6 @@ $ license-reporter --xml=license2.xml
         </dependency>
     </dependencies>
 </licenseSummary>
-Dependencies found in package.json but not in xml: bluebird,body-parser,express,express-session,mongodb,morgan,serve-favicon
-Please run 'license-reporter --ignore-version-range' to show all declared dependencies on generated xml.
-========= APPROVED LICENSES        ==========
-name: keycloak-connect , version: 3.2.1 , licenses: Apache License 2.0
-name: express-handlebars , version: 3.0.0 , licenses: BSD 3-clause "New" or "Revised" License
-name: @raincatcher/auth-passport , version: 1.0.0 , licenses: MIT License
-name: @raincatcher/datasync-cloud , version: 1.0.0 , licenses: MIT License
-name: @raincatcher/express-auth , version: 1.0.0 , licenses: MIT License
-name: @raincatcher/logger , version: 1.0.0 , licenses: MIT License
-name: @raincatcher/wfm-demo-data , version: 1.0.0 , licenses: MIT License
-name: @raincatcher/wfm-rest-api , version: 1.0.0 , licenses: MIT License
-name: @raincatcher/wfm-user , version: 1.0.0 , licenses: MIT License
-name: connect-redis , version: 3.0.0 , licenses: MIT License
-name: cookie-parser , version: 1.4.3 , licenses: MIT License
-name: cors , version: 2.8.4 , licenses: MIT License
-name: jsonwebtoken , version: 7.4.3 , licenses: MIT License
-name: lodash , version: 4.17.4 , licenses: MIT License
-========= APPROVED LICENSES        ==========
 ```
 
 ### Asterisk (*) in license name
@@ -596,8 +574,14 @@ So we are going to merge both `license1.xml` and `license2.xml` files created by
 Inside the example raincatcher-server root directory run:
 
 ```console
-$ license-reporter --merge --merge-product-name="UberProject" --merge-license-xmls="./licenses/license1.xml, ../raincatcher-server/licenses/license2.xml" --merge-output="merged.xml" --silent
+$ license-reporter merge --merge-product-name="UberProject" --merge-license-xmls="./licenses/license1.xml, ../raincatcher-server/licenses/license2.xml" --merge-output="merged.xml" 
+$ cat licenses/merged.xml
+```
 
+or
+
+```console
+$ license-reporter merge --mpn UberProject --mlx="./licenses/license1.xml, ../raincatcher-server/licenses/license2.xml" --mo merged.xml
 $ cat licenses/merged.xml
 ```
 
@@ -1051,17 +1035,6 @@ $ cat licenses/merged.xml
         </licenseSummary>
     </project>
 </UberProject>
-```
-
-## License-reporter --all
-
-Also possible to generate a xml with licenses from all sub-modules:
-
-```console
-$ cd raincatcher-portal
-$ license-reporter --all --xml=all.xml
-$ du -s -h all.xml
-260K	all.xml
 ```
 
 ## How licenses are found in files
