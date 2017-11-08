@@ -62,5 +62,6 @@ test('Saves the data to YAML.', (t) => {
   saveModule.save(data, {yaml: 'foo.yaml'});
   t.equal(fs.existsSync(join(ldir, 'foo.yaml')), true, 'foo.yaml file created.');
   fs.unlinkSync(join(ldir, 'foo.yaml'));
+  setTimeout(() => fs.rmdir(ldir, () => {}), 500);
   t.end();
 });

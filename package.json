@@ -57,6 +57,6 @@
   },
   "preferGlobal": true,
   "bin": {
-    "license-reporter": "bin/cmd.js"
+    "license-reporter": "bin/license-reporter"
   }
 }
