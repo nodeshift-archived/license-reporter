@@ -8,7 +8,7 @@ const stderr = require('test-console').stderr;
 const unifiedList = require('../../lib/modules/unified-list.js');
 const unifiedListJSON = require('../../lib/modules/resources/default-unified-list.json');
 const rewired = rewire('../../lib/modules/unified-list.js');
-const getLicensesFromXmlObject = rewired.__get__('getLicensesFromXmlObject');
+const getLicenses = rewired.__get__('getLicenses');
 const findApproved = rewired.__get__('findApproved');
 const findNotApproved = rewired.__get__('findNotApproved');
 
@@ -39,7 +39,7 @@ const xmlObject = {
 
 test('Should get the licenses from xmlObject', (t) => {
   t.plan(3);
-  const licenses = getLicensesFromXmlObject(xmlObject);
+  const licenses = getLicenses(xmlObject);
   t.equal(licenses.length, 2);
   t.equal(licenses[0].license, 'MIT');
   t.equal(licenses[1].license, '9wm License (Original)');
@@ -48,7 +48,7 @@ test('Should get the licenses from xmlObject', (t) => {
 
 test('Should get approved only from xmlObject based on unified list', (t) => {
   t.plan(1);
-  const licenses = getLicensesFromXmlObject(xmlObject);
+  const licenses = getLicenses(xmlObject);
   const approvedList = [];
   Object.keys(unifiedListJSON).forEach(key => {
     if (unifiedListJSON[key].approved === 'yes') {
@@ -62,7 +62,7 @@ test('Should get approved only from xmlObject based on unified list', (t) => {
 
 test('Should get not approved only from xmlObject based on unified list', (t) => {
   t.plan(1);
-  const licenses = getLicensesFromXmlObject(xmlObject);
+  const licenses = getLicenses(xmlObject);
   const notApprovedList = [];
   Object.keys(unifiedListJSON).forEach(key => {
     if (unifiedListJSON[key].approved !== 'yes') {
