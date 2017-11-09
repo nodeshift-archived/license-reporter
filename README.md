@@ -1,7 +1,7 @@
 # license-reporter
 
-[![Coverage Status](https://coveralls.io/repos/github/bucharest-gold/license-reporter/badge.svg?branch=master)](https://coveralls.io/github/bucharest-gold/license-reporter?branch=master)
 [![Build Status](https://travis-ci.org/bucharest-gold/license-reporter.svg?branch=master)](https://travis-ci.org/bucharest-gold/license-reporter)
+[![Coverage Status](https://coveralls.io/repos/github/bucharest-gold/license-reporter/badge.svg?branch=master&foo=bar)](https://coveralls.io/github/bucharest-gold/license-reporter?branch=master)
 
 License-reporter is a tool that is intended to be used by Red Hat projects/products that require project dependency
 licenses to be retrieved and reported in xml and html format. Additions have been made to output in JSON and YAML format but the XML output is the most mature. We would welcome additional PRs in this area.
