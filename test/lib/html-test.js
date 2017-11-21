@@ -49,15 +49,15 @@ test('Should generate html from xml', (t) => {
 <th>Local Licenses</th>
 </tr>
 <tr>
-<td>node-builtins</td>
 <td>N/A</td>
+<td>node-builtins</td>
 <td>0.1.1</td>
 <td>Foo</td>
 <td><a href=></a></td>
 </tr>
 <tr>
-<td>roi</td>
 <td>N/A</td>
+<td>roi</td>
 <td>0.15.0</td>
 <td>UNKNOWN</td>
 <td><a href=></a></td>
