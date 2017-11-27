@@ -38,7 +38,7 @@ test('Should warn if license is unknown', (t) => {
       ]
     }
   };
-  const unknown = require('../../lib/modules/unknown.js').check(project);
+  const unknown = require('../../lib/utils/unknown.js').check(project);
   t.equal(unknown.length, 1);
   t.equal(unknown[0].packageName, 'test1');
   t.equal(unknown[0].licenses.license.length, 11);

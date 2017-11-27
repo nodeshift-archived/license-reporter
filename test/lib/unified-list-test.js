@@ -5,12 +5,16 @@ const test = require('tape');
 const path = require('path');
 const stdout = require('test-console').stdout;
 const stderr = require('test-console').stderr;
-const unifiedList = require('../../lib/modules/unified-list.js');
-const unifiedListJSON = require('../../lib/modules/resources/default-unified-list.json');
-const rewired = rewire('../../lib/modules/unified-list.js');
+
+const unifiedList = require('../../lib/utils/unified-list.js');
+const unifiedListJSON = require('../../lib/utils/resources/default-unified-list.json');
+const rewired = rewire('../../lib/utils/unified-list.js');
+
 const getLicenses = rewired.__get__('getLicenses');
 const findApproved = rewired.__get__('findApproved');
 const findNotApproved = rewired.__get__('findNotApproved');
+
+const options = {unifiedList: path.join(__dirname, '../../lib/utils/resources/default-unified-list.json')};
 
 const xmlObject = {
   dependencies: {
@@ -82,7 +86,6 @@ test('Should print approved and not approved licenses', (t) => {
     '========= NOT APPROVED LICENSES    ==========\n',
     'name: notApproved , version: 2.0.0 , licenses: 9wm License (Original)\n',
     '========= NOT APPROVED LICENSES    ==========\n'];
-  const options = {unifiedList: path.join(__dirname, '../../lib/modules/resources/default-unified-list.json')};
   unifiedList.load(options.unifiedList);
   const log = stdout.inspectSync(() => {
     unifiedList.check(xmlObject);
@@ -93,7 +96,6 @@ test('Should print approved and not approved licenses', (t) => {
 
 test('Should return url for the specified license name', (t) => {
   t.plan(5);
-  const options = {unifiedList: path.join(__dirname, '../../lib/modules/resources/default-unified-list.json')};
   unifiedList.load(options.unifiedList);
   t.equal(unifiedList.urlForName('3dfx Glide License'),
       'http://www.users.on.net/~triforce/glidexp/COPYING.txt');
@@ -109,7 +111,6 @@ test('Should return url for the specified license name', (t) => {
 
 test('urlForName should be able to handle comma separated names', (t) => {
   t.plan(1);
-  const options = {unifiedList: path.join(__dirname, '../../lib/modules/resources/default-unified-list.json')};
   unifiedList.load(options.unifiedList);
   t.equal(unifiedList.urlForName('3dfx Glide License, UNKNOWN'),
       'http://www.users.on.net/~triforce/glidexp/COPYING.txt, UNKNOWN');

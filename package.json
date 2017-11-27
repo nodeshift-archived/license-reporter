@@ -6,7 +6,7 @@
   "scripts": {
     "test": "nyc --check-coverage --lines 90 tape test/lib/*.js | tap-spec",
     "coverage": "nyc report --reporter=text-lcov > ./coverage/lcov.info",
-    "lint": "eslint test/lib/*.js index.js lib/modules/*.js lib/commands/*.js bin/*.js",
+    "lint": "eslint test/lib/*.js index.js lib/modules/*.js lib/commands/*.js lib/utils/*.js bin/*.js",
     "docs": "./node_modules/.bin/jsdoc --verbose -d docs -t ./node_modules/ink-docstrap/template -R README.md index.js ./lib/*.js",
     "prepublishOnly": "nsp check",
     "release": "standard-version"

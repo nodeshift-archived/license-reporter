@@ -2,7 +2,7 @@
 
 const test = require('tape');
 const cwd = process.cwd();
-const project = require('../../lib/modules/project');
+const project = require('../../lib/utils/project');
 
 test('Checks if project has metadata.', (t) => {
   t.plan(5);
