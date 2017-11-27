@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('tape');
-const xml = require('../../lib/modules/xml.js');
+const xml = require('../../lib/utils/xml.js');
 const js2xmlparser = require('js2xmlparser');
 
 test('Should generate JSON from xml', (t) => {

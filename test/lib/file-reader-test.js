@@ -2,7 +2,7 @@
 
 const test = require('tape');
 const path = require('path');
-const reader = require('../../lib/modules/file-reader.js');
+const reader = require('../../lib/utils/file-reader.js');
 
 test('Reads a license file.', (t) => {
   t.plan(1);
@@ -32,7 +32,7 @@ test('Returns a message when no local license could be found.', (t) => {
 test('Return file as JSON.', (t) => {
   t.plan(1);
   const file = path.join(__dirname,
-    '../../lib/modules/resources/default-unified-list.json');
+    '../../lib/utils/resources/default-unified-list.json');
   t.ok(reader.readAsJson(file), 'JSON returned.');
   t.end();
 });

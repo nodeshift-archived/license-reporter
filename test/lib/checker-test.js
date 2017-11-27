@@ -2,7 +2,7 @@
 
 const test = require('blue-tape');
 const cwd = process.cwd();
-const checker = require('../../lib/modules/checker');
+const checker = require('../../lib/utils/checker');
 
 const numNycDeps = json => json.filter(d => d.dependency.startsWith('nyc@')).length;
 

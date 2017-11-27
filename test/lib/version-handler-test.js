@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('tape');
-const versionHandler = require('../../lib/modules/version-handler.js');
+const versionHandler = require('../../lib/utils/version-handler.js');
 
 const npmVersion = (n, v) => {
   const npmVersion = versionHandler.asNpmVersion(n, v);

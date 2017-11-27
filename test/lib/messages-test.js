@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('tape');
-const messages = require('../../lib/modules/messages.js');
+const messages = require('../../lib/utils/messages.js');
 const stdout = require('test-console').stdout;
 
 test('Should report the correct unknown warning.', (t) => {
@@ -24,7 +24,7 @@ test('Should report the correct unknown warning.', (t) => {
       ]
     }
   };
-  const log = stdout.inspectSync(() => messages.warning(require('../../lib/modules/unknown.js').check(project),
+  const log = stdout.inspectSync(() => messages.warning(require('../../lib/utils/unknown.js').check(project),
                  'UNKNOWN'));
   t.deepEqual(log, expected);
   t.end();

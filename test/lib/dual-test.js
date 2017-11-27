@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('tape');
-const dual = require('../../lib/modules/dual.js');
+const dual = require('../../lib/utils/dual.js');
 
 const license = 'MIT';
 const dualLicense = '(MIT OR Apache-2.0)';

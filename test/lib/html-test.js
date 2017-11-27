@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('tape');
-const html = require('../../lib/modules/html.js');
+const html = require('../../lib/utils/html.js');
 
 test('Should generate html from xml', (t) => {
   t.plan(1);

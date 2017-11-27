@@ -3,12 +3,13 @@
 const test = require('tape');
 const { join } = require('path');
 const cwd = process.cwd();
-const unifiedList = require('../../lib/modules/unified-list');
-const canonicalName = require('../../lib/modules/canonical-name');
 const consoleModule = require('../../lib/modules/console.mdl');
 
-const ul = join(__dirname, '../../lib/modules/resources/default-unified-list.json');
-const nm = join(__dirname, '../../lib/modules/resources/default-canonical-names.json');
+const unifiedList = require('../../lib/utils/unified-list');
+const canonicalName = require('../../lib/utils/canonical-name');
+
+const ul = join(__dirname, '../../lib/utils/resources/default-unified-list.json');
+const nm = join(__dirname, '../../lib/utils/resources/default-canonical-names.json');
 
 unifiedList.load(ul);
 
