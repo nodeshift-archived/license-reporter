@@ -17,7 +17,7 @@ test('Should report the correct unknown warning.', (t) => {
           version: '1.2',
           licenses: {
             license: [
-             {name: 'Apache-2.0', url: 'UNKNOWN'}
+              {name: 'Apache-2.0', url: 'UNKNOWN'}
             ]
           }
         }
@@ -25,7 +25,7 @@ test('Should report the correct unknown warning.', (t) => {
     }
   };
   const log = stdout.inspectSync(() => messages.warning(require('../../lib/utils/unknown.js').check(project),
-                 'UNKNOWN'));
+    'UNKNOWN'));
   t.deepEqual(log, expected);
   t.end();
 });

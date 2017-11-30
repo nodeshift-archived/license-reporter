@@ -6,7 +6,7 @@
   "scripts": {
     "test": "nyc --check-coverage --lines 90 tape test/lib/*.js | tap-spec",
     "coverage": "nyc report --reporter=text-lcov > ./coverage/lcov.info",
-    "lint": "eslint test/lib/*.js index.js lib/modules/*.js lib/commands/*.js lib/utils/*.js bin/*.js",
+    "lint": "eslint --fix test/lib/*.js index.js lib/modules/*.js lib/commands/*.js lib/utils/*.js bin/*.js",
     "docs": "./node_modules/.bin/jsdoc --verbose -d docs -t ./node_modules/ink-docstrap/template -R README.md index.js ./lib/*.js",
     "prepublishOnly": "nsp check",
     "release": "standard-version"
@@ -41,6 +41,8 @@
     "eslint": "^4.12.1",
     "eslint-config-semistandard": "^11.0.0",
     "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-react": "^7.5.1",
     "eslint-plugin-standard": "^3.0.1",
