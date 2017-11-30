@@ -1,5 +1,7 @@
 # license-reporter
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/bucharest-gold/license-reporter.svg)](https://greenkeeper.io/)
+
 [![Build Status](https://travis-ci.org/bucharest-gold/license-reporter.svg?branch=master)](https://travis-ci.org/bucharest-gold/license-reporter)
 [![Coverage Status](https://coveralls.io/repos/github/bucharest-gold/license-reporter/badge.svg?branch=master&foo=bar)](https://coveralls.io/github/bucharest-gold/license-reporter?branch=master)
 

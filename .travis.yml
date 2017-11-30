@@ -12,6 +12,7 @@ script:
 branches:
   only:
     - master
+    - /^greenkeeper/.*$/
 after_success:
   - npm run coverage
   - cat ./coverage/lcov.info | coveralls
