@@ -29,7 +29,7 @@ const rawData = [
   { dependency: 'foo@123',
     licenses: '(MIT OR Apache-2.0)',
     file: '/foo/LICENSE' },
-  { dependency: 'yargs@8.0.2',  // declared
+  { dependency: 'yargs@8.0.2', // declared
     licenses: 'MIT',
     file: '/foo/LICENSE' },
   { dependency: 'bar@321',

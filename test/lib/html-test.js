@@ -68,8 +68,8 @@ test('Should generate html from xml', (t) => {
     t.equal(output, expected);
     t.end();
   })
-  .catch(e => {
-    t.error(e);
-    t.fail();
-  });
+    .catch(e => {
+      t.error(e);
+      t.fail();
+    });
 });

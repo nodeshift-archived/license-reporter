@@ -13,7 +13,7 @@ test('Returns null if http resource not found.', (t) => {
   };
 
   const fetcher = proxyquire('../../lib/utils/url-fetcher.js',
-  { 'sync-request': requestStub });
+    { 'sync-request': requestStub });
 
   const expected = ['Could not get resource: http://bogus.com/namemap.json\n',
     'StatusCode returned was: 404\n'];
@@ -35,7 +35,7 @@ test('Returns JSON if http resource is found.', (t) => {
   };
 
   const fetcher = proxyquire('../../lib/utils/url-fetcher.js',
-  { 'sync-request': requestStub });
+    { 'sync-request': requestStub });
 
   const json = fetcher.fetch(url);
   t.equal(json.name, 'something', 'JSON returned.');

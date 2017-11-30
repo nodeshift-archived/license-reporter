@@ -98,7 +98,7 @@ test('Should return url for the specified license name', (t) => {
   t.plan(5);
   unifiedList.load(options.unifiedList);
   t.equal(unifiedList.urlForName('3dfx Glide License'),
-      'http://www.users.on.net/~triforce/glidexp/COPYING.txt');
+    'http://www.users.on.net/~triforce/glidexp/COPYING.txt');
   t.equal(unifiedList.urlForName('4Suite Copyright License'), '');
   t.equal(unifiedList.urlForName('UNKNOWN'), 'UNKNOWN');
   const result = unifiedList.urlForName('bogus');
@@ -113,6 +113,6 @@ test('urlForName should be able to handle comma separated names', (t) => {
   t.plan(1);
   unifiedList.load(options.unifiedList);
   t.equal(unifiedList.urlForName('3dfx Glide License, UNKNOWN'),
-      'http://www.users.on.net/~triforce/glidexp/COPYING.txt, UNKNOWN');
+    'http://www.users.on.net/~triforce/glidexp/COPYING.txt, UNKNOWN');
   t.end();
 });
