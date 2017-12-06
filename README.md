@@ -5,16 +5,10 @@
 [![Build Status](https://travis-ci.org/bucharest-gold/license-reporter.svg?branch=master)](https://travis-ci.org/bucharest-gold/license-reporter)
 [![Coverage Status](https://coveralls.io/repos/github/bucharest-gold/license-reporter/badge.svg?branch=master&foo=bar)](https://coveralls.io/github/bucharest-gold/license-reporter?branch=master)
 
-License-reporter is a tool that is intended to be used by Red Hat projects/products that require project dependency
-licenses to be retrieved and reported in xml and html format. Additions have been made to output in JSON and YAML format but the XML output is the most mature. We would welcome additional PRs in this area.
-
 ## Installation
 
-Clone this repo and then:
-
 ```console
-$ npm install
-$ npm link .
+$ npm install license-reporter -g
 ```
 
 ## Usage
@@ -54,7 +48,7 @@ Options:
   --version                    Show version number                     [boolean]
   --help                       Show help                               [boolean]
   --cwd                        Change the current working directory
-  --merge-product-name, --mpn  The name the product which the license.xml are
+  --merge-project-name, --mpn  The name the project which the license.xml are
                                part of.                               [required]
   --merge-license-xmls, --mlx  A comma separated list of license.xml files to
                                merge.                                 [required]
@@ -569,14 +563,14 @@ Notice the `BSD*` which means the license name was deduced from an other file th
 
 ## XML merging example
 
-The intention for this functionality is to be able to create an xml file that contains all the licenses for a product (made up of one or more projects).
+The intention for this functionality is to be able to create an xml file that contains all the licenses for a project that is made up of one or more projects.
 
 So we are going to merge both `license1.xml` and `license2.xml` files created by the previous examples.
 
 Inside the example raincatcher-server root directory run:
 
 ```console
-$ license-reporter merge --merge-product-name="UberProject" --merge-license-xmls="./licenses/license1.xml, ../raincatcher-server/licenses/license2.xml" --merge-output="merged.xml" 
+$ license-reporter merge --merge-project-name="UberProject" --merge-license-xmls="./licenses/license1.xml, ../raincatcher-server/licenses/license2.xml" --merge-output="merged.xml" 
 $ cat licenses/merged.xml
 ```
 
@@ -1063,7 +1057,7 @@ This list serves a number of roles as the metadata can be used to control what i
 - Long (`fedora_name`) and short (`fedora_abbrev`) abbreviations are possible allowing you customise the naming convention as you see fit
 - A `URL` reference to point towards the license text associated with the given license
 
-The JSON file is extensible and several additional metadata for use in Red Hat specific use cases are included. Additionally, you can use a custom license list. For this, we recommend that the default file be used and modified (only the values) for your need. We are using a verifier to validate the unified-list JSON schema. If any errors are found, (at the moment) you will see error messages like these:
+You can use a custom license list. For this, we recommend that the default file be used and modified (only the values) for your need. We are using a verifier to validate the unified-list JSON schema. If any errors are found, (at the moment) you will see error messages like these:
 
 ```
 Item: 2 - instance.id is not of a type (s) string
