@@ -570,7 +570,7 @@ So we are going to merge both `license1.xml` and `license2.xml` files created by
 Inside the example raincatcher-server root directory run:
 
 ```console
-$ license-reporter merge --merge-project-name="UberProject" --merge-license-xmls="./licenses/license1.xml, ../raincatcher-server/licenses/license2.xml" --merge-output="merged.xml" 
+$ license-reporter merge --merge-project-name="UberProject" --merge-license-xmls="./licenses/license1.xml, ../raincatcher-server/licenses/license2.xml" --merge-output="merged.xml"
 $ cat licenses/merged.xml
 ```
 
@@ -1111,6 +1111,36 @@ UnhandledPromiseRejectionWarning: Unhandled promise rejection (rejection id: 1):
 
 The solution to this is Operating System specific, whereby you need to raise the maxfile limit. It is particularly prevalent on OSX where the maxfile limit is low by default. More information can be found on this [stackoverflow thread](https://stackoverflow.com/questions/19981065/nodejs-error-emfile-too-many-open-files-on-mac-os) which may be a good starting point for your particular Operating System.
 
+## How to automatically run license-reporter
+
+The tool is designed to make it invisible working with it, as the license report generation can be easily automated leveraging the `preshrinkwrap` and `postshrinkwrap` scripts directly in the `package.json` file. This also means that all the dependencies in the `npm-shrinkwrap.json` file will be processes and reported.
+
+See the following snippet of a `package.json` file using the license-reporter tool:
+
+```
+{
+  "name": "...",
+  "version": "...",
+  "license": "...",
+  ...
+  "scripts": {
+    "preshrinkwrap": "npm cache clean && npm ls",
+    "postshrinkwrap": "license-reporter save --full-dependency-tree --xml licenses.xml && license-reporter report --full-dependency-tree --silent"
+  },
+  "dependencies": {
+    ...
+  },
+  "devDependencies": {
+    ...
+    "license-reporter": "1.0.2",
+    ...
+ },
+  "engines": {
+    ...
+  },
+  "preferGlobal": ...
+}
+```
 
 
 ## Contributing
