@@ -6,13 +6,6 @@ const stdout = require('test-console').stdout;
 const validator = require('../../lib/utils/validator');
 const cwd = process.cwd();
 
-test('Checks if project has node modules.', (t) => {
-  t.plan(2);
-  t.ok(validator.projectHasNodeModules(cwd), `project has node modules.`);
-  t.notOk(validator.projectHasNodeModules('foo'), `project has no modules.`);
-  t.end();
-});
-
 test('Validates unified list.', (t) => {
   t.plan(1);
   const jsonPath = join(__dirname, '../../lib/utils/resources/default-unified-list.json');
