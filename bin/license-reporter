@@ -5,7 +5,7 @@ process.title = 'license-reporter';
 
 const { resolve } = require('path');
 const yargs = require('yargs');
-const { commands } = require('../index.js');
+const { commands } = require('./cli');
 
 const cwd = resolve(yargs.argv.cwd || process.cwd());
 process.chdir(cwd);
