@@ -18,9 +18,10 @@ const licenses = (dir, idd) => {
 
   checker.check(dir, idd)
     .then((data) => {
-      const projectMetaData = consoleModule.transform(data,
-        canonicalNameMapper, dir, false, false, true);
-      console.log(projectMetaData);
+      const projectMetaData = consoleModule.transform(data, canonicalNameMapper, dir, false, false, true);
+      projectMetaData.dependencies.dependency.forEach((d) => {
+        console.log(`${d.packageName} -> ${d.licenses.license[0].name}`);
+      });
     })
     .catch((e) => {
       console.error(e);
