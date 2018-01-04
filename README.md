@@ -1142,6 +1142,5 @@ See the following snippet of a `package.json` file using the license-reporter to
 }
 ```
 
-
 ## Contributing
 Please read the [contributing guide](./CONTRIBUTING.md)
