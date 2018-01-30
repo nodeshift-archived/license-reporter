@@ -3,16 +3,11 @@
 
 process.title = 'license-reporter';
 
-const { resolve } = require('path');
 const yargs = require('yargs');
-
-const cwd = resolve(yargs.argv.cwd || process.cwd());
-process.chdir(cwd);
+const cwd = process.cwd();
 
 yargs
-  .version(require('../package.json').version)
   .usage('Usage: $0 <command> [options]')
-  .help()
   .commandDir('../lib/commands')
   .options({ cwd: { desc: 'Change the current working directory', default: cwd } })
   .demandCommand(1, 'You need at least one command before moving on')
