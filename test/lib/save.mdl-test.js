@@ -11,14 +11,8 @@ const saveModule = require('../../lib/modules/save.mdl');
 const unifiedList = require('../../lib/utils/unified-list');
 const canonicalName = require('../../lib/utils/canonical-name');
 
-const ldir = join(process.cwd(), 'licenses');
-const createLicenseDir = () => {
-  if (!fs.existsSync(ldir)) {
-    fs.mkdirSync(ldir);
-  }
-};
-
-createLicenseDir();
+const licenseDir = require('../../lib/utils/license-dir');
+const ldir = licenseDir.create();
 
 const ul = join(__dirname, '../../lib/utils/resources/default-unified-list.json');
 const nm = join(__dirname, '../../lib/utils/resources/default-canonical-names.json');
