@@ -1,0 +1,21 @@
+{
+    "3dfx Glide License": {
+        "fedora_abbrev": "Glide",
+        "fedora_name": "3dfx Glide License",
+        "id": "1",
+        "license_text": "",
+        "approved": "yes",
+        "spdx_abbrev": "Glide",
+        "spdx_name": "3dfx Glide License",
+        "url": "http://www.users.on.net/~triforce/glidexp/COPYING.txt"
+    },
+    "4Suite Copyright License": {
+        "fedora_name": "4Suite Copyright License",
+        "id": "2",
+        "license_text": "",
+        "approved": "yes",
+        "spdx_abbrev": "",
+        "spdx_name": "",
+        "url": ""
+    }
+}

@@ -31,7 +31,7 @@ test('Transforms the raw data.', (t) => {
   t.plan(5);
   const mappings = canonicalName.loadNameMapperFile(nm);
   const cnm = canonicalName.init(mappings);
-  const data = consoleModule.transform(rawData, cnm, cwd, false);
+  const data = consoleModule.transform(rawData, cnm, cwd, true, true, true);
   t.ok(data, `raw data was transformed.`);
   t.ok(data.hasOwnProperty('project'), `data has project attribute.`);
   t.ok(data.hasOwnProperty('version'), `data has version attribute.`);
