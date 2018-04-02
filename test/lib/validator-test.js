@@ -13,3 +13,12 @@ test('Validates unified list.', (t) => {
   t.deepEqual(log, expected);
   t.end();
 });
+
+test('Validates wrong unified list.', (t) => {
+  t.plan(1);
+  const jsonPath = join(__dirname, '../fixtures/bad-unified-list.json');
+  const log = stdout.inspectSync(() => validator.validate(jsonPath));
+  const expected = ['The unified list you provided has errors:\n'];
+  t.deepEqual(log, expected);
+  t.end();
+});
