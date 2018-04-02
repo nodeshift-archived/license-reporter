@@ -13,6 +13,7 @@ const rewired = rewire('../../lib/utils/unified-list.js');
 const getLicenses = rewired.__get__('getLicenses');
 const findApproved = rewired.__get__('findApproved');
 const findNotApproved = rewired.__get__('findNotApproved');
+const checkName = rewired.__get__('checkName');
 
 const options = {unifiedList: path.join(__dirname, '../../lib/utils/resources/default-unified-list.json')};
 
@@ -36,6 +37,24 @@ const xmlObject = {
             {name: '9wm License (Original)', url: '...'}
           ]
         }
+      },
+      {
+        packageName: 'FooBar',
+        version: '1.0.0',
+        licenses: {
+          license: [
+            {name: 'UNKNOWN', url: 'UNKNOWN'}
+          ]
+        }
+      },
+      {
+        packageName: 'BarFoo',
+        version: '1.0.0',
+        licenses: {
+          license: [
+            {name: '', url: ''}
+          ]
+        }
       }
     ]
   }
@@ -44,7 +63,7 @@ const xmlObject = {
 test('Should get the licenses from xmlObject', (t) => {
   t.plan(3);
   const licenses = getLicenses(xmlObject);
-  t.equal(licenses.length, 2);
+  t.equal(licenses.length, 4);
   t.equal(licenses[0].license, 'MIT');
   t.equal(licenses[1].license, '9wm License (Original)');
   t.end();
@@ -60,7 +79,7 @@ test('Should get approved only from xmlObject based on unified list', (t) => {
     }
   });
   const approved = findApproved(approvedList, licenses);
-  t.equal(Array.from(approved)[0].license, 'MIT');
+  t.equal(Array.from(approved)[1].license, 'MIT');
   t.end();
 });
 
@@ -80,12 +99,7 @@ test('Should get not approved only from xmlObject based on unified list', (t) =>
 
 test('Should print approved and not approved licenses', (t) => {
   t.plan(1);
-  const expected = ['========= APPROVED LICENSES        ==========\n',
-    'name: testProject , version: 1.0.0 , licenses: MIT\n',
-    '========= APPROVED LICENSES        ==========\n',
-    '========= NOT APPROVED LICENSES    ==========\n',
-    'name: notApproved , version: 2.0.0 , licenses: 9wm License (Original)\n',
-    '========= NOT APPROVED LICENSES    ==========\n'];
+  const expected = ['========= APPROVED LICENSES        ==========\n', 'name: BarFoo , version: 1.0.0 , licenses: \n', 'name: testProject , version: 1.0.0 , licenses: MIT\n', '========= APPROVED LICENSES        ==========\n', '========= NOT APPROVED LICENSES    ==========\n', 'name: notApproved , version: 2.0.0 , licenses: 9wm License (Original)\n', 'name: BarFoo , version: 1.0.0 , licenses: \n', '========= NOT APPROVED LICENSES    ==========\n', '========= CLARIFICATION ADVISED    ==========\n', 'name: BarFoo , version: 1.0.0 , licenses: \n', '========= CLARIFICATION ADVISED    ==========\n'];
   unifiedList.load(options.unifiedList);
   const log = stdout.inspectSync(() => {
     unifiedList.check(xmlObject);
@@ -95,12 +109,13 @@ test('Should print approved and not approved licenses', (t) => {
 });
 
 test('Should return url for the specified license name', (t) => {
-  t.plan(5);
+  t.plan(6);
   unifiedList.load(options.unifiedList);
   t.equal(unifiedList.urlForName('3dfx Glide License'),
     'http://www.users.on.net/~triforce/glidexp/COPYING.txt');
   t.equal(unifiedList.urlForName('4Suite Copyright License'), '');
   t.equal(unifiedList.urlForName('UNKNOWN'), 'UNKNOWN');
+  t.equal(unifiedList.urlForName('UNKNOWN,UNKNOWN'), 'UNKNOWN, UNKNOWN');
   const result = unifiedList.urlForName('bogus');
   t.equal(result, 'UNKNOWN');
   const expected = ['No URL was found for [bogus]\n'];
@@ -114,5 +129,11 @@ test('urlForName should be able to handle comma separated names', (t) => {
   unifiedList.load(options.unifiedList);
   t.equal(unifiedList.urlForName('3dfx Glide License, UNKNOWN'),
     'http://www.users.on.net/~triforce/glidexp/COPYING.txt, UNKNOWN');
+  t.end();
+});
+
+test('Should check the name', (t) => {
+  t.plan(1);
+  t.equal(checkName('UNKNOWN'), 'UNKNOWN');
   t.end();
 });
