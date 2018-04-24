@@ -12,7 +12,7 @@ const unifiedList = require('../../lib/utils/unified-list');
 const canonicalName = require('../../lib/utils/canonical-name');
 
 const licenseDir = require('../../lib/utils/license-dir');
-const ldir = licenseDir.create();
+const ldir = licenseDir.create('licenses');
 
 const ul = join(__dirname, '../../lib/utils/resources/default-unified-list.json');
 const nm = join(__dirname, '../../lib/utils/resources/default-canonical-names.json');
@@ -38,7 +38,7 @@ test('Saves the data to XML.', (t) => {
   const mappings = canonicalName.loadNameMapperFile(nm);
   const cnm = canonicalName.init(mappings);
   const data = consoleModule.transform(rawData, cnm, cwd, false);
-  saveModule.save(data, {xml: 'foo.xml'});
+  saveModule.save(data, {xml: 'foo.xml', 'o': 'licenses'});
   t.equal(fs.existsSync(join(ldir, 'foo.xml')), true, 'foo.xml file created.');
   fs.unlinkSync(join(ldir, 'foo.xml'));
   t.end();
@@ -49,7 +49,7 @@ test('Saves the data to JSON.', (t) => {
   const mappings = canonicalName.loadNameMapperFile(nm);
   const cnm = canonicalName.init(mappings);
   const data = consoleModule.transform(rawData, cnm, cwd, false);
-  saveModule.save(data, {json: 'foo.json'});
+  saveModule.save(data, {json: 'foo.json', 'o': 'licenses'});
   t.equal(fs.existsSync(join(ldir, 'foo.json')), true, 'foo.json file created.');
   fs.unlinkSync(join(ldir, 'foo.json'));
   t.end();
@@ -60,7 +60,7 @@ test('Saves the data to YAML.', (t) => {
   const mappings = canonicalName.loadNameMapperFile(nm);
   const cnm = canonicalName.init(mappings);
   const data = consoleModule.transform(rawData, cnm, cwd, false);
-  saveModule.save(data, {yaml: 'foo.yaml'});
+  saveModule.save(data, {yaml: 'foo.yaml', 'o': 'licenses'});
   t.equal(fs.existsSync(join(ldir, 'foo.yaml')), true, 'foo.yaml file created.');
   fs.unlinkSync(join(ldir, 'foo.yaml'));
   setTimeout(() => fs.rmdir(ldir, () => {}), 500);
