@@ -20,10 +20,9 @@
     "README.md",
     "lib"
   ],
-  "author": "Bucharest-gold",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bucharest-gold/license-reporter.git"
+    "url": "git+https://github.com/nodeshift/license-reporter.git"
   },
   "dependencies": {
     "graceful-fs": "^4.1.11",

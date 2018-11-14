@@ -7,5 +7,3 @@ branches:
   only:
     - master
     - /^greenkeeper/.*$/
-notifications:
-  irc: "chat.freenode.net#bucharest-gold"
