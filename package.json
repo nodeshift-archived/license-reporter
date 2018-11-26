@@ -10,7 +10,6 @@
     "ci": "npm run lint && npm run coveralls",
     "lint": "eslint --fix test/lib/*.js index.js lib/modules/*.js lib/commands/*.js lib/utils/*.js",
     "docs": "./node_modules/.bin/jsdoc --verbose -d docs -t ./node_modules/ink-docstrap/template -R README.md index.js ./lib/*.js",
-    "postinstall": "snyk test",
     "release": "standard-version"
   },
   "files": [
@@ -50,7 +49,6 @@
     "nyc": "13.1.0",
     "proxyquire": "^2.0.1",
     "rewire": "^4.0.0",
-    "snyk": "^1.110.2",
     "standard-version": "^4.4.0",
     "tap-spec": "^5.0.0",
     "tape": "^4.9.1",
