@@ -1090,7 +1090,7 @@ Some dependencies, which may be internal components that are not open source, ma
 It is possible to generate `.json` `.xml` and `.yaml` files by using the arguments:
 
 ```
-license-reporter --xml licenses.xml --json licenses.json --yaml licenses.yaml --silent
+license-reporter save --xml licenses.xml --json licenses.json --yaml licenses.yaml --silent
 ```
 
 In the case of `html` a report will be generated, and you can specify a `css` file to apply the style.
