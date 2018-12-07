@@ -9,7 +9,7 @@ before_script:
   - snyk test
 script:
    - npm run ci
-branches:
-  only:
-    - master
-    - /^greenkeeper/.*$/
+# branches:
+#   only:
+#     - master
+#     - /^greenkeeper/.*$/
