@@ -1047,7 +1047,7 @@ A decision was made to not check the README for license information. Although th
 
 ## License Metadata - "unified list"
 
-The project allows you specifcy metadata about licenses and a file can be found in: `license-reporter/lib/resources/default-unified-list.json`.
+The project allows you to specify metadata about licenses and a file can be found in: `license-reporter/lib/resources/default-unified-list.json`.
 
 This list serves a number of roles as the metadata can be used to control what is outputted. Three areas of interest are controlled by:
 
