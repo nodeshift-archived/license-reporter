@@ -89,4 +89,4 @@ git push origin my-contrib-branch
 ```
 
 Go to https://github.com/yourusername/license-reporter and select your feature branch.
-Click the 'Pull Request' button and fill out the form.
+Click the `Pull Request` button and fill out the form.
