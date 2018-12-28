@@ -11,532 +11,46 @@ $ npm install license-reporter -g
 
 ## Usage
 
-```console
-$ license-reporter --help
-Commands:
-  console  Shows license information on standard output.
-  merge    Merge license XML files.
-  report   Creates a HTML report.
-  save     Saves license information to a file.
-
-Options:
-  --version  Show version number                                       [boolean]
-  --help     Show help                                                 [boolean]
-  --cwd      Change the current working directory
-```
+> Example using https://github.com/chalk/chalk
 
 ```console
-$ license-reporter console --help
-
-Options:
-  --version                       Show version number                  [boolean]
-  --help                          Show help                            [boolean]
-  --cwd                           Change the current working directory
-  --name-map, --nm                 Pass the name map file.              
-  --unified-list, --ul             Pass the unified (approved/not-approved)
-                                  license list.                        
-  --include-license-content, --ilc  Includes the license content in the xml.
-                                                                [default: false]
-```
-
-```console
-$ license-reporter merge --help
-
-Options:
-  --version                    Show version number                     [boolean]
-  --help                       Show help                               [boolean]
-  --cwd                        Change the current working directory
-  --merge-project-name, --mpn  The name the project which the license.xml are
-                               part of.                               [required]
-  --merge-license-xmls, --mlx  A comma separated list of license.xml files to
-                               merge.                                 [required]
-  --merge-output, --mo         File to write the merged license info to.
-                                                                      [required]
-```
-
-```console
-$ license-reporter report --help
-
-Options:
-  --version             Show version number                            [boolean]
-  --help                Show help                                      [boolean]
-  --cwd                 Change the current working directory
-  --name-map, --nm      Pass the name map file.                        
-  --unified-list, --ul  Pass the unified (approved/not-approved) license list.
-  --css                 CSS file to apply style on html report.        
-```
-
-```console
-$ license-reporter save --help
-
-Options:
-  --version             Show version number                            [boolean]
-  --help                Show help                                      [boolean]
-  --cwd                 Change the current working directory
-  --name-map, --nm      Pass the name map file.                        
-  --unified-list, --ul  Pass the unified (approved/not-approved) license list.
-  --xml                 Saves as XML.                                   [string]
-  --json                Saves as JSON.                                  [string]
-  --yaml                Saves as YAML.                                  [string]
-```
-
-## Example output
-
-> Example using this project: https://github.com/feedhenry-raincatcher/raincatcher-portal
-
-```console
-$ git clone https://github.com/feedhenry-raincatcher/raincatcher-portal.git
-$ cd raincatcher-portal ; npm install
-$ license-reporter save --xml license1.xml
-```
-
-```xml
+$ git clone https://github.com/chalk/chalk.git
+$ cd chalk ; npm install
+$ license-reporter console 
+========= APPROVED LICENSES        ==========
+name: ansi-styles , version: 3.2.1 , licenses: MIT License
+name: escape-string-regexp , version: 1.0.5 , licenses: MIT License
+name: supports-color , version: 6.0.0 , licenses: MIT License
+========= APPROVED LICENSES        ==========
 <?xml version='1.0'?>
 <licenseSummary>
-    <project>@raincatcher/demo-portal</project>
-    <version>1.0.0</version>
+    <project>chalk</project>
+    <version>2.4.1</version>
+    <license>MIT</license>
     <dependencies>
         <dependency>
-            <packageName>@raincatcher-examples/angularjs-extensions</packageName>
-            <version>1.0.0</version>
-            <licenses>
-                <license>
-                    <name>MIT License</name>
-                    <url>http://www.opensource.org/licenses/MIT</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>@raincatcher-examples/step-accident</packageName>
-            <version>1.0.0</version>
-            <licenses>
-                <license>
-                    <name>MIT License</name>
-                    <url>http://www.opensource.org/licenses/MIT</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>@raincatcher-examples/step-vehicle-inspection</packageName>
-            <version>1.0.0</version>
-            <licenses>
-                <license>
-                    <name>MIT License</name>
-                    <url>http://www.opensource.org/licenses/MIT</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>@raincatcher/angularjs-auth-keycloak</packageName>
-            <version>1.0.0</version>
-            <licenses>
-                <license>
-                    <name>MIT License</name>
-                    <url>http://www.opensource.org/licenses/MIT</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>@raincatcher/angularjs-auth-passport</packageName>
-            <version>1.0.0</version>
-            <licenses>
-                <license>
-                    <name>MIT License</name>
-                    <url>http://www.opensource.org/licenses/MIT</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>@raincatcher/angularjs-http</packageName>
-            <version>1.0.0</version>
-            <licenses>
-                <license>
-                    <name>MIT License</name>
-                    <url>http://www.opensource.org/licenses/MIT</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>@raincatcher/angularjs-workflow</packageName>
-            <version>1.0.0</version>
-            <licenses>
-                <license>
-                    <name>MIT License</name>
-                    <url>http://www.opensource.org/licenses/MIT</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>@raincatcher/angularjs-workorder</packageName>
-            <version>1.0.0</version>
-            <licenses>
-                <license>
-                    <name>MIT License</name>
-                    <url>http://www.opensource.org/licenses/MIT</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>@raincatcher/logger</packageName>
-            <version>1.0.0</version>
-            <licenses>
-                <license>
-                    <name>MIT License</name>
-                    <url>http://www.opensource.org/licenses/MIT</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>@raincatcher/step-signature</packageName>
-            <version>1.0.0</version>
-            <licenses>
-                <license>
-                    <name>MIT License</name>
-                    <url>http://www.opensource.org/licenses/MIT</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>@raincatcher/wfm</packageName>
-            <version>1.0.0</version>
-            <licenses>
-                <license>
-                    <name>MIT License</name>
-                    <url>http://www.opensource.org/licenses/MIT</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>angular</packageName>
-            <version>1.6.1</version>
-            <licenses>
-                <license>
-                    <name>MIT License</name>
-                    <url>http://www.opensource.org/licenses/MIT</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>angular-animate</packageName>
-            <version>1.5.3</version>
-            <licenses>
-                <license>
-                    <name>MIT License</name>
-                    <url>http://www.opensource.org/licenses/MIT</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>angular-aria</packageName>
-            <version>1.5.3</version>
-            <licenses>
-                <license>
-                    <name>MIT License</name>
-                    <url>http://www.opensource.org/licenses/MIT</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>angular-material</packageName>
-            <version>1.0.7</version>
-            <licenses>
-                <license>
-                    <name>MIT License</name>
-                    <url>http://www.opensource.org/licenses/MIT</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>angular-ui-router</packageName>
-            <version>0.4.2</version>
-            <licenses>
-                <license>
-                    <name>MIT License</name>
-                    <url>http://www.opensource.org/licenses/MIT</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>async</packageName>
-            <version>1.5.2</version>
-            <licenses>
-                <license>
-                    <name>MIT License</name>
-                    <url>http://www.opensource.org/licenses/MIT</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>c3</packageName>
-            <version>0.4.11</version>
-            <licenses>
-                <license>
-                    <name>MIT License</name>
-                    <url>http://www.opensource.org/licenses/MIT</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>cors</packageName>
-            <version>2.8.3</version>
-            <licenses>
-                <license>
-                    <name>MIT License</name>
-                    <url>http://www.opensource.org/licenses/MIT</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>d3</packageName>
-            <version>3.5.16</version>
-            <licenses>
-                <license>
-                    <name>BSD 3-clause "New" or "Revised" License</name>
-                    <url>http://www.opensource.org/licenses/BSD-3-Clause</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>debug</packageName>
-            <version>2.6.3</version>
-            <licenses>
-                <license>
-                    <name>MIT License</name>
-                    <url>http://www.opensource.org/licenses/MIT</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>express</packageName>
-            <version>4.15.3</version>
-            <licenses>
-                <license>
-                    <name>MIT License</name>
-                    <url>http://www.opensource.org/licenses/MIT</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>fh-js-sdk</packageName>
-            <version>2.18.6</version>
-            <licenses>
-                <license>
-                    <name>UNKNOWN</name>
-                    <url>UNKNOWN</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>grunt-cli</packageName>
-            <version>1.2.0</version>
-            <licenses>
-                <license>
-                    <name>MIT License</name>
-                    <url>http://www.opensource.org/licenses/MIT</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>lodash</packageName>
-            <version>4.7.0</version>
-            <licenses>
-                <license>
-                    <name>MIT License</name>
-                    <url>http://www.opensource.org/licenses/MIT</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>ng-sortable</packageName>
-            <version>1.3.4</version>
-            <licenses>
-                <license>
-                    <name>MIT License</name>
-                    <url>http://www.opensource.org/licenses/MIT</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>q</packageName>
-            <version>1.4.1</version>
-            <licenses>
-                <license>
-                    <name>MIT License</name>
-                    <url>http://www.opensource.org/licenses/MIT</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>rx</packageName>
-            <version>4.1.0</version>
-            <licenses>
-                <license>
-                    <name>Apache License 2.0</name>
-                    <url>http://www.apache.org/licenses/LICENSE-2.0</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>underscore</packageName>
-            <version>1.8.3</version>
-            <licenses>
-                <license>
-                    <name>MIT License</name>
-                    <url>http://www.opensource.org/licenses/MIT</url>
-                </license>
-            </licenses>
-        </dependency>
-    </dependencies>
-</licenseSummary>
-```
-
-> Example using this project: https://github.com/feedhenry-raincatcher/raincatcher-server
-
-```console
-$ git clone https://github.com/feedhenry-raincatcher/raincatcher-server.git
-$ cd raincatcher-server ; npm install
-$ license-reporter save --xml license2.xml
-```
-
-```xml
-<?xml version='1.0'?>
-<licenseSummary>
-    <project>@raincatcher/demo-server</project>
-    <version>1.0.0</version>
-    <dependencies>
-        <dependency>
-            <packageName>@raincatcher/auth-passport</packageName>
-            <version>1.0.0</version>
-            <licenses>
-                <license>
-                    <name>MIT License</name>
-                    <url>http://www.opensource.org/licenses/MIT</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>@raincatcher/datasync-cloud</packageName>
-            <version>1.0.0</version>
-            <licenses>
-                <license>
-                    <name>MIT License</name>
-                    <url>http://www.opensource.org/licenses/MIT</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>@raincatcher/express-auth</packageName>
-            <version>1.0.0</version>
-            <licenses>
-                <license>
-                    <name>MIT License</name>
-                    <url>http://www.opensource.org/licenses/MIT</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>@raincatcher/logger</packageName>
-            <version>1.0.0</version>
-            <licenses>
-                <license>
-                    <name>MIT License</name>
-                    <url>http://www.opensource.org/licenses/MIT</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>@raincatcher/wfm-demo-data</packageName>
-            <version>1.0.0</version>
-            <licenses>
-                <license>
-                    <name>MIT License</name>
-                    <url>http://www.opensource.org/licenses/MIT</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>@raincatcher/wfm-rest-api</packageName>
-            <version>1.0.0</version>
-            <licenses>
-                <license>
-                    <name>MIT License</name>
-                    <url>http://www.opensource.org/licenses/MIT</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>@raincatcher/wfm-user</packageName>
-            <version>1.0.0</version>
-            <licenses>
-                <license>
-                    <name>MIT License</name>
-                    <url>http://www.opensource.org/licenses/MIT</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>connect-redis</packageName>
-            <version>3.0.0</version>
-            <licenses>
-                <license>
-                    <name>MIT License</name>
-                    <url>http://www.opensource.org/licenses/MIT</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>cookie-parser</packageName>
-            <version>1.4.3</version>
-            <licenses>
-                <license>
-                    <name>MIT License</name>
-                    <url>http://www.opensource.org/licenses/MIT</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>cors</packageName>
-            <version>2.8.4</version>
-            <licenses>
-                <license>
-                    <name>MIT License</name>
-                    <url>http://www.opensource.org/licenses/MIT</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>express-handlebars</packageName>
-            <version>3.0.0</version>
-            <licenses>
-                <license>
-                    <name>BSD 3-clause "New" or "Revised" License</name>
-                    <url>http://www.opensource.org/licenses/BSD-3-Clause</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>jsonwebtoken</packageName>
-            <version>7.4.3</version>
-            <licenses>
-                <license>
-                    <name>MIT License</name>
-                    <url>http://www.opensource.org/licenses/MIT</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <packageName>keycloak-connect</packageName>
+            <packageName>ansi-styles</packageName>
             <version>3.2.1</version>
             <licenses>
                 <license>
-                    <name>Apache License 2.0</name>
-                    <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+                    <name>MIT License</name>
+                    <url>http://www.opensource.org/licenses/MIT</url>
                 </license>
             </licenses>
         </dependency>
         <dependency>
-            <packageName>lodash</packageName>
-            <version>4.17.4</version>
+            <packageName>escape-string-regexp</packageName>
+            <version>1.0.5</version>
+            <licenses>
+                <license>
+                    <name>MIT License</name>
+                    <url>http://www.opensource.org/licenses/MIT</url>
+                </license>
+            </licenses>
+        </dependency>
+        <dependency>
+            <packageName>supports-color</packageName>
+            <version>6.0.0</version>
             <licenses>
                 <license>
                     <name>MIT License</name>
@@ -548,16 +62,89 @@ $ license-reporter save --xml license2.xml
 </licenseSummary>
 ```
 
-### Asterisk (*) in license name
-In the console output you may come across a license name which contains an asterisk, for example:
+## More commands
 
-```console
-========= WARNING WHITE-LISTED LICENSES ==========
-name: express-bunyan-logger , version: 1.3.1 , licenses: BSD*
-name: fh-cluster , version: 0.3.0 , licenses: Apache-2.0
+```
+license-reporter --help
+Usage: license-reporter <command> [options]
+
+Commands:
+  license-reporter console  Shows license information on standard output.
+  license-reporter merge    Merge license XML files.
+  license-reporter report   Creates a HTML report.
+  license-reporter save     Saves license information to a file.
+
+Options:
+  --help     Show help                                                 [boolean]
+  --version  Show version number                                       [boolean]
+  --cwd      Change the current working directory
 ```
 
-Notice the `BSD*` which means the license name was deduced from an other file than package.json
+## Save
+
+```
+~/Desktop$ mkdir foo
+~/Desktop$ cd foo
+~/Desktop/foo$ npm init -y
+~/Desktop/foo$ npm install express -S
+
+~/Desktop/foo$ license-reporter save --xml license1.xml
+========= APPROVED LICENSES        ==========
+name: express , version: 4.16.4 , licenses: MIT License
+========= APPROVED LICENSES        ==========
+
+~/Desktop/foo$ cat licenses/license1.xml 
+<?xml version='1.0'?>
+<licenseSummary>
+    <project>foo</project>
+    <version>1.0.0</version>
+    <license>ISC</license>
+    <dependencies>
+        <dependency>
+            <packageName>express</packageName>
+            <version>4.16.4</version>
+            <licenses>
+                <license>
+                    <name>MIT License</name>
+                    <url>http://www.opensource.org/licenses/MIT</url>
+                </license>
+            </licenses>
+        </dependency>
+    </dependencies>
+</licenseSummary>
+```
+
+```
+~/Desktop$ mkdir bar
+~/Desktop$ cd bar
+~/Desktop/bar$ npm init -y
+~/Desktop/bar$ npm install request -S
+
+~/Desktop/bar$ license-reporter save --xml license2.xml
+========= APPROVED LICENSES        ==========
+name: request , version: 2.88.0 , licenses: Apache License 2.0
+========= APPROVED LICENSES        ==========
+
+~/Desktop/bar$ cat licenses/license2.xml 
+<?xml version='1.0'?>
+<licenseSummary>
+    <project>bar</project>
+    <version>1.0.0</version>
+    <license>ISC</license>
+    <dependencies>
+        <dependency>
+            <packageName>request</packageName>
+            <version>2.88.0</version>
+            <licenses>
+                <license>
+                    <name>Apache License 2.0</name>
+                    <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+                </license>
+            </licenses>
+        </dependency>
+    </dependencies>
+</licenseSummary>
+```
 
 ## XML merging example
 
@@ -565,311 +152,24 @@ The intention for this functionality is to be able to create an xml file that co
 
 So we are going to merge both `license1.xml` and `license2.xml` files created by the previous examples.
 
-Inside the example raincatcher-server root directory run:
+Inside the example foo root directory run:
 
 ```console
-$ license-reporter merge --merge-project-name="UberProject" --merge-license-xmls="./licenses/license1.xml, ../raincatcher-server/licenses/license2.xml" --merge-output="merged.xml"
-$ cat licenses/merged.xml
-```
+~/Desktop/foo$ license-reporter merge --merge-project-name="UberProject" --merge-license-xmls="./licenses/license1.xml,../bar/licenses/license2.xml" --merge-output="merged.xml"
 
-or
 
-```console
-$ license-reporter merge --mpn UberProject --mlx="./licenses/license1.xml, ../raincatcher-server/licenses/license2.xml" --mo merged.xml
-$ cat licenses/merged.xml
-```
-
-```xml
+~/Desktop/foo$ cat licenses/merged.xml 
 <?xml version='1.0'?>
 <UberProject>
     <project>
         <licenseSummary>
-            <project>@raincatcher/demo-portal</project>
+            <project>foo</project>
             <version>1.0.0</version>
+            <license>ISC</license>
             <dependencies>
                 <dependency>
-                    <packageName>@raincatcher-examples/angularjs-extensions</packageName>
-                    <version>1.0.0</version>
-                    <licenses>
-                        <license>
-                            <name>MIT License</name>
-                            <url>http://www.opensource.org/licenses/MIT</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>@raincatcher-examples/step-accident</packageName>
-                    <version>1.0.0</version>
-                    <licenses>
-                        <license>
-                            <name>MIT License</name>
-                            <url>http://www.opensource.org/licenses/MIT</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>@raincatcher-examples/step-vehicle-inspection</packageName>
-                    <version>1.0.0</version>
-                    <licenses>
-                        <license>
-                            <name>MIT License</name>
-                            <url>http://www.opensource.org/licenses/MIT</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>@raincatcher/angularjs-auth-keycloak</packageName>
-                    <version>1.0.0</version>
-                    <licenses>
-                        <license>
-                            <name>MIT License</name>
-                            <url>http://www.opensource.org/licenses/MIT</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>@raincatcher/angularjs-auth-passport</packageName>
-                    <version>1.0.0</version>
-                    <licenses>
-                        <license>
-                            <name>MIT License</name>
-                            <url>http://www.opensource.org/licenses/MIT</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>@raincatcher/angularjs-http</packageName>
-                    <version>1.0.0</version>
-                    <licenses>
-                        <license>
-                            <name>MIT License</name>
-                            <url>http://www.opensource.org/licenses/MIT</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>@raincatcher/angularjs-workflow</packageName>
-                    <version>1.0.0</version>
-                    <licenses>
-                        <license>
-                            <name>MIT License</name>
-                            <url>http://www.opensource.org/licenses/MIT</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>@raincatcher/angularjs-workorder</packageName>
-                    <version>1.0.0</version>
-                    <licenses>
-                        <license>
-                            <name>MIT License</name>
-                            <url>http://www.opensource.org/licenses/MIT</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>@raincatcher/logger</packageName>
-                    <version>1.0.0</version>
-                    <licenses>
-                        <license>
-                            <name>MIT License</name>
-                            <url>http://www.opensource.org/licenses/MIT</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>@raincatcher/step-signature</packageName>
-                    <version>1.0.0</version>
-                    <licenses>
-                        <license>
-                            <name>MIT License</name>
-                            <url>http://www.opensource.org/licenses/MIT</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>@raincatcher/wfm</packageName>
-                    <version>1.0.0</version>
-                    <licenses>
-                        <license>
-                            <name>MIT License</name>
-                            <url>http://www.opensource.org/licenses/MIT</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>angular</packageName>
-                    <version>1.6.1</version>
-                    <licenses>
-                        <license>
-                            <name>MIT License</name>
-                            <url>http://www.opensource.org/licenses/MIT</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>angular-animate</packageName>
-                    <version>1.5.3</version>
-                    <licenses>
-                        <license>
-                            <name>MIT License</name>
-                            <url>http://www.opensource.org/licenses/MIT</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>angular-aria</packageName>
-                    <version>1.5.3</version>
-                    <licenses>
-                        <license>
-                            <name>MIT License</name>
-                            <url>http://www.opensource.org/licenses/MIT</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>angular-material</packageName>
-                    <version>1.0.7</version>
-                    <licenses>
-                        <license>
-                            <name>MIT License</name>
-                            <url>http://www.opensource.org/licenses/MIT</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>angular-ui-router</packageName>
-                    <version>0.4.2</version>
-                    <licenses>
-                        <license>
-                            <name>MIT License</name>
-                            <url>http://www.opensource.org/licenses/MIT</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>async</packageName>
-                    <version>1.5.2</version>
-                    <licenses>
-                        <license>
-                            <name>MIT License</name>
-                            <url>http://www.opensource.org/licenses/MIT</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>c3</packageName>
-                    <version>0.4.11</version>
-                    <licenses>
-                        <license>
-                            <name>MIT License</name>
-                            <url>http://www.opensource.org/licenses/MIT</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>cors</packageName>
-                    <version>2.8.3</version>
-                    <licenses>
-                        <license>
-                            <name>MIT License</name>
-                            <url>http://www.opensource.org/licenses/MIT</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>d3</packageName>
-                    <version>3.5.16</version>
-                    <licenses>
-                        <license>
-                            <name>BSD 3-clause "New" or "Revised" License</name>
-                            <url>http://www.opensource.org/licenses/BSD-3-Clause</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>debug</packageName>
-                    <version>2.6.3</version>
-                    <licenses>
-                        <license>
-                            <name>MIT License</name>
-                            <url>http://www.opensource.org/licenses/MIT</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
                     <packageName>express</packageName>
-                    <version>4.15.3</version>
-                    <licenses>
-                        <license>
-                            <name>MIT License</name>
-                            <url>http://www.opensource.org/licenses/MIT</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>fh-js-sdk</packageName>
-                    <version>2.18.6</version>
-                    <licenses>
-                        <license>
-                            <name>UNKNOWN</name>
-                            <url>UNKNOWN</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>grunt-cli</packageName>
-                    <version>1.2.0</version>
-                    <licenses>
-                        <license>
-                            <name>MIT License</name>
-                            <url>http://www.opensource.org/licenses/MIT</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>lodash</packageName>
-                    <version>4.7.0</version>
-                    <licenses>
-                        <license>
-                            <name>MIT License</name>
-                            <url>http://www.opensource.org/licenses/MIT</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>ng-sortable</packageName>
-                    <version>1.3.4</version>
-                    <licenses>
-                        <license>
-                            <name>MIT License</name>
-                            <url>http://www.opensource.org/licenses/MIT</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>q</packageName>
-                    <version>1.4.1</version>
-                    <licenses>
-                        <license>
-                            <name>MIT License</name>
-                            <url>http://www.opensource.org/licenses/MIT</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>rx</packageName>
-                    <version>4.1.0</version>
-                    <licenses>
-                        <license>
-                            <name>Apache License 2.0</name>
-                            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>underscore</packageName>
-                    <version>1.8.3</version>
+                    <version>4.16.4</version>
                     <licenses>
                         <license>
                             <name>MIT License</name>
@@ -882,146 +182,17 @@ $ cat licenses/merged.xml
     </project>
     <project>
         <licenseSummary>
-            <project>@raincatcher/demo-server</project>
+            <project>bar</project>
             <version>1.0.0</version>
+            <license>ISC</license>
             <dependencies>
                 <dependency>
-                    <packageName>@raincatcher/auth-passport</packageName>
-                    <version>1.0.0</version>
-                    <licenses>
-                        <license>
-                            <name>MIT License</name>
-                            <url>http://www.opensource.org/licenses/MIT</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>@raincatcher/datasync-cloud</packageName>
-                    <version>1.0.0</version>
-                    <licenses>
-                        <license>
-                            <name>MIT License</name>
-                            <url>http://www.opensource.org/licenses/MIT</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>@raincatcher/express-auth</packageName>
-                    <version>1.0.0</version>
-                    <licenses>
-                        <license>
-                            <name>MIT License</name>
-                            <url>http://www.opensource.org/licenses/MIT</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>@raincatcher/logger</packageName>
-                    <version>1.0.0</version>
-                    <licenses>
-                        <license>
-                            <name>MIT License</name>
-                            <url>http://www.opensource.org/licenses/MIT</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>@raincatcher/wfm-demo-data</packageName>
-                    <version>1.0.0</version>
-                    <licenses>
-                        <license>
-                            <name>MIT License</name>
-                            <url>http://www.opensource.org/licenses/MIT</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>@raincatcher/wfm-rest-api</packageName>
-                    <version>1.0.0</version>
-                    <licenses>
-                        <license>
-                            <name>MIT License</name>
-                            <url>http://www.opensource.org/licenses/MIT</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>@raincatcher/wfm-user</packageName>
-                    <version>1.0.0</version>
-                    <licenses>
-                        <license>
-                            <name>MIT License</name>
-                            <url>http://www.opensource.org/licenses/MIT</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>connect-redis</packageName>
-                    <version>3.0.0</version>
-                    <licenses>
-                        <license>
-                            <name>MIT License</name>
-                            <url>http://www.opensource.org/licenses/MIT</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>cookie-parser</packageName>
-                    <version>1.4.3</version>
-                    <licenses>
-                        <license>
-                            <name>MIT License</name>
-                            <url>http://www.opensource.org/licenses/MIT</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>cors</packageName>
-                    <version>2.8.4</version>
-                    <licenses>
-                        <license>
-                            <name>MIT License</name>
-                            <url>http://www.opensource.org/licenses/MIT</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>express-handlebars</packageName>
-                    <version>3.0.0</version>
-                    <licenses>
-                        <license>
-                            <name>BSD 3-clause "New" or "Revised" License</name>
-                            <url>http://www.opensource.org/licenses/BSD-3-Clause</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>jsonwebtoken</packageName>
-                    <version>7.4.3</version>
-                    <licenses>
-                        <license>
-                            <name>MIT License</name>
-                            <url>http://www.opensource.org/licenses/MIT</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>keycloak-connect</packageName>
-                    <version>3.2.1</version>
+                    <packageName>request</packageName>
+                    <version>2.88.0</version>
                     <licenses>
                         <license>
                             <name>Apache License 2.0</name>
                             <url>http://www.apache.org/licenses/LICENSE-2.0</url>
-                        </license>
-                    </licenses>
-                </dependency>
-                <dependency>
-                    <packageName>lodash</packageName>
-                    <version>4.17.4</version>
-                    <licenses>
-                        <license>
-                            <name>MIT License</name>
-                            <url>http://www.opensource.org/licenses/MIT</url>
                         </license>
                     </licenses>
                 </dependency>
@@ -1098,6 +269,17 @@ In the case of `html` a report will be generated, and you can specify a `css` fi
 ```
 license-reporter --html --css /path_to_my_css/foo.css --silent
 ```
+
+## Asterisk (*) in license name
+In the console output you may come across a license name which contains an asterisk, for example:
+
+```console
+========= WARNING WHITE-LISTED LICENSES ==========
+name: express-bunyan-logger , version: 1.3.1 , licenses: BSD*
+name: fh-cluster , version: 0.3.0 , licenses: Apache-2.0
+```
+
+Notice the `BSD*` which means the license name was deduced from an other file than package.json
 
 ## EMFile Error
 
