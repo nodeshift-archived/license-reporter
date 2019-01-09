@@ -1,10 +1,10 @@
 'use strict';
 
-const test = require('tape');
+/* eslint-env jest */
+
 const html = require('../../lib/utils/html.js');
 
-test('Should generate html from xml', (t) => {
-  t.plan(1);
+test('Should generate html from xml', async () => {
   const project2 = {
     project: 'szero',
     version: '1.0.0',
@@ -32,7 +32,7 @@ test('Should generate html from xml', (t) => {
     }
   };
 
-  html.parse(project2).then(output => {
+  await html.parse(project2).then(output => {
     const expected = String.raw`<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
@@ -65,11 +65,9 @@ test('Should generate html from xml', (t) => {
 </table>
 </body>
 </html>`;
-    t.equal(output, expected);
-    t.end();
+    expect(output).toBe(expected);
   })
     .catch(e => {
-      t.error(e);
-      t.fail();
+      console.error(e);
     });
 });

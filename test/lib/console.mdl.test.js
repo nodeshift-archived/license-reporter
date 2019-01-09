@@ -1,6 +1,7 @@
 'use strict';
 
-const test = require('tape');
+/* eslint-env jest */
+
 const { join } = require('path');
 const cwd = process.cwd();
 const consoleModule = require('../../lib/modules/console.mdl');
@@ -27,15 +28,14 @@ const rawData = [
     licenses: 'BSD-3-Clause',
     file: '/bar/LICENSE' }];
 
-test('Transforms the raw data.', (t) => {
-  t.plan(5);
+test('Transforms the raw data.', () => {
+  expect.assertions(5);
   const mappings = canonicalName.loadNameMapperFile(nm);
   const cnm = canonicalName.init(mappings);
   const data = consoleModule.transform(rawData, cnm, cwd, true, true, true);
-  t.ok(data, `raw data was transformed.`);
-  t.ok(data.hasOwnProperty('project'), `data has project attribute.`);
-  t.ok(data.hasOwnProperty('version'), `data has version attribute.`);
-  t.ok(data.hasOwnProperty('license'), `data has license attribute.`);
-  t.ok(data.hasOwnProperty('dependencies'), `data has dependencies attribute.`);
-  t.end();
+  expect(data).toBeDefined();
+  expect(data.hasOwnProperty('project')).toBeTruthy();
+  expect(data.hasOwnProperty('version')).toBeTruthy();
+  expect(data.hasOwnProperty('license')).toBeTruthy();
+  expect(data.hasOwnProperty('dependencies')).toBeTruthy();
 });

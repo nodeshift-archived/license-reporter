@@ -1,4 +1,4 @@
 /node_modules
 license.html
-.nyc_output
+coverage
 *.log

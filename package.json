@@ -4,13 +4,10 @@
   "description": "License-reporter gathers license information and reports them in various formats.",
   "main": "index.js",
   "scripts": {
-    "test": "tape test/lib/*.js | tap-spec",
-    "coverage": "nyc npm test",
-    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
-    "ci": "npm run lint && npm run coveralls",
-    "lint": "eslint --fix test/lib/*.js index.js lib/modules/*.js lib/commands/*.js lib/utils/*.js",
-    "docs": "./node_modules/.bin/jsdoc --verbose -d docs -t ./node_modules/ink-docstrap/template -R README.md index.js ./lib/*.js",
-    "release": "standard-version"
+    "test": "jest",
+    "watch-test": "jest --watch",
+    "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
+    "lint": "semistandard --fix test/lib/*.js index.js lib/modules/*.js lib/commands/*.js lib/utils/*.js"
   },
   "files": [
     "bin",
@@ -37,22 +34,11 @@
   },
   "license": "Apache-2.0",
   "devDependencies": {
-    "blue-tape": "^1.0.0",
     "coveralls": "^3.0.2",
-    "eslint": "^5.9.0",
-    "eslint-config-semistandard": "^13.0.0",
-    "eslint-config-standard": "^12.0.0-alpha.0",
-    "eslint-plugin-import": "^2.13.0",
-    "eslint-plugin-node": "^8.0.0",
-    "eslint-plugin-promise": "^4.0.1",
-    "eslint-plugin-standard": "^4.0.0",
-    "nyc": "13.1.0",
+    "jest": "^23.6.0",
     "proxyquire": "^2.0.1",
     "rewire": "^4.0.0",
-    "standard-version": "^4.4.0",
-    "tap-spec": "^5.0.0",
-    "tape": "^4.9.1",
-    "test-console": "^1.1.0"
+    "semistandard": "^13.0.1"
   },
   "preferGlobal": true,
   "bin": {
