@@ -2,14 +2,11 @@ language: node_js
 node_js:
   - "8"
   - "10"
-before_install:
-  - npm install snyk -g
-before_script:
-  - snyk auth $SNYK_TOKEN
-  - snyk test
 script:
-   - npm run ci
-# branches:
-#   only:
-#     - master
-#     - /^greenkeeper/.*$/
+   - npm install
+   - npm run lint
+   - npm test
+   - npm run coveralls
+branches:
+  only:
+    - master
