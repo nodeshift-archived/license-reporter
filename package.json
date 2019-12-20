@@ -21,7 +21,6 @@
     "url": "git+https://github.com/nodeshift/license-reporter.git"
   },
   "dependencies": {
-    "graceful-fs": "^4.1.15",
     "js-yaml": "^3.13.1",
     "js2xmlparser": "^4.0.0",
     "jsonschema": "^1.2.4",
