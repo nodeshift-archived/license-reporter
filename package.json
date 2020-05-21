@@ -11,9 +11,6 @@
   },
   "files": [
     "bin",
-    "LICENSE.txt",
-    "package.json",
-    "README.md",
     "lib"
   ],
   "engines": {
