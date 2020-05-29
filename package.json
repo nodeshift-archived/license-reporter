@@ -7,7 +7,9 @@
     "test": "jest",
     "watch-test": "jest --watch",
     "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
-    "lint": "semistandard --fix test/lib/*.js index.js lib/modules/*.js lib/commands/*.js lib/utils/*.js"
+    "lint": "semistandard --fix test/lib/*.js index.js lib/modules/*.js lib/commands/*.js lib/utils/*.js",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "files": [
     "bin",
@@ -29,7 +31,8 @@
     "node-project-validator": "^0.1.3",
     "sync-request": "4.1.0",
     "xml2js": "^0.4.19",
-    "yargs": "^13.2.4"
+    "yargs": "^13.2.4",
+    "snyk": "^1.332.1"
   },
   "license": "Apache-2.0",
   "devDependencies": {
@@ -42,5 +45,6 @@
   "preferGlobal": true,
   "bin": {
     "license-reporter": "bin/license-reporter"
-  }
+  },
+  "snyk": true
 }
