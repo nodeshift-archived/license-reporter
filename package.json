@@ -34,7 +34,7 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "coveralls": "^3.0.4",
-    "jest": "^24.8.0",
+    "jest": "^26.0.1",
     "proxyquire": "^2.0.1",
     "rewire": "^4.0.0",
     "semistandard": "^13.0.1"
