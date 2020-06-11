@@ -1,6 +1,6 @@
 # license-reporter
 
-[![Build Status](https://travis-ci.org/nodeshift/license-reporter.svg?branch=master)](https://travis-ci.org/nodeshift/license-reporter)
+![Node.js CI](https://github.com/nodeshift/license-reporter/workflows/Node.js%20CI/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/nodeshift/license-reporter/badge.svg?branch=master&foo=bar)](https://coveralls.io/github/nodeshift/license-reporter?branch=master)
 
 ## Installation
