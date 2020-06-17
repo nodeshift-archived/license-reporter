@@ -11,21 +11,27 @@ const checker = require('./lib/utils/checker');
  * @param {string} dir project root directory.
  * @param {boolean} idd Include devDependencies.
  */
-const licenses = (dir, idd) => {
+const licenses = async (dir, idd) => {
   const mappings = canonicalName.loadNameMapperFile(join(__dirname, 'lib/utils/resources/default-canonical-names.json'));
   const canonicalNameMapper = canonicalName.init(mappings);
   unifiedList.load(join(__dirname, 'lib/utils/resources/default-unified-list.json'));
 
-  checker.check(dir, idd)
-    .then((data) => {
-      const projectMetaData = consoleModule.transform(data, canonicalNameMapper, dir, false, false, true);
-      projectMetaData.dependencies.dependency.forEach((d) => {
-        console.log(`${d.packageName} -> ${d.licenses.license[0].name}`);
-      });
-    })
-    .catch((e) => {
-      console.error(e);
+  try {
+    const data = await checker.check(dir, idd);
+    const projectMetaData = consoleModule.transform(
+      data,
+      canonicalNameMapper,
+      dir,
+      false,
+      false,
+      true
+    );
+    projectMetaData.dependencies.dependency.forEach((d) => {
+      console.log(`${d.packageName} -> ${d.licenses.license[0].name}`);
     });
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 module.exports = {
