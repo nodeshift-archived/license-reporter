@@ -1,6 +1,6 @@
 {
   "name": "license-reporter",
-  "version": "1.2.2",
+  "version": "1.3.0",
   "description": "License-reporter gathers license information and reports them in various formats.",
   "main": "index.js",
   "scripts": {
