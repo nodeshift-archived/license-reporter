@@ -7,9 +7,9 @@ const checker = require('../../lib/utils/checker');
 
 const numJestDeps = json => json.filter(d => d.dependency.startsWith('jest@')).length;
 
-test('Checks licenses.', async () => {
+test('Checks licenses.', () => {
   expect.assertions(5);
-  await checker.check(cwd)
+  return checker.check(cwd)
     .then((json) => {
       expect(json).toBeDefined();
       expect(json[0].hasOwnProperty('dependency')).toBeTruthy();
@@ -22,9 +22,9 @@ test('Checks licenses.', async () => {
     });
 });
 
-test('Checks licenses with production-only argument.', async () => {
+test('Checks licenses with production-only argument.', () => {
   expect.assertions(5);
-  await checker.check(cwd, true)
+  return checker.check(cwd, true)
     .then((json) => {
       expect(json).toBeDefined();
       expect(json[0].hasOwnProperty('dependency')).toBeTruthy();
