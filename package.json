@@ -42,5 +42,6 @@
   "preferGlobal": true,
   "bin": {
     "license-reporter": "bin/license-reporter"
-  }
+  },
+  "support": true
 }
