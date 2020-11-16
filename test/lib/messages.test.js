@@ -7,7 +7,7 @@ const messages = require('../../lib/utils/messages.js');
 let outputData = '';
 const storeLog = inputs => (outputData += inputs);
 test('Should report the correct unknown warning.', () => {
-  console['log'] = jest.fn(storeLog);
+  console.log = jest.fn(storeLog);
   const expected = '========= WARNING UNKNOWN LICENSES ==========name: test2, version: 1.2, licenses: UNKNOWN========= WARNING UNKNOWN LICENSES ==========';
   const project = {
     dependencies: {
