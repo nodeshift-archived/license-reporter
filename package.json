@@ -23,7 +23,7 @@
   "dependencies": {
     "js-yaml": "^3.14.0",
     "js2xmlparser": "^4.0.1",
-    "jsonschema": "^1.2.6",
+    "jsonschema": "^1.2.9",
     "license-checker": "^24.0.1",
     "mustache": "^3.2.1",
     "node-project-validator": "^0.1.3",
