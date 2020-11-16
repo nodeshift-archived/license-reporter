@@ -10,12 +10,15 @@ test('Should generate html from xml', async () => {
     version: '1.0.0',
     dependencies: {
       dependency: [
-        { packageName: 'node-builtins',
+        {
+          packageName: 'node-builtins',
           version: '0.1.1',
           licenses: {
             license: [
-              { name: 'Apache License 2.0',
-                url: 'Foo' }
+              {
+                name: 'Apache License 2.0',
+                url: 'Foo'
+              }
             ]
           }
         },
@@ -23,17 +26,17 @@ test('Should generate html from xml', async () => {
           packageName: 'roi',
           version: '0.15.0',
           licenses: {
-            license: [
-              { name: 'UNKNOWN', url: 'UNKNOWN' }
-            ]
+            license: [{ name: 'UNKNOWN', url: 'UNKNOWN' }]
           }
         }
       ]
     }
   };
 
-  await html.parse(project2).then(output => {
-    const expected = String.raw`<html>
+  await html
+    .parse(project2)
+    .then((output) => {
+      const expected = String.raw`<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 <link rel="stylesheet" type="text/css" href="licenses.css">
@@ -65,9 +68,9 @@ test('Should generate html from xml', async () => {
 </table>
 </body>
 </html>`;
-    expect(output).toBe(expected);
-  })
-    .catch(e => {
+      expect(output).toBe(expected);
+    })
+    .catch((e) => {
       console.error(e);
     });
 });

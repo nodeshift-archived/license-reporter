@@ -4,10 +4,10 @@
   "description": "License-reporter gathers license information and reports them in various formats.",
   "main": "index.js",
   "scripts": {
+    "pretest": "eslint test/lib/*.js index.js lib/modules/*.js lib/commands/*.js lib/utils/*.js",
     "test": "jest",
     "watch-test": "jest --watch",
-    "coverage": "jest --coverage",
-    "lint": "semistandard --fix test/lib/*.js index.js lib/modules/*.js lib/commands/*.js lib/utils/*.js"
+    "coverage": "jest --coverage"
   },
   "files": [
     "bin",
@@ -34,10 +34,16 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "coveralls": "3.0.0",
+    "eslint": "^7.13.0",
+    "eslint-config-semistandard": "^15.0.1",
+    "eslint-config-standard": "^16.0.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.1.0",
     "jest": "^26.5.3",
     "proxyquire": "^2.1.3",
-    "rewire": "^5.0.0",
-    "semistandard": "^13.0.1"
+    "rewire": "^5.0.0"
   },
   "preferGlobal": true,
   "bin": {
