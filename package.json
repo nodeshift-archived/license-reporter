@@ -4,10 +4,11 @@
   "description": "License-reporter gathers license information and reports them in various formats.",
   "main": "index.js",
   "scripts": {
-    "pretest": "eslint test/lib/*.js index.js lib/modules/*.js lib/commands/*.js lib/utils/*.js",
+    "pretest": "eslint --ignore-path .gitignore test/lib/*.js index.js lib/modules/*.js lib/commands/*.js lib/utils/*.js",
     "test": "jest",
     "watch-test": "jest --watch",
-    "coverage": "jest --coverage"
+    "coverage": "jest --coverage",
+    "prepare": "husky install"
   },
   "files": [
     "bin",
@@ -41,6 +42,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.1.0",
+    "husky": "^5.1.3",
     "jest": "^26.5.3",
     "proxyquire": "^2.1.3",
     "rewire": "^5.0.0"
