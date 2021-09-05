@@ -23,7 +23,7 @@
     "url": "git+https://github.com/nodeshift/license-reporter.git"
   },
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^0.21.3",
     "js-yaml": "^4.1.0",
     "js2xmlparser": "^4.0.1",
     "jsonschema": "^1.2.9",
