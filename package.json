@@ -30,7 +30,7 @@
     "jsonschema": "^1.2.9",
     "license-checker": "^25.0.1",
     "mustache": "^4.2.0",
-    "node-project-validator": "^0.1.3",
+    "node-project-validator": "^0.2.1",
     "xml2js": "^0.4.23",
     "yargs": "^17.1.0"
   },
