@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/nodeshift/license-reporter/compare/v1.4.0...v1.5.0) (2021-12-08)
+
+
+### Features
+
+* adding jsdoc TS type checking approach ([2a0d4a6](https://github.com/nodeshift/license-reporter/commit/2a0d4a607ea087500b2513f629a312ef4fd3beff))
+
 ## [1.4.0](https://github.com/nodeshift/license-reporter/compare/v1.2.2...v1.4.0) (2021-08-06)
 
 
