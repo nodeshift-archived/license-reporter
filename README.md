@@ -1,3 +1,5 @@
+This module is deprecated.
+
 # license-reporter
 
 ![Node.js CI](https://github.com/nodeshift/license-reporter/workflows/Node.js%20CI/badge.svg)
